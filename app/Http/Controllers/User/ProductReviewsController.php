@@ -60,7 +60,7 @@ class ProductReviewsController extends Controller
         // Create a new product review record
         ProductReviews::create($data);
 
-        return redirect()->route('user.product-reviews.index')->with('success', 'Review created successfully!');
+        return redirect()->route('landingpage-items.shop')->with('success', 'Review created successfully!');
     }
 
     /**

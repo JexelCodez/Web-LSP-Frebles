@@ -53,11 +53,12 @@ class ProductController extends Controller
             'image3_url' => 'nullable|image|max:2048',
             'image4_url' => 'nullable|image|max:2048',
             'image5_url' => 'nullable|image|max:2048',
+            'type' => 'nullable|string|max:50',
         ], 
     
         ['product_name.unique' => 'The product name already exists.']);
 
-        $data = $request->only(['product_name', 'product_category_id', 'price', 'description']);
+        $data = $request->only(['product_name', 'product_category_id', 'price', 'description', 'type']);
 
         $data['stock_quantity'] = 0;
 
@@ -119,6 +120,7 @@ class ProductController extends Controller
             'image3_url' => 'nullable|image|max:2048',
             'image4_url' => 'nullable|image|max:2048',
             'image5_url' => 'nullable|image|max:2048',
+            'type' => 'nullable|string|max:50',
         ]);
 
         $product = Product::findOrFail($id);
@@ -127,6 +129,7 @@ class ProductController extends Controller
         $product->price = $request->input('price');
         $product->stock_quantity = $request->input('stock_quantity') ?? 0;
         $product->description = $request->input('description');
+        $product->type = $request->input('type');
         
         for ($i = 1; $i <= 5; $i++) {
             if ($request->hasFile('image' . $i . '_url')) {

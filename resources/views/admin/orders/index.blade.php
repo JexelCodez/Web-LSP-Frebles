@@ -60,6 +60,7 @@
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-sm btn-danger" onclick="deleteOrder( '{{ $order->id }}' )">Delete</button>
                                                 </form>
+                                                <a href="{{ route('delivery.initiate', ['orderId' => $order->id]) }}" class="btn btn-sm btn-warning">Deliver</a>
                                             </td>
                                         </tr>
                                     @endforeach

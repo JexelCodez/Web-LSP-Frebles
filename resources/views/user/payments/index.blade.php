@@ -8,7 +8,7 @@
     @include('user.main')
 
     <div class="container-fluid py-4">
-        <a href="{{ route('user.payments.create') }}" class="btn btn-info mb-2">Add Payment</a>
+        <a href="{{ route('landingpage-items.payment-form') }}" class="btn btn-info mb-2">Add Payment</a>
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">

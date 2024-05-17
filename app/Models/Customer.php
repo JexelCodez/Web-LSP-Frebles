@@ -17,26 +17,27 @@ class Customer extends Model
         'phone',
         'address1',
         'address2',
-        'address3'
+        'address3',
+        'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
 
-    public function user()
+    public function wishlists()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Wishlist::class);
     }
 
-    // public function wishlists()
-    // {
-    //     return $this->hasMany(Wishlists::class);
-    // }
-
-    // public function productReviews()
-    // {
-    //     return $this->hasMany(Product_Reviews::class, 'customer_id');
-    // }
+    public function productReviews()
+    {
+        return $this->hasMany(ProductReviews::class);
+    }
 }

@@ -51,7 +51,7 @@ https://templatemo.com/tm-589-lugx-gaming
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
+                    <a href="{{ route('landingpage') }}" class="logo">
                         <img src="{{ asset('assets/img/logos/frebles1hd.png') }}" alt="logo" style="width: 158px;">
                     </a>
                     <!-- ***** Logo End ***** -->
@@ -64,6 +64,15 @@ https://templatemo.com/tm-589-lugx-gaming
                       <!-- If user is logged in, it shows the user's name (Login and Registration) -->
                       @if (Route::has('login'))
                                 @auth
+
+                                      <!-- IF CONDITION 2 -->
+                                      @if(Auth::user()->usertype == 'admin')
+                                      <li><a href="{{ url('admin/dashboard') }}">Dashboard</a></li>
+                                      @else
+                                      <li><a href="{{ url('user/dashboard') }}">Dashboard</a></li>
+                                      @endif
+                                      <!-- END IF CONDITION 2 -->
+
                                     <li><a href="{{ url('/dashboard') }}">{{ Auth::user()->name }}</a></li>
                                 @else
                                     <li><a href="{{ route('login') }}">Log in</a></li>
@@ -105,11 +114,11 @@ https://templatemo.com/tm-589-lugx-gaming
               <h6>Contact Us</h6>
               <h2>Say Hello!</h2>
             </div>
-            <p>LUGX Gaming Template is based on the latest Bootstrap 5 CSS framework. This template is provided by TemplateMo and it is suitable for your gaming shop ecommerce websites. Feel free to use this for any purpose. Thank you.</p>
+            <p>Frebles is an E-commerce website build for selling fresh fruit and vegetables. It was made by a wild student because of an asssignment. This website uses Laravel Breeze for it's login and registration system, and yes it was made using Laravel 11 Framework. Frebles uses Bootstrap 5 and Bootstrap Icons Library to further enhance the outlook of the website, with CSS here and there too.</p>
             <ul>
-              <li><span>Address</span> Sunny Isles Beach, FL 33160, United States</li>
-              <li><span>Phone</span> +123 456 7890</li>
-              <li><span>Email</span> lugx@contact.com</li>
+              <li><span>Address</span> Pasar Bersih blok KA.02</li>
+              <li><span>Phone</span> +64 821 2214 5176</li>
+              <li><span>Email</span> jjzefanya6002@gmail.com</li>
             </ul>
           </div>
         </div>
@@ -117,12 +126,14 @@ https://templatemo.com/tm-589-lugx-gaming
           <div class="right-content">
             <div class="row">
               <div class="col-lg-12">
+                <!-- Google Maps -->
                 <div id="map">
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12469.776493332698!2d-80.14036379941481!3d25.907788681148624!2m3!1f357.26927939317244!2f20.870722720054623!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x88d9add4b4ac788f%3A0xe77469d09480fcdb!2sSunny%20Isles%20Beach!5e1!3m2!1sen!2sth!4v1642869952544!5m2!1sen!2sth" width="100%" height="325px" frameborder="0" style="border:0; border-radius: 23px;" allowfullscreen=""></iframe>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.657448462733!2d106.85881917317286!3d-6.564849364171563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c7d8dfaba225%3A0xd7692ba12bd1d239!2sPasar%20Bersih%20Sentul%20City!5e0!3m2!1sid!2sid!4v1715575185324!5m2!1sid!2sid" width="100%" height="325px" frameborder="0" style="border:0; border-radius: 23px;" allowfullscreen=""></iframe>
                 </div>
               </div>
               <div class="col-lg-12">
-                <form id="contact-form" action="" method="post">
+                <form id="contact-form" action="{{ route('message.store') }}" method="post">
+                  @csrf
                   <div class="row">
                     <div class="col-lg-6">
                       <fieldset>
@@ -141,12 +152,12 @@ https://templatemo.com/tm-589-lugx-gaming
                     </div>
                     <div class="col-lg-6">
                       <fieldset>
-                        <input type="subject" name="subject" id="subject" placeholder="Subject..." autocomplete="on" >
+                        <input type="subject" name="subject" id="subject" placeholder="Subject..." autocomplete="on" required>
                       </fieldset>
                     </div>
                     <div class="col-lg-12">
                       <fieldset>
-                        <textarea name="message" id="message" placeholder="Your Message"></textarea>
+                        <textarea name="message" id="message" placeholder="Your Message" required></textarea>
                       </fieldset>
                     </div>
                     <div class="col-lg-12">
@@ -167,7 +178,7 @@ https://templatemo.com/tm-589-lugx-gaming
   <footer>
     <div class="container">
       <div class="col-lg-12">
-        <p>Copyright © 2048 LUGX Gaming Company. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: TemplateMo</a></p>
+        <p><i>Copyright © 2048 LUGX Gaming Company. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: TemplateMo. Little Touches: by Janya.</i></a></p>
       </div>
     </div>
   </footer>

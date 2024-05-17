@@ -20,7 +20,8 @@ class Product extends Model
         'image2_url',
         'image3_url',
         'image4_url',
-        'image5_url'        
+        'image5_url',
+        'type'        
     ];
 
     public function productCategories()

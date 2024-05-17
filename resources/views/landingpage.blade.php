@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Next to title name logo -->
     <link rel="icon" type="image/png" href="{{ asset('assets/img/logos/frebles1hd.png') }}">
 
 
@@ -31,7 +32,6 @@
   </head>
 
 <body>
-
   <!-- ***** Preloader Start ***** -->
   <div id="js-preloader" class="js-preloader">
     <div class="preloader-inner">
@@ -51,39 +51,48 @@
         <div class="row">
             <div class="col-12">
                 <nav class="main-nav">
+
                     <!-- ***** Logo Start ***** -->
                     <a href="{{ route('landingpage') }}" class="main_logo">
                         <img src="{{ asset('landingpage/assets/images/logos/frebles-hd-1.png') }}" alt="main_logo" style="width: 158px;">
                     </a>
                     <!-- ***** Logo End ***** -->
+
                     <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                      <li><a href="{{ route('landingpage') }}" class="active">Home</a></li>
-                      <li><a href="{{ route('landingpage-items.shop') }}">Our Shop</a></li>
-                      <li><a href="{{ route('landingpage-items.contact') }}">Contact Us</a></li>
+                      <ul class="nav">
+                        <li><a href="{{ route('landingpage') }}" class="active">Home</a></li>
+                        <li><a href="{{ route('landingpage-items.shop') }}">Our Shop</a></li>
+                        <li><a href="{{ route('landingpage-items.contact') }}">Contact Us</a></li>
 
-                      <!-- Show Login And Registration Links IF THE USER LOGS IN OR NOT -->
-                      @if (Route::has('login'))
-                                @auth
-                                    <li><a href="{{ url('/dashboard') }}">{{ Auth::user()->name }}</a></li>
-                                @else
-                                    <li><a href="{{ route('login') }}">Log in</a></li>
+                        <!-- Show Login And Registration Links IF THE USER LOGS IN OR NOT -->
+                        @if (Route::has('login'))
+                                  @auth
+                                      <!-- IF CONDITION 2 -->
+                                      @if(Auth::user()->usertype == 'admin')
+                                      <li><a href="{{ url('admin/dashboard') }}">Dashboard</a></li>
+                                      @else
+                                      <li><a href="{{ url('user/dashboard') }}">Dashboard</a></li>
+                                      @endif
+                                      <!-- END IF CONDITION 2 -->
 
-                                    @if (Route::has('register'))
-                                        <li><a href="{{ route('register') }}">Register</a></li>
-                                    @endif
-                                @endauth
-                        @endif 
-                  </ul>
-                    <!-- <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a> -->
+                                      <li><a href="{{ url('/dashboard') }}">{{ Auth::user()->name }}</a></li>
+                                  @else
+                                      <li><a href="{{ route('login') }}">Log in</a></li>
+
+                                      @if (Route::has('register'))
+                                          <li><a href="{{ route('register') }}">Register</a></li>
+                                      @endif
+                                  @endauth
+                          @endif 
+                    </ul>
                     <!-- ***** Menu End ***** -->
+
                 </nav>
             </div>
         </div>
     </div>
   </header>
+
   <!-- ***** Header Area End ***** -->
 
   <div class="main-banner">
@@ -94,12 +103,6 @@
             <h6>Welcome to Fresh Fruit and Vegetables Online</h6>
             <h2>BEST SELLING SITE EVER!</h2>
             <p>"Welcome to Frebles, your fresh produce paradise! At Frebles, we're passionate about providing you with the finest selection of farm-fresh fruits and vegetables, handpicked just for you. Dive into our vibrant array of seasonal delights, from juicy berries to crisp greens and everything in between. With Frebles, you're not just getting groceries - you're embarking on a journey of flavor, quality, and wholesome goodness. Explore our online market and discover the joy of bringing nature's bounty straight to your doorstep. Let's make every meal a masterpiece together at Frebles - where freshness meets convenience, and every bite is a celebration!"</p>
-            <div class="search-input">
-              <form id="search" action="#">
-                <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
-                <button role="button">Search Now</button>
-              </form>
-            </div>
           </div>
         </div>
         <div class="col-lg-4 offset-lg-2">
@@ -421,7 +424,7 @@
   <footer>
     <div class="container">
       <div class="col-lg-12">
-        <p>Copyright © 2024 Frebles Online Shop. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: by TemplateMo</a></p>
+        <p><i>Copyright © 2024 Frebles Online Shop. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: by TemplateMo. Little Touches: by Janya.</i></a></p>
       </div>
     </div>
   </footer>

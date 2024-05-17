@@ -16,7 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade')->onUpdate('cascade');
             $table->datetime('order_date');
-            $table->bigInteger('total_amount');
+            // $table->bigInteger('total_amount');
+            $table->decimal('total_amount', 10, 2);
             $table->string('status', 20);
             $table->timestamps();
         });

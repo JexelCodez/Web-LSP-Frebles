@@ -79,6 +79,12 @@
                                 <label for="image5_url" class="form-label">Image Example 5</label>
                                 <input type="file" class="form-control" id="image5_url" name="image5_url">
                             </div>
+
+                            <div class="form-group">
+                                <label for="type" class="form-label">Type</label>
+                                <input type="text" placeholder="Fruit or Vegetables?" class="form-control" id="type" name="type">
+                            </div>
+
                             <div class="card-footer">
                                 <button type="button" class="btn btn-primary" id="save">Save</button>
                                 <a href="{{ route('admin.products.index') }}" class="btn btn-default">Cancel</a>

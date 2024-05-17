@@ -98,6 +98,12 @@
                                     <img src="{{ asset('storage/' . $products->image5_url) }}" class="img-thumbnail d-block" alt="Image 5" width="150">
                                     <input type="file" class="form-control" id="image5_url" name="image5_url">
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="type">Type</label>
+                                    <input type="text" class="form-control" id="type" name="type" value="{{ $products->type }}">
+                                </div>
+
                                 <div class="card-footer">
                                     <button type="button" class="btn btn-primary" id="save">Update</button>
                                     <a href="{{ route('admin.products.index') }}" class="btn btn-default">Cancel</a>

@@ -48,6 +48,7 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image 3</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image 4</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image 5</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                                     </tr>
                                 </thead>
@@ -86,11 +87,12 @@
 
                                             <td class="text-center"><img src="{{ asset('storage/' . $product->image3_url) }}" class="w-30 img-thumbnail zoom" data-bs-toggle="modal" data-bs-target="#foto3_{{ $product->image3_url }}"></td>
 
-                                            <!-- <td><img src="{{ asset('storage/' . $product->image1_url) }}" class="img-thumbnail"></td> -->
-                                            <!-- <td><img src="{{ asset('storage/' . $product->image2_url) }}" class="img-thumbnail"></td>
-                                            <td><img src="{{ asset('storage/' . $product->image3_url) }}" class="img-thumbnail"></td> -->
-                                            <td><img src="{{ asset('storage/' . $product->image4_url) }}" class="img-thumbnail"></td>
-                                            <td><img src="{{ asset('storage/' . $product->image5_url) }}" class="img-thumbnail"></td>
+                                            <td class="text-center"><img src="{{ asset('storage/' . $product->image4_url) }}" class="w-30 img-thumbnail zoom" data-bs-toggle="modal" data-bs-target="#foto4_{{ $product->image4_url }}"></td>
+
+                                            <td class="text-center"><img src="{{ asset('storage/' . $product->image5_url) }}" class="w-30 img-thumbnail zoom" data-bs-toggle="modal" data-bs-target="#foto5_{{ $product->image5_url }}"></td>
+                            
+                                            <td class="text-center">{{ $product->type }}</td>
+                                            
                                             <td class="text-center">
                                                 <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                                 <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" style="display: inline;" id="frmDeleteProduct{{ $product->id }}">
@@ -146,6 +148,30 @@
         </div>
     </div>
     <!-- End Modal Foto3 -->
+
+    <!-- Modal Foto4 -->
+    <div class="modal fade" id="foto4_{{ $product->image4_url }}" tabindex="-1" aria-labelledby="foto4_{{ $product->image4_url }}label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="{{ asset('storage/' . $product->image4_url) }}" class="w-100">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Foto4 -->
+
+    <!-- Modal Foto5 -->
+    <div class="modal fade" id="foto5_{{ $product->image5_url }}" tabindex="-1" aria-labelledby="foto5_{{ $product->image5_url }}label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="{{ asset('storage/' . $product->image5_url) }}" class="w-100">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Foto5 -->
     @endforeach
 
     <footer class="footer pt-5">

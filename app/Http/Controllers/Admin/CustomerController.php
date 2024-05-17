@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
@@ -29,7 +30,9 @@ class CustomerController extends Controller
     public function create()
     {
         $customers = Customer::all();
-        return view('admin.customers.create', compact('customers'));
+        return view('admin.customers.create', [
+            'customers' => $customers
+        ]);
     }
 
     /**
@@ -45,19 +48,17 @@ class CustomerController extends Controller
             'address1' => 'required|string|max:255',
             'address2' => 'nullable|string|max:255',
             'address3' => 'nullable|string|max:255',
+            'user_id' => 'required|integer|exists:users,id',
         ]);
 
-        $data['name'] = $request->name;
-        $data['email'] = $request->email;
+        $data = $request->only(['name', 'email', 'phone', 'address1', 'address2', 'address3']);
+
         $data['password'] = Hash::make($request->password); // Hash the password before storing
-        $data['phone'] = $request->phone;
-        $data['address1'] = $request->address1;
-        $data['address2'] = $request->address2;
-        $data['address3'] = $request->address3;
+        $data['user_id'] = Auth::id();
 
         Customer::create($data);
 
-        return redirect()->route('admin.customers.index')->with('success', 'Customer created successfully!');
+        return redirect()->route('landingpage-items.cart')->with('success', 'Customer created successfully!');
     }
 
     /**

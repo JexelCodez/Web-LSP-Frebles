@@ -59,7 +59,7 @@
                           <h5 class="fw-normal mb-0">{{ $cart->quantity }}</h5>
                         </div>
                         <div style="width: 80px;">
-                          <h5 class="mb-0">${{ number_format($cart->price, 2) }}</h5>
+                          <h5 class="mb-0">${{ number_format($cart->price, 0) }}</h5>
                         </div>
                         <!-- Make a link with red color trash can logo -->
                         <a href="{{ route('landingpage-items.remove-from-cart', $cart->id) }}" onclick="return confirm('Are you sure to remove this product?')"><i class="bi bi-trash-fill text-danger"></i></a>
@@ -68,86 +68,6 @@
                   </div>
                 </div>
                 @endforeach
-                <!-- <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
-                        <div>
-                          <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img2.webp"
-                            class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                        </div>
-                        <div class="ms-3">
-                          <h5>Samsung galaxy Note 10 </h5>
-                          <p class="small mb-0">256GB, Navy Blue</p>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div style="width: 50px;">
-                          <h5 class="fw-normal mb-0">2</h5>
-                        </div>
-                        <div style="width: 80px;">
-                          <h5 class="mb-0">$900</h5>
-                        </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
-                        <div>
-                          <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img3.webp"
-                            class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                        </div>
-                        <div class="ms-3">
-                          <h5>Canon EOS M50</h5>
-                          <p class="small mb-0">Onyx Black</p>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div style="width: 50px;">
-                          <h5 class="fw-normal mb-0">1</h5>
-                        </div>
-                        <div style="width: 80px;">
-                          <h5 class="mb-0">$1199</h5>
-                        </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
-                <!-- <div class="card mb-3 mb-lg-0">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
-                        <div>
-                          <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img4.webp"
-                            class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                        </div>
-                        <div class="ms-3">
-                          <h5>MacBook Pro</h5>
-                          <p class="small mb-0">1TB, Graphite</p>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div style="width: 50px;">
-                          <h5 class="fw-normal mb-0">1</h5>
-                        </div>
-                        <div style="width: 80px;">
-                          <h5 class="mb-0">$1799</h5>
-                        </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
               </div>
 
               <div class="col-lg-5">
@@ -202,7 +122,7 @@
                     <hr class="my-4">
                     <div class="d-flex justify-content-between">
                       <p class="mb-2">Subtotal</p>
-                      <p class="mb-2">${{ number_format($total_price, 2) }}</p>
+                      <p class="mb-2">${{ number_format($total_price, 0) }}</p>
                     </div>
 
                     <div class="d-flex justify-content-between">
@@ -211,18 +131,15 @@
                     </div>
 
                     <!-- <div class="d-flex justify-content-between mb-4">
-                      <p class="mb-2">Total(Incl. taxes)</p>
+                      <p class="mb-2">You saved(Incl. discount)</p>
                       <p class="mb-2">$0</p>
                     </div> -->
+
                     <p class="mb-2">Proceed to order...</p>
-                    <a href="{{ url('cartOrder') }}" class="btn btn-info btn-block btn-lg mt-3" onclick="return confirm('Are you sure you want to Order?')">
+                    <a href="{{ route('cart.order') }}" class="btn btn-info btn-block btn-lg mt-3" onclick="return confirm('Are you sure you want to Order?')">
                       <i class="bi bi-box2"></i>
                       <span class="ms-auto">Order Now</span>
                     </a>
-                    <!-- <a href="{{ route('landingpage-items.payment-form') }}" class="btn btn-info btn-block btn-lg mt-3">
-                      <i class="bi bi-credit-card-fill"></i>
-                      <span class="ms-auto">Pay Using Card</span>
-                    </a> -->
                     <!-- <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-block btn-lg">
                       <div class="d-flex justify-content-between">
                         <span>$4818.00</span>

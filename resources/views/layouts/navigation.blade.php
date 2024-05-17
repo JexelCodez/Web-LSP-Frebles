@@ -12,10 +12,33 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('landingpage')" :active="request()->routeIs('landingpage')">
+                        {{ __('Home') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Profile ') }}
+                    </x-nav-link>
+                </div>
+
+                <!-- IF CONDITION 2 -->
+                @if(Auth::user()->usertype == 'admin')
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="url('admin/dashboard')" :active="request()->is('admin/dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    </div>
+                @else
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="url('user/dashboard')" :active="request()->is('user/dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+                <!-- END IF CONDITION 2 -->
+
+                
             </div>
 
             <!-- Settings Dropdown -->

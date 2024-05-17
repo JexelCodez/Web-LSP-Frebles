@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="flex items-center justify-center mt-4">
+    <!-- <div class="flex items-center justify-center mt-4">
         <x-primary-button class="ms-3">
             <a href="{{ url('user/dashboard') }}">BACK FOR USER</a>
         </x-primary-button>
@@ -31,11 +31,11 @@
                 <a href="#">BACK FOR ADMIN</a>
             </x-primary-button>
         @endif
-    </div>
+    </div> -->
 
 </x-app-layout>
 
-<script>
+<!-- <script>
     function displayAdminOnlyMessage() {
         Swal.fire({
             icon: 'error',
@@ -44,5 +44,5 @@
             confirmButtonText: 'OK'
         });
     }
-</script>
+</script> -->
 

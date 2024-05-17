@@ -68,6 +68,15 @@ https://templatemo.com/tm-589-lugx-gaming
                       <!-- If user is logged in, it shows the user's name (Login and Registration) -->
                       @if (Route::has('login'))
                                 @auth
+
+                                      <!-- IF CONDITION 2 -->
+                                      @if(Auth::user()->usertype == 'admin')
+                                      <li><a href="{{ url('admin/dashboard') }}">Dashboard</a></li>
+                                      @else
+                                      <li><a href="{{ url('user/dashboard') }}">Dashboard</a></li>
+                                      @endif
+                                      <!-- END IF CONDITION 2 -->
+
                                     <li><a href="{{ url('/dashboard') }}">{{ Auth::user()->name }}</a></li>
                                 @else
                                     <li><a href="{{ route('login') }}">Log in</a></li>
@@ -109,19 +118,40 @@ https://templatemo.com/tm-589-lugx-gaming
           </div>
         </div>
         <div class="col-lg-6 align-self-center">
-          <h4>{{$product->product_name}}</h4>
+        <h4>{{$product->product_name}}</h4>
+          
 
           <!-- The Logic For Displaying Discount Price -->
           <!-- We use the number_format() function to format the prices with 2 decimal places. -->
-            @if ($product->discounts->isNotEmpty())
+          @if ($product->discounts->isNotEmpty())
+
+              <!-- @foreach ($product->discounts as $discount)
+                  <span class="price"><em>Rp{{ number_format($product->price, 0) }}</em></span>
+                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage), 0) }}</span>
+              @endforeach -->
+
+              @if ($product->type === 'Fruit')
               @foreach ($product->discounts as $discount)
-                <span class="price"><em>{{ $product->price }}</em></span>
-                <span class="discounted-price">${{ number_format($product->price - ($product->price * $discount->percentage), 2) }}</span>
+                  <span class="price"><em>Rp{{ number_format($product->price, 0) }}/kg</em></span>
+                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage), 0) }}/kg</span>
               @endforeach
-            @else
-              <span class="price">${{ number_format($product->price, 2) }}/kg</span>
-            @endif
-            <!-- End Logic For Displaying Discount Price -->
+
+              @elseif ($product->type === 'Vegetables')
+              @foreach ($product->discounts as $discount)
+                  <span class="price"><em>Rp{{ number_format($product->price, 0) }}/bunch</em></span>
+                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage), 0) }}/bunch</span>
+              @endforeach
+
+              @else
+              @foreach ($product->discounts as $discount)
+                  <span class="price"><em>Rp{{ number_format($product->price, 0) }}/kg</em></span>
+                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage), 0) }}/kg</span>
+              @endforeach
+
+              @endif
+
+          @endif
+          <!-- End Logic For Displaying Discount Price -->
             
           <p>{{$product->description}}</p>
           <form id="stock_quantity" action="{{ route('landingpage-items.add-to-cart', $product->id) }}" method="POST">
@@ -134,7 +164,15 @@ https://templatemo.com/tm-589-lugx-gaming
           </form>
           <ul>
             <li><span>Category:</span> {{$product->productCategories->category_name}}</li>
-            <li><span>Available Quantity:</span> {{$product->stock_quantity}}kg</a></li>
+
+            <!-- If condition for Fruit and Vegetables Unit Measurement -->
+            @if ($product->type === 'Fruit')
+              <li><span>Available Quantity:</span> {{$product->stock_quantity}}kg</a></li>
+            @elseif ($product->type === 'Vegetables')
+              <li><span>Available Quantity:</span> {{$product->stock_quantity}}(bunch/bundle)</a></li>
+            @else
+              <li><span>Available Quantity:</span> {{$product->stock_quantity}}kg</a></li>
+            @endif
           </ul>
         </div>
         <div class="col-lg-12">
@@ -227,7 +265,7 @@ https://templatemo.com/tm-589-lugx-gaming
   <footer>
     <div class="container">
       <div class="col-lg-12">
-        <p>Copyright © 2024 Frebles Online Shop. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: by TemplateMo</a></p>
+        <p><i>Copyright © 2024 Frebles Online Shop. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: by TemplateMo. Little Touches: by Janya.</i></a></p>
       </div>
     </div>
   </footer>

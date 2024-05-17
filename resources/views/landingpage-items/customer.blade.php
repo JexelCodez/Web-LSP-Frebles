@@ -26,7 +26,7 @@
         </div>
     @endif
 
-    <form action="{{ route('customers.store') }}" id="frmCustomerCreate" method="POST">
+    <form action="{{ route('user.customers.store') }}" id="frmCustomerCreate" method="POST">
       @csrf
 
       <div class="card-body">

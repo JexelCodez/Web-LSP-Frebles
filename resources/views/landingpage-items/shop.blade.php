@@ -100,6 +100,15 @@ https://templatemo.com/tm-589-lugx-gaming
                       <!-- If user is logged in, it shows the user's name (Login and Registration) -->
                       @if (Route::has('login'))
                                 @auth
+
+                                      <!-- IF CONDITION 2 -->
+                                      @if(Auth::user()->usertype == 'admin')
+                                      <li><a href="{{ url('admin/dashboard') }}">Dashboard</a></li>
+                                      @else
+                                      <li><a href="{{ url('user/dashboard') }}">Dashboard</a></li>
+                                      @endif
+                                      <!-- END IF CONDITION 2 -->
+                                      
                                     <li><a href="{{ url('/dashboard') }}">{{ Auth::user()->name }}</a></li>
                                 @else
                                     <li><a href="{{ route('login') }}">Log in</a></li>
@@ -196,11 +205,11 @@ https://templatemo.com/tm-589-lugx-gaming
                                 @if ($product->discounts->isNotEmpty())
                                     @foreach ($product->discounts as $discount)
                                         <span class="badge bg-danger">{{ $discount->percentage * 100 }}% Off</span>
-                                        <del class="text-muted">${{ $product->price }}</del>
-                                        <span class="discounted-price">${{ number_format($product->price - ($product->price * $discount->percentage), 2) }}</span>
+                                        <del class="text-muted">Rp{{ number_format($product->price), 0 }}</del>
+                                        <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage), 0) }}</span>
                                     @endforeach
                                 @else
-                                  <span class="price">${{ number_format($product->price, 2) }}</span>
+                                  <span class="price">Rp{{ number_format($product->price, 0) }}</span>
                                 @endif
                             </p>
                             <!-- End Logic For Displaying Discount Price -->
@@ -209,16 +218,10 @@ https://templatemo.com/tm-589-lugx-gaming
                             <div class="d-flex justify-content-start">
 
                                 <a href="{{ route('landingpage-items.product-details', $product->id) }}" class="icon-link btn btn-sm btn-primary"><i class="bi bi-eye-fill">View</i></a>
-                                
-                                <a href="{{ url('user/wishlists') }}" class="btn btn-sm btn-secondary"><i class="bi bi-star-fill">Add To Wishlist</i> </a>
+                            
+                                <a href="{{ route('wishlists.create') }}" class="btn btn-sm btn-secondary"><i class="bi bi-star-fill">Add To Wishlist</i></a>
 
-                                <a href="{{ route('landingpage-items.product-details', $product->id) }}" class="btn btn-sm btn-success"><i class="bi bi-cart-dash-fill">Add To Cart</i></a>
-
-                                <!-- <form id="stock_quantity" action="{{ route('landingpage-items.cart', $product->id) }}" method="POST">
-                                    @csrf
-                                    <input type="number" name="stock_quantity" class="form-control" id="stock_quantity" aria-describedby="stock_quantity" value="1" min="1">
-                                    <button type="submit" value="Add To Cart"><i class="bi bi-cart-dash-fill"></i>Add To Cart</button>
-                                </form> -->
+                                <a href="{{ route('product-reviews.create') }}" class="btn btn-sm btn-warning"><i class="bi bi-chat-dots">Review Product</i></a>
 
                             </div>
                         </div>
@@ -226,10 +229,12 @@ https://templatemo.com/tm-589-lugx-gaming
                 </div>
             @endforeach
         </div>
+        <!-- Show Pagination Links for Products -->
+        {{ $products->onEachSide(1)->links() }}
       @else
           <p>No products found</p>
       @endif
-        
+      
       <!-- end logic for show product -->
 
       <!-- </div> -->
@@ -244,13 +249,14 @@ https://templatemo.com/tm-589-lugx-gaming
           </ul>
         </div>
       </div> -->
+
     </div>
   </div>
 
   <footer>
     <div class="container">
       <div class="col-lg-12">
-        <p>Copyright © 2024 Frebles Online Shop. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: by TemplateMo</a></p>
+        <p><i>Copyright © 2024 Frebles Online Shop. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: by TemplateMo. Little Touches: by Janya.</i></a></p>
       </div>
     </div>
   </footer>
@@ -263,30 +269,6 @@ https://templatemo.com/tm-589-lugx-gaming
   <script src="{{ asset('landingpage/assets/js/owl-carousel.js') }}"></script>
   <script src="{{ asset('landingpage/assets/js/counter.js') }}"></script>
   <script src="{{ asset('landingpage/assets/js/custom.js') }}"></script>
-
-  <script>
-      // Function to update the cart item count
-      function updateCartItemCount() {
-          // Send an Ajax request to fetch the current cart item count
-          $.ajax({
-              url: "{{ route('landingpage-items.product-details', $product->id) }}", // Update the route with your actual route
-              method: "GET",
-              success: function(response) {
-                  // Update the cart item count displayed in the badge
-                  $('.cart-item-count').text(response.itemCount);
-              },
-              error: function(xhr, status, error) {
-                  // Handle error
-                  console.error(error);
-              }
-          });
-      }
-
-      // Update cart item count on page load
-      $(document).ready(function() {
-          updateCartItemCount();
-      });
-  </script>
 
   </body>
 </html>
