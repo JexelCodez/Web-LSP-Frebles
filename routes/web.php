@@ -1,12 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DeliverController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\TransactionController;
+// use App\Http\Controllers\MessageController;
 
 // Root goes to landingpage
 Route::get('/', function () {
@@ -23,7 +25,7 @@ Route::get('shop', [HomeController::class, 'showShop'])->name('landingpage-items
 Route::get('contact', [HomeController::class, 'showContact'])->name('landingpage-items.contact');
 
 // Contact Message
-Route::post('message', [App\Http\Controllers\MessageController::class, 'store'])->name('message.store');
+// Route::post('message', [MessageController::class, 'store'])->name('message.store');
 
 // Product Details Page
 Route::get('product-details/{id}', [HomeController::class, 'showProductDetails'])->name('landingpage-items.product-details');
@@ -62,6 +64,12 @@ Route::get('admin/product-reviews', [App\Http\Controllers\User\ProductReviewsCon
 Route::get('product-reviews/create', [App\Http\Controllers\User\ProductReviewsController::class, 'create'])->name('product-reviews.create');
 Route::post('product-reviews', [App\Http\Controllers\User\ProductReviewsController::class, 'store'])->name('product-reviews.store');
 
+// Orders Show To User
+Route::get('show_orders', [App\Http\Controllers\User\OrderController::class, 'showOrder'])->middleware(['auth'])->name('show_orders');
+
+// Payments
+// Route::get('admin/payments', [App\Http\Controllers\Admin\PaymentController::class, 'index'])->middleware(['auth'])->name('payments.index');
+
 
 // Dashboard for owner
 Route::get('/dashboard', function () {
@@ -74,6 +82,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Search Input
+Route::get('searchProduct', [ShopController::class, 'searchProduct'])->name('searchProduct');
 
 require __DIR__.'/auth.php';
 
@@ -122,12 +133,7 @@ Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(functi
 
     // Payments
     Route::resource('payments', App\Http\Controllers\User\PaymentController::class);
-
-    // Wishlists
-    // Route::resource('wishlists', App\Http\Controllers\User\WishlistController::class);
-
-    // Product Reviews
-    // Route::resource('product-reviews', App\Http\Controllers\User\ProductReviewsController::class);
+    
 
 });
 

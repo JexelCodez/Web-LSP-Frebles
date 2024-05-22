@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\ProductCategories;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -50,7 +51,14 @@ class ProductCategoriesController extends Controller
 
         ProductCategories::create($data);
 
-        return redirect()->route('admin.product-categories.index')->with('success', 'Product category created successfully!');
+        $products = Product::all();
+        $productCategories = ProductCategories::all();
+        return view ('admin.product-categories.index', [
+            'status' => 'save',
+            'message' => 'The new category "' . $request->category_name . '" has been successfully saved! ',
+            'productCategories' => $productCategories,
+            'products' => $products
+        ]);
     }
 
     /**

@@ -26,6 +26,17 @@
                         </div>
                     @endif
 
+                    <!-- Frebles Logo -->
+                    <img src="{{ asset('assets/img/logos/frebles1hd.png') }}" class="img-fluid float-start me-3" style="max-width: 40px;" alt="main_logo">
+
+                    <div class="card-body">
+                        <!-- Cool Tip and SVG -->
+                        <img class="img-fluid float-start me-3" style="max-width: 80px;" src="{{ asset('assets/img/small-logos/logo-wishlist.svg') }}" alt="Card image cap">
+
+                        <h5 class="card-title">Welcome to Wishlist!</h5>
+
+                        <p class="card-text"><q>You could make a wish or you could make it happen.</q></p>
+
                     <form action="{{ route('wishlists.store') }}" id="frmWishlistLogCreate" method="POST">
                         @csrf
                         <div class="card-body">
@@ -33,7 +44,7 @@
                         <div class="form-group">
                                 <label for="customer_id" class="form-label">Customer's Name</label>
                                 <select class="form-select" id="customer_id" name="customer_id">
-                                    <option value="" selected disabled>Choose a customer...</option>
+                                    <option value="" selected disabled>Your name...</option>
                                     @foreach ($customers as $customer)
                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                     @endforeach
@@ -41,7 +52,7 @@
                             </div>
    
                             <div class="form-group">
-                                <label for="product_id" class="form-label">Product's Name</label>
+                                <label for="product_id" class="form-label">You wish for?</label>
                                 <select class="form-select" id="product_id" name="product_id">
                                     <option value="" selected disabled>Choose a product...</option>
                                     @foreach ($products as $product)

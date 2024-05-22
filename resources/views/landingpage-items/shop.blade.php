@@ -16,6 +16,10 @@
     <!-- Bootstrap icon library  -->
     <link href="{{ ('node_modules/bootstrap-icons/font/bootstrap-icons.css') }}" rel="stylesheet">
 
+    <!-- Sweetalert -->
+    <script src="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.js"></script>
+    <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css">
+
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{{ asset('landingpage/assets/css/fontawesome.css') }}">
     <link rel="stylesheet" href="{{ asset('landingpage/assets/css/templatemo-lugx-gaming.css') }}">
@@ -61,7 +65,7 @@ https://templatemo.com/tm-589-lugx-gaming
 
   </head>
 
-<body>
+<body id="master">
 
   <!-- ***** Preloader Start ***** -->
   <div id="js-preloader" class="js-preloader">
@@ -143,45 +147,15 @@ https://templatemo.com/tm-589-lugx-gaming
 
   <div class="section trending">
     <div class="container">
-      <!-- <ul class="trending-filter">
-        <li>
-          <a class="is_active" href="#!" data-filter="*">Show All</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".lfy">Leafy Greens</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".crc">Cruciferous</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".mrw">Marrow</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".rvs">Root Vegetables</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".eps">Edible Plant Stem</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".alm">Allium</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".ctr">Citrus</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".stn">Stone Fruit</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".tae">Tropical and Exotic</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".brs">Berries</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".mln">Melons</a>
-        </li>
-      </ul> -->
 
+    <!-- Search Input -->
+    <div class="search-input d-flex justify-content-center">
+      <form action="{{ route('searchProduct') }}" class="d-flex" method="GET">
+        <input type="text" placeholder="Search for something" id="search" name="search" class="form-control me-2 mb-2" />
+        <button type="submit" class="btn btn-primary" value="search">Search Now</button>
+      </form>
+    </div>
+  
       <!-- <div class="row trending-box"> -->
 
       <!-- start logic for showing product -->
@@ -204,9 +178,9 @@ https://templatemo.com/tm-589-lugx-gaming
                             <p class="card-text">
                                 @if ($product->discounts->isNotEmpty())
                                     @foreach ($product->discounts as $discount)
-                                        <span class="badge bg-danger">{{ $discount->percentage * 100 }}% Off</span>
+                                        <span class="badge bg-danger">{{ $discount->percentage }}% Off</span>
                                         <del class="text-muted">Rp{{ number_format($product->price), 0 }}</del>
-                                        <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage), 0) }}</span>
+                                        <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}</span>
                                     @endforeach
                                 @else
                                   <span class="price">Rp{{ number_format($product->price, 0) }}</span>
@@ -261,6 +235,27 @@ https://templatemo.com/tm-589-lugx-gaming
     </div>
   </footer>
 
+  <!-- Hidden Input Fields for Status and Message -->
+  <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
+  <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
+    
+    <!-- Success Message Update -->
+    <script>
+        const masterBody = document.getElementById("master");
+        const sts = document.getElementById("sts");
+        const msg = document.getElementById("msg");
+
+        function saveMessage() {
+            if (sts.value == "save") {
+                swal('Success!', msg.value, 'success');
+            }
+        }
+
+        masterBody.onload = function() {
+            saveMessage();
+        };
+    </script>
+
   <!-- JS Link For Bootstrap -->
   <!-- Bootstrap core JavaScript -->
   <script src="{{ asset('landingpage/vendor/jquery/jquery.min.js') }}"></script>
@@ -270,5 +265,18 @@ https://templatemo.com/tm-589-lugx-gaming
   <script src="{{ asset('landingpage/assets/js/counter.js') }}"></script>
   <script src="{{ asset('landingpage/assets/js/custom.js') }}"></script>
 
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function(event) { 
+      var scrollpos = localStorage.getItem('scrollpos');
+      
+      if (scrollpos) window.scrollTo(0, scrollpos);
+    });
+      window.onbeforeunload = function(e) {
+      localStorage.setItem('scrollpos', window.scrollY);
+    };
+  </script>
+
+    
   </body>
 </html>

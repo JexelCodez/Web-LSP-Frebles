@@ -79,7 +79,12 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');
+        $products = DB::table('vwproducts')->get();
+        return view ('admin.products.index', [
+            'status' => 'save',
+            'message' => 'The new menu data with the name "' . $request->product_name . '" has been successfully saved! ',
+            'products' => $products
+        ]);
     }
 
     /**

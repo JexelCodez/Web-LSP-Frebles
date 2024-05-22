@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\DiscountCategories;
 use App\Models\Product;
 use App\Models\ProductCategories;
+use App\Models\ProductReviews;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -37,8 +38,9 @@ class HomeController extends Controller
 
         // Fetching all products with their related categories and the first discount
         // $products = Product::with('discounts')->get();
-        $products = Product::with('discounts')->paginate(16);
+        $products = Product::with('discounts')->paginate(10);
 
+        
         return view('landingpage-items.shop', [
             'products' => $products,
             'productCategories' => $productCategories,
@@ -59,10 +61,25 @@ class HomeController extends Controller
 
         // Fetch a single product by its ID and eager load the discounts relationship
         $product = Product::with('discounts')->find($id);
+        $quotes = [
+            "The only way to do great work is to love what you do. - Steve Jobs",
+            "Success is not how high you have climbed, but how you make a positive difference to the world. - Roy T. Bennett",
+            "Your time is limited, so don’t waste it living someone else’s life. - Steve Jobs",
+            "Life is what happens when you're busy making other plans. - John Lennon",
+            "The purpose of our lives is to be happy. - Dalai Lama"
+        ];
+
+        // Select a random quote
+        $randomQuote = $quotes[array_rand($quotes)];
+
+        // Show Comments
+        $reviews = ProductReviews::all();
 
         return view ('landingpage-items.product-details', [
             'product' => $product,
-            'cartItemCount' => $cartItemCount
+            'cartItemCount' => $cartItemCount,
+            'randomQuote' => $randomQuote,
+            'reviews' => $reviews
         ]);
     }
 

@@ -13,12 +13,6 @@
   <div class="col-12">
     <div class="card">
 
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -43,24 +37,27 @@
       </div>
       </form>
     </div>
-</div>  
+</div>
 
- <script>
-  const btnSave = document.getElementById("save")
-  const form = document.getElementById("frmProductCategoriesCreate")
-  let categoryName = document.getElementById("category_name")
+<input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
+<input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
 
-  function save(){
-        let pesan = ""
-        if(categoryName.value == ""){
-        categoryName.focus()
-        swal("Incomplete data", "The product's category name must be filled!", "error")
-        } else {
-        form.submit()
-        }
+
+<script>
+  const btnSave = document.getElementById("save");
+  const form = document.getElementById("frmProductCategoriesCreate");
+  let categoryName = document.getElementById("category_name");
+
+  function save() {
+    if (categoryName.value == "") {
+      categoryName.focus();
+      swal("Incomplete data", "The product's category name must be filled!", "error");
+    } else {
+      form.submit();
     }
-    btnSave.onclick = function(){
-        save()
-    }
- </script>
+  }
+  btnSave.onclick = function() {
+    save();
+  }
+</script>
 @endsection

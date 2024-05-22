@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\OrderDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -55,9 +56,16 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function showOrder()
     {
-        //
+        $user = Auth::user();
+        $userId = $user->id;
+
+        $orders = DB::table('vworderdetails')->where('customer_id', '=', $userId)->get();
+
+        return view('myorders', [
+            'orders' => $orders
+        ]);
     }
 
     /**

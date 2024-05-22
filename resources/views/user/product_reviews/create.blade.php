@@ -26,13 +26,24 @@
                         </div>
                     @endif
 
+                    <!-- Frebles Logo -->
+                    <img src="{{ asset('assets/img/logos/frebles1hd.png') }}" class="img-fluid float-start me-3" style="max-width: 40px;" alt="main_logo">
+
+                    <div class="card-body">
+                    <!-- Cool Tip and SVG -->
+                        <img class="img-fluid float-start me-3" style="max-width: 80px;" src="{{ asset('assets/img/small-logos/logo-product-review.svg') }}" alt="Card image cap">
+
+                        <h5 class="card-title">Hi! Feel free to comment anything! Don't be shy now..</h5>
+
+                        <p class="card-text"><q>Review is essential to evaluation, which is essential to progress.</q></p>
+
                     <form action="{{ route('product-reviews.store') }}" method="POST" id="frmProductReviewsCreate">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="customer_id" class="form-label">Customer</label>
                                 <select class="form-select" id="customer_id" name="customer_id">
-                                    <option value="" selected disabled>Choose a customer...</option>
+                                    <option value="" selected disabled>Your customer name...</option>
                                     @foreach ($customers as $customer)
                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                     @endforeach
@@ -47,14 +58,23 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="rating" class="form-label">Rating (1-10)</label>
-                                <input type="number" class="form-control" id="rating" name="rating" min="0" max="10" placeholder="Enter rating">
-                            </div>
+
                             <div class="form-group">
                                 <label for="comment" class="form-label">Comment</label>
                                 <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Please tell us what you think about the product ^_^"></textarea>
                             </div>
+
+                            <div class="form-group">
+                                <label for="rating" class="form-label rating-title">Rating</label>
+                                <div class="star-rating">
+                                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars">&#9733;</label>
+                                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">&#9733;</label>
+                                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">&#9733;</label>
+                                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">&#9733;</label>
+                                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">&#9733;</label>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="card-footer">
                             <button type="button" class="btn btn-primary" id="save">Save</button>
@@ -65,6 +85,9 @@
             </div>
         </div>
     </div>
+
+    <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
+    <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
 
 
     <script>
@@ -83,9 +106,6 @@
             } else if(prd.value == "") {
                 prd.focus()
                 swal("Incomplete data", "Please choose a product!", "error")
-            } else if(rate.value == "") {
-                rate.focus()
-                swal("Incomplete data", "Rate the product from 1 to 10 ", "error")
             } else {
                 form.submit()
             }

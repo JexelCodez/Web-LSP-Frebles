@@ -46,7 +46,7 @@ class DiscountController extends Controller
             'product_id' => 'required|exists:products,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'percentage' => 'required|numeric|min:0|max:1',
+            'percentage' => 'required|numeric|min:1|max:100',
         ]);
 
         $data['category_discount_id'] = $request->category_discount_id;

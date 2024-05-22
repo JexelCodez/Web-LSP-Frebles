@@ -49,8 +49,8 @@ class ProductReviewsController extends Controller
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
             'product_id' => 'required|exists:products,id',
-            'rating' => 'required|numeric|min:1|max:10',
-            'comment' => 'required|string|max:255',
+            'rating' => 'required|numeric|min:1|max:5',
+            'comment' => 'required|string|max:500',
         ]);
 
         $data['customer_id'] = $request->customer_id;
@@ -59,8 +59,18 @@ class ProductReviewsController extends Controller
         $data['comment'] = $request->comment;
         // Create a new product review record
         ProductReviews::create($data);
+        
+        // Variables to make the return work
+        $productId = Product::find($request->product_id);
+        $cartItemCount = '';
+        $products = Product::with('discounts')->paginate(10);
 
-        return redirect()->route('landingpage-items.shop')->with('success', 'Review created successfully!');
+        return view ('landingpage-items.shop', [
+            'status' => 'save',
+            'message' => 'Your review of "' . $productId->product_name . '" has been saved! Thank you for your input!',
+            'cartItemCount' => $cartItemCount,
+            'products' => $products
+        ]);
     }
 
     /**

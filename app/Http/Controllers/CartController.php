@@ -61,7 +61,7 @@ class CartController extends Controller
                 $discountPercentage = $discount->percentage;
     
                 if ($discountPercentage > 0) {
-                    $cart->price = (($products->price - ($products->price * $discountPercentage))) * $request->stock_quantity;
+                    $cart->price = ($products->price - ($products->price * $discountPercentage / 100)) * $request->stock_quantity;
                 } else {
                     $cart->price = $products->price * $request->stock_quantity;
                 }
@@ -157,6 +157,74 @@ class CartController extends Controller
     //     return redirect()->route('landingpage-items.payment-form', ['orderId' => $orderId])->with('success', 'Order has been placed successfully!');
     // }
 
+    // public function cartOrder()
+    // {
+    //     $user = Auth::user();
+    //     $user_id = $user->id;
+
+    //     // Fetch the current user's customer data
+    //     $customer = $user->customer;
+
+    //     // Fetch cart data for the current user
+    //     $cartData = Cart::where('user_id', $user_id)->get();
+
+    //     if ($cartData->isEmpty()) {
+    //         return redirect()->back()->withErrors(['cart' => 'Your cart is empty.']);
+    //     }
+
+    //     $orderId = null; // Initialize order ID variable
+
+    //     DB::transaction(function () use ($cartData, $customer, &$orderId) {
+    //         $total_price = 0;
+
+    //         // Create the order with initial total_amount as zero
+    //         $order = new Order;
+    //         $order->customer_id = $customer->id;
+    //         $order->order_date = now();
+    //         $order->total_amount = 0; // Initial total amount
+    //         $order->status = 'In Process';
+    //         $order->save();
+
+    //         // Process each cart item
+    //         foreach ($cartData as $data) {
+    //             $product = Product::find($data->product_id);
+
+    //             // Check if the product has sufficient stock
+    //             if ($product->stock_quantity < $data->quantity) {
+    //                 throw new \Exception('Insufficient stock for product ID: ' . $data->product_id);
+    //             }
+
+    //             // Calculate the total price
+    //             $total_price += $data->price * $data->quantity;
+
+    //             // Create the order detail
+    //             $orderDetail = new OrderDetails();
+    //             $orderDetail->order_id = $order->id;
+    //             $orderDetail->product_id = $data->product_id;
+    //             $orderDetail->quantity = $data->quantity;
+    //             $orderDetail->subtotal = $data->price * $data->quantity;
+    //             $orderDetail->save();
+
+    //             // Reduce the stock quantity of the product
+    //             $product->stock_quantity -= $data->quantity;
+    //             $product->save();
+
+    //             // Remove the cart item
+    //             $data->delete();
+    //         }
+
+    //         // Update the total amount of the order
+    //         $order->total_amount = $total_price;
+    //         $order->save();
+
+    //         // Assign the order ID to the variable
+    //         $orderId = $order->id;
+    //     });
+
+    //     // Redirect to the payment form route with the order ID
+    //     return redirect()->route('landingpage-items.payment-form', ['orderId' => $orderId])->with('success', 'Order has been placed successfully!');
+    // }
+
     public function cartOrder()
     {
         $user = Auth::user();
@@ -195,14 +263,30 @@ class CartController extends Controller
                 }
 
                 // Calculate the total price
-                $total_price += $data->price * $data->quantity;
+                $price = $product->price;
+                $discountPercentage = 0;
+                
+                // Check if the product has a discount
+                if ($product->discounts()->exists()) {
+                    $discount = $product->discounts()->first();
+                    $discountPercentage = $discount->percentage;
+                }
+
+                // Apply discount if applicable
+                if ($discountPercentage > 0) {
+                    $price -= ($price * $discountPercentage / 100);
+                }
+
+                // Calculate subtotal
+                $subtotal = $price * $data->quantity;
+                $total_price += $subtotal;
 
                 // Create the order detail
                 $orderDetail = new OrderDetails();
                 $orderDetail->order_id = $order->id;
                 $orderDetail->product_id = $data->product_id;
                 $orderDetail->quantity = $data->quantity;
-                $orderDetail->subtotal = $data->price * $data->quantity;
+                $orderDetail->subtotal = $subtotal;
                 $orderDetail->save();
 
                 // Reduce the stock quantity of the product
@@ -213,7 +297,7 @@ class CartController extends Controller
                 $data->delete();
             }
 
-            // Update the total amount of the order
+            // Update the total amount of the order with the discounted total price
             $order->total_amount = $total_price;
             $order->save();
 
@@ -224,6 +308,7 @@ class CartController extends Controller
         // Redirect to the payment form route with the order ID
         return redirect()->route('landingpage-items.payment-form', ['orderId' => $orderId])->with('success', 'Order has been placed successfully!');
     }
+
 
 
 

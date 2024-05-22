@@ -1,0 +1,32 @@
+.rating-title {
+    font-size: 1.25rem; 
+    font-weight: bold; 
+    display: block; 
+    margin-bottom: 0.5rem; 
+}
+
+.star-rating {
+    direction: rtl;
+    display: inline-block;
+    font-size: 2rem;
+    unicode-bidi: bidi-override;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    color: #ccc;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+    color: #ffc700;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #ffdd00;
+}

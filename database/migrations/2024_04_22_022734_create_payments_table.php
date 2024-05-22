@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
             $table->datetime('payment_date');
             $table->string('payment_method', 255);
-            $table->decimal('amount', 10, 2);
+            $table->bigInteger('amount');
             $table->timestamps();
         });
     }

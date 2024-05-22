@@ -54,16 +54,20 @@
                           <p class="small mb-0">{{ $cart->category_name }}</p>
                         </div>
                       </div>
+                      
                       <div class="d-flex flex-row align-items-center">
-                        <div style="width: 50px;">
-                          <h5 class="fw-normal mb-0">{{ $cart->quantity }}</h5>
-                        </div>
-                        <div style="width: 80px;">
-                          <h5 class="mb-0">${{ number_format($cart->price, 0) }}</h5>
-                        </div>
-                        <!-- Make a link with red color trash can logo -->
-                        <a href="{{ route('landingpage-items.remove-from-cart', $cart->id) }}" onclick="return confirm('Are you sure to remove this product?')"><i class="bi bi-trash-fill text-danger"></i></a>
+                          <div style="width: 50px;">
+                              <h5 class="fw-normal mb-0">{{ $cart->quantity }}</h5>
+                          </div>
+                          <div style="width: 80px; overflow: hidden;">
+                              <h5 class="mb-0" style="white-space: nowrap;">Rp{{ number_format($cart->price, 0) }}</h5>
+                          </div>
+                          <!-- Make a link with red color trash can logo -->
+                          <a href="{{ route('landingpage-items.remove-from-cart', $cart->id) }}" onclick="return confirm('Are you sure to remove this product?')">
+                              <i class="bi bi-trash-fill text-danger"></i>
+                          </a>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -122,7 +126,7 @@
                     <hr class="my-4">
                     <div class="d-flex justify-content-between">
                       <p class="mb-2">Subtotal</p>
-                      <p class="mb-2">${{ number_format($total_price, 0) }}</p>
+                      <p class="mb-2">Rp{{ number_format($total_price, 0) }}</p>
                     </div>
 
                     <div class="d-flex justify-content-between">

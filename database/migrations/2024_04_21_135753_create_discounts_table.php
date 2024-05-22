@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
             $table->datetime('start_date');
             $table->datetime('end_date');
-            $table->decimal('percentage', 10, 2);
+            $table->integer('percentage');
             $table->timestamps();
         });
     }

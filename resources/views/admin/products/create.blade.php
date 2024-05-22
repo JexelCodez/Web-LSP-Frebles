@@ -95,8 +95,6 @@
             </div>
         </div>
 
-    <div id="status" style="visibility: hidden;">{{ $status ?? '' }}</div>
-
     <script>
         const btnSave = document.getElementById("save")
         const form = document.getElementById("frmProductCreate")
@@ -107,7 +105,7 @@
         let pic = document.getElementById("image1_url")
 
         function save(){
-            let pesan = ""
+            let message = ""
             if(productCategory.value == "") {
                 productCategory.focus()
                 swal("Incomplete data", "Please choose a the product's category", "error")

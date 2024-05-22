@@ -54,7 +54,7 @@
                                             <td>{{ $discount->product_name }}</td>
                                             <td>{{ $discount->start_date }}</td>
                                             <td>{{ $discount->end_date }}</td>
-                                            <td>{{ $discount->percentage * 100 }}%</td>
+                                            <td>{{ $discount->percentage }}%</td>
                                             <td class="text-center">
                                                 <a href="{{ route('admin.discounts.edit', $discount->id) }}" class="btn btn-sm btn-success">Edit</a>
                                                 <form action="{{ route('admin.discounts.destroy', $discount->id) }}" method="POST" style="display: inline;" id="frmDeleteDiscounts{{ $discount->id }}">

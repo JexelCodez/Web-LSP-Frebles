@@ -14,6 +14,10 @@
     <!-- Next to title name logo -->
     <link rel="icon" type="image/png" href="{{ asset('assets/img/logos/frebles1hd.png') }}">
 
+    <!-- Sweetalert Library -->
+    <script src="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.js"></script>
+    <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css">
+
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{{ asset('landingpage/assets/css/fontawesome.css') }}">
@@ -406,10 +410,10 @@
 
                 <!-- Newsletter Subscription -->
                 <div class="main-button">
-                <form action="{{ url('subscribe') }}" method="POST">
+                <form action="{{ url('subscribe') }}" method="POST" id="subscribeForm">
                     @csrf
                     <input type="email" name="email" placeholder="Enter your email" required>
-                    <button type="submit" onclick="return confirm('Do you want to Subscribe?')">Subscribe Now</button>
+                    <button type="button" onclick="sendSubcription()">Subscribe Now</button>
                 </form>
 
                 </div>
@@ -438,5 +442,29 @@
   <script src="{{ asset('landingpage/assets/js/counter.js') }}"></script>
   <script src="{{ asset('landingpage/assets/js/custom.js') }}"></script>
 
+  <script>
+          function sendSubcription() {
+              const form = document.getElementById('subscribeForm');
+              swal({
+                  title: "You are subscribing?",
+                  type: "info",
+                  showCancelButton: true,
+                  confirmButtonColor: '#DD6B55',
+                  confirmButtonText: 'Yes!',
+                  cancelButtonText: "No, cancel it!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false
+              },
+              function(isConfirm) {
+                  if (isConfirm) {
+                      form.submit();
+                      swal("Success!", "Thank you for subscribing", "success");
+                  } else {
+                      swal("Cancelled", "Thank you for considering", "error");
+                  }
+              });
+          }
+    </script>
+  
   </body>
 </html>

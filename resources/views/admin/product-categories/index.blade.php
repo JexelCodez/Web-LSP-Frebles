@@ -14,12 +14,6 @@
             <div class="col-12">
                 <div class="card">
 
-                        @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -99,25 +93,27 @@
         </div>
     </footer>
 
-    <input type="hidden" id="status" class="form-control" value="{{ $status ?? '' }}" />
-    <input type="hidden" id="pesan" class="form-control" value="{{ $pesan ?? '' }}" />
-
+    <!-- Hidden Input Fields for Status and Message -->
+    <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
+    <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
+    
     <!-- Success Message Update -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const params = new URLSearchParams(window.location.search);
-            const success = params.get('success');
+        const masterBody = document.getElementById("master");
+        const sts = document.getElementById("sts");
+        const msg = document.getElementById("msg");
 
-            if (success === 'update') {
-                // Show SweetAlert for successful update
-                swal('Success', 'Product category has been updated!', 'success');
-            } else if (success === 'delete') {
-                // Show SweetAlert for successful delete
-                swal('Success', 'Product category has been deleted successfully!', 'success');
+        function saveMessage() {
+            if (sts.value == "save") {
+                swal('Good job!', msg.value, 'success');
             }
-        });
-    </script>
+        }
 
+        masterBody.onload = function() {
+            saveMessage();
+        };
+    </script>
+    
     <!-- Delete Messages -->
     <script>
         function deleteProductCategory(id) {

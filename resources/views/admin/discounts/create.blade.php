@@ -57,8 +57,8 @@
                             <input type="datetime-local" class="form-control" id="end_date" name="end_date">
                         </div>
                         <div class="form-group">
-                            <label for="percentage" class="form-label">Percentage (decimal)</label>
-                            <input type="text" class="form-control" id="percentage" placeholder="Enter the discount percentage (e.g., 0.10 for 10%)" name="percentage">
+                            <label for="percentage" class="form-label">Percentage (1-100)</label>
+                            <input type="text" class="form-control" id="percentage" placeholder="Enter the discount percentage (e.g., 10 for 10%)" name="percentage">
                         </div>
                     </div>
                     <div class="card-footer">

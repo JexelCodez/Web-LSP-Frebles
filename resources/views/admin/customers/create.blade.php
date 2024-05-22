@@ -33,9 +33,9 @@
       <!-- Cool Tip and SVG -->
       <img class="img-fluid float-start me-3" style="max-width: 80px;" src="{{ asset('assets/img/small-logos/logo-customer.svg') }}" alt="Card image cap">
 
-      <h5 class="card-title">Welcome to Customer Create!</h5>
+      <h5 class="card-title">Welcome to Frebles's Customer Registering!</h5>
 
-      <p class="card-text"><q>We are what we repeatedly do. Excellence, then, is not an act, but a habit.</q></p>
+      <p class="card-text"><q>To order, first you need to make your own customer data. It doesn't have to be the same data as your user.</q></p>
 
       <form action="{{ route('customers.store') }}" id="frmCustomerCreate" method="POST">
         @csrf

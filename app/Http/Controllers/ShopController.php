@@ -18,13 +18,33 @@ class ShopController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function searchProduct(Request $request)
     {
-        //
+        $searchText = $request->search;
+        $products = Product::where('product_name', 'LIKE', "%$searchText%")->paginate(10);
+        $cartItemCount = '';
+
+        return view ('landingpage-items.shop', [
+            'products' => $products,
+            'cartItemCount' => $cartItemCount
+        ]);
     }
+
+    // public function searchProduct(Request $request)
+    // {
+    //     $searchText = $request->input('search');
+    //     $cartItemCount = ''; // Retrieve the actual cart item count as needed
+
+    //     // Search for products based on the search text and paginate the results or you can use view tables
+    //     $products = Product::where('product_name', 'LIKE', "%$searchText%")->orWhere('$products->productCategories->category_name', 'LIKE', "%$searchText%")->paginate(10);
+
+    //     return view('landingpage-items.shop', [
+    //         'products' => $products,
+    //         'cartItemCount' => $cartItemCount
+    //     ]);
+    // }
+
 
     /**
      * Store a newly created resource in storage.

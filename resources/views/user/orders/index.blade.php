@@ -8,7 +8,6 @@
     @include('user.main')
 
     <div class="container-fluid py-4">
-        <a href="{{ route('user.orders.create') }}" class="btn btn-info mb-2">Add Order</a>
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
@@ -53,14 +52,6 @@
                                             <td>{{ $order->order_date }}</td>
                                             <td>{{ $order->total_amount }}</td>
                                             <td>{{ $order->status }}</td>
-                                            <td class="text-center">
-                                                <a href="{{ route('user.orders.edit', $order->id) }}" class="btn btn-sm btn-success">Edit</a>
-                                                <form action="{{ route('user.orders.destroy', $order->id) }}" method="POST" style="display: inline;" id="frmDeleteOrder{{ $order->id }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-sm btn-danger" onclick="deleteOrder( '{{ $order->id }}' )">Delete</button>
-                                                </form>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -103,48 +94,4 @@
         </div>
     </footer>
 
-    <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
-    <input type="hidden" id="psn" class="form-control" value="{{ $pesan ?? '' }}" />
-
-
-    <!-- Success Message Update -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const params = new URLSearchParams(window.location.search);
-            const success = params.get('success');
-
-            if (success === 'update') {
-                // Show SweetAlert for successful update
-                swal('Success', 'Order has been updated!', 'success');
-            } else if (success === 'delete') {
-                // Show SweetAlert for successful delete
-                swal('Success', 'Order has been deleted successfully!', 'success');
-            }
-        });
-    </script>
-
-<script>
-        function deleteOrder(id) {
-            const form = document.getElementById('frmDeleteOrder' + id);
-            swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this data!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Yes, I am sure!',
-                cancelButtonText: "No, cancel it!",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            },
-            function(isConfirm) {
-                if (isConfirm) {
-                    form.submit();
-                    swal("Deleted", "Data has been successfully deleted!", "success");
-                } else {
-                    swal("Cancelled", "Your data is safe :)", "error");
-                }
-            });
-        }
-    </script>
 @endsection

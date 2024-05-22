@@ -45,7 +45,19 @@ class WishlistController extends Controller
 
         // Retrieve updated wishlists with eager loaded relations
         // $wishlists = Wishlists::with('customers', 'products')->get();
-        return redirect()->route('landingpage-items.shop')->with('success', 'Wish created successfully!');
+        // return redirect()->route('landingpage-items.shop')->with('success', 'Wish created successfully!');
+
+        // Variables to make the return work
+        $cartItemCount = '';
+        $productId = Product::find($request->product_id);
+        $products = Product::with('discounts')->paginate(10);
+
+        return view ('landingpage-items.shop', [
+            'status' => 'save',
+            'message' => 'You have wished for "' . $productId->product_name . '" Thank you for reminding us! We will restock shortly!',
+            'cartItemCount' => $cartItemCount,
+            'products' => $products
+        ]);
     }
 
     /**

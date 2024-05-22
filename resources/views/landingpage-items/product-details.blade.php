@@ -28,7 +28,7 @@ https://templatemo.com/tm-589-lugx-gaming
 -->
   </head>
 
-<body>
+<body id="master">
 
   <!-- ***** Preloader Start ***** -->
   <div id="js-preloader" class="js-preloader">
@@ -125,31 +125,30 @@ https://templatemo.com/tm-589-lugx-gaming
           <!-- We use the number_format() function to format the prices with 2 decimal places. -->
           @if ($product->discounts->isNotEmpty())
 
-              <!-- @foreach ($product->discounts as $discount)
-                  <span class="price"><em>Rp{{ number_format($product->price, 0) }}</em></span>
-                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage), 0) }}</span>
-              @endforeach -->
-
+              <!-- Condition 2 -->
               @if ($product->type === 'Fruit')
               @foreach ($product->discounts as $discount)
                   <span class="price"><em>Rp{{ number_format($product->price, 0) }}/kg</em></span>
-                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage), 0) }}/kg</span>
+                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}/kg</span>
               @endforeach
 
               @elseif ($product->type === 'Vegetables')
               @foreach ($product->discounts as $discount)
                   <span class="price"><em>Rp{{ number_format($product->price, 0) }}/bunch</em></span>
-                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage), 0) }}/bunch</span>
+                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}/bunch</span>
               @endforeach
 
               @else
               @foreach ($product->discounts as $discount)
                   <span class="price"><em>Rp{{ number_format($product->price, 0) }}/kg</em></span>
-                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage), 0) }}/kg</span>
+                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}/kg</span>
               @endforeach
 
               @endif
+              <!-- End Condition 2 -->
 
+              @else
+                  <span class="price">Rp{{ number_format($product->price, 0) }}/kg</span>
           @endif
           <!-- End Logic For Displaying Discount Price -->
             
@@ -200,12 +199,15 @@ https://templatemo.com/tm-589-lugx-gaming
               </div>              
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                  <p>Quote here.</p>
-                  <br>
                   <p>{{$product->description}}</p>
+                  <br>
+                  <p>{{$randomQuote}}</p>
                 </div>
                 <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                  <p>Coloring book air plant shabby chic, crucifix normcore raclette cred swag artisan activated charcoal. PBR&B fanny pack pok pok gentrify truffaut kitsch helvetica jean shorts edison bulb poutine next level humblebrag la croix adaptogen. <br><br>Hashtag poke literally locavore, beard marfa kogi bruh artisan succulents seitan tonx waistcoat chambray taxidermy. Same cred meggings 3 wolf moon lomo irony cray hell of bitters asymmetrical gluten-free art party raw denim chillwave tousled try-hard succulents street art.</p>
+                  @foreach ($reviews as $review)
+                  <p>{{ $review->comment }}</p>
+                  <br>
+                  @endforeach
                 </div>
               </div>
             </div>

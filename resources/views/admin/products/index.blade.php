@@ -78,7 +78,7 @@
                                             @endif
                                             <!-- End Tooltip -->
 
-                                            <td class="text-center">${{ $product->price }}</td>
+                                            <td class="text-center">Rp{{ $product->price }}</td>
                                             <td class="text-center">{{ $product->stock_quantity }}</td>
 
                                             <td class="text-center"><img src="{{ asset('storage/' . $product->image1_url) }}" class="w-30 img-thumbnail zoom" data-bs-toggle="modal" data-bs-target="#foto1_{{ $product->image1_url }}"></td>
@@ -206,11 +206,11 @@
     </footer>
 
     <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
-    <input type="hidden" id="psn" class="form-control" value="{{ $pesan ?? '' }}" />
+    <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
 
 
     <!-- Success Message Update -->
-    <script>
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             const params = new URLSearchParams(window.location.search);
             const success = params.get('success');
@@ -223,6 +223,20 @@
                 swal('Success', 'Products has been deleted successfully!', 'success');
             }
         });
+    </script> -->
+
+    <script>
+      const body = document.getElementById("master")
+      const sts = document.getElementById("sts")
+      const msg = document.getElementById("msg")
+      function save_message(){
+        if (sts.value == "save") {
+          swal('good job', msg.value, 'success')
+        }
+      }
+      body.onload = function(){
+        save_message()
+      }
     </script>
 
     <!-- Delete Messages -->
