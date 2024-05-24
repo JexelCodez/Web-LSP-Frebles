@@ -66,6 +66,19 @@
 
 <body class="g-sidenav-show bg-gray-100" id="master">
 
+<!-- ***** Preloader Start ***** -->
+<div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
     @yield('nav')
     @yield('main')
 

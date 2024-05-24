@@ -72,7 +72,7 @@
     </div>
 
     <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
-    <input type="hidden" id="psn" class="form-control" value="{{ $pesan ?? '' }}" />
+    <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
 
     <script>
         const btnSave = document.getElementById("save")
@@ -81,7 +81,6 @@
         let prd = document.getElementById("product_id")
 
         function save(){
-            let pesan = ""
             if(customer.value == "") {
                 customer.focus()
                 swal("Incomplete data", "Please choose a customer!", "error")

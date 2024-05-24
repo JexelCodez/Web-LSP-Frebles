@@ -51,7 +51,12 @@ class DiscountCategoriesController extends Controller
             'category_name' => $request->input('category_name'),
         ]);
 
-        return redirect()->route('admin.discount-categories.index')->with('success', 'Discount category created successfully!');
+        $discountCategories = DiscountCategories::all();
+        return view ('admin.discount-categories.index', [
+            'status' => 'save',
+            'message' => 'The category "' . $request->category_name . '" has been successfully saved! ',
+            'discountCategories' => $discountCategories
+        ]);
     }
 
     /**
@@ -92,8 +97,11 @@ class DiscountCategoriesController extends Controller
         $discountCategory->category_name = $request->input('category_name');
         $discountCategory->save();
 
-        return redirect()->route('admin.discount-categories.index', [
-            'success' => 'update'
+        $discountCategories = DiscountCategories::all();
+        return view ('admin.discount-categories.index', [
+            'status' => 'save',
+            'message' => 'The category "' . $request->product_name . '" has been successfully updated! ',
+            'discountCategories' => $discountCategories
         ]);
     }
 
@@ -102,7 +110,21 @@ class DiscountCategoriesController extends Controller
      */
     public function destroy(string $id)
     {
-        DiscountCategories::findOrFail($id)->delete();
-        return redirect()->route('admin.discount-categories.index');
+        $discountCategory = DiscountCategories::find($id);
+        if (!$discountCategory) {
+            $discountCategories = DiscountCategories::all();
+            return view ('admin.discount-categories.index', [
+                'discountCategories' => $discountCategories
+            ]);
+        } else {
+            // If the discount category exists, delete it
+            $discountCategory->delete();
+
+            // Fetch all discount categories and return to the index view
+            $discountCategories = DiscountCategories::all();
+            return view('admin.discount-categories.index', [
+                'discountCategories' => $discountCategories
+            ]);
+        }
     }
 }

@@ -1,0 +1,26 @@
+.card {
+    /* Set fixed width for the card */
+    width: 100%;
+    /* Set fixed height for the card */
+    height: 400px; /* Adjust the height as needed */
+    /* Add padding and margin for spacing */
+    padding: 15px;
+    margin-bottom: 20px;
+    /* Ensure content inside the card is aligned properly */
+    display: flex;
+    flex-direction: column;
+}
+
+.product-img-container {
+        /* Set fixed height for the image container */
+        height: 200px; /* Adjust the height as needed */
+        /* Ensure image covers the container without distortion */
+        overflow: hidden;
+}
+
+.product-img-container img {
+        /* Ensure image covers the container without distortion */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+}

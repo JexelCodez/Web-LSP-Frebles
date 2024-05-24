@@ -1,15 +1,15 @@
 @extends('admin.master')
-@section('title', 'Wishlists')
+@section('title', 'Main Section')
 @section('nav')
     @include('admin.nav')
 @endsection
-@section('page', 'Wishlists Section')
+@section('page', 'Users')
 @section('main')
     @include('admin.main')
 
-
-    <!-- table -->
     <div class="container-fluid py-4">
+        <!-- <a href="#" class="btn btn-info mb-2">Add Customer</a> -->
+
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
@@ -31,7 +31,7 @@
                     @endif
 
                     <div class="card-header pb-0">
-                        <h6>WISHLISTS</h6>
+                        <h6>CUSTOMERS</h6>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -39,24 +39,27 @@
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Customer</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Wish Product</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">ID</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email Address</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Usertype</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Created At</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Updated At</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Change Usertype</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($wishlists as $index => $wishlist)
+                                    @foreach ($users as $index => $user)
                                         <tr>
-                                            <td>{{ $index + 1 . ". "}}</td>
-                                            <td>{{ $wishlist->name }}</td>
-                                            <td>{{ $wishlist->product_name }}</td>
+                                            <td class="text-center">{{ $index + 1 . ". "}}</td>
+                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->usertype }}</td>
+                                            <td>{{ $user->created_at }}</td>
+                                            <td>{{ $user->updated_at }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('admin.wishlists.edit', $wishlist->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                                <form action="{{ route('admin.wishlists.destroy', $wishlist->id) }}" method="POST" style="display: inline;" id="frmDeleteWishItem{{ $wishlist->id }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-sm btn-danger" onclick="deleteWishItem( '{{ $wishlist->id }}' )">Delete</button>
-                                                </form>
+                                                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-success">Edit</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -72,7 +75,6 @@
     <!-- Hidden Input Fields for Status and Message -->
     <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
     <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
-
 
     <!-- Success Message Update -->
     <script>
@@ -90,32 +92,5 @@
             saveMessage();
         };
     </script>
-
-    <!-- Delete Messages -->
-    <script>
-        function deleteWishItem(id) {
-            const form = document.getElementById('frmDeleteWishItem' + id);
-            swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this data!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Yes, I am sure!',
-                cancelButtonText: "No, cancel it!",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            },
-            function(isConfirm) {
-                if (isConfirm) {
-                    form.submit();
-                    swal("Deleted", "Data has been successfully deleted!", "success");
-                } else {
-                    swal("Cancelled", "Your data is safe :)", "error");
-                }
-            });
-        }
-    </script>
-
 
 @endsection

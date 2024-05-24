@@ -116,7 +116,9 @@
         </div>
     </div>
 
-    <div id="status" style="visibility: hidden;">{{ $status ?? '' }}</div>
+    <!-- Hidden Input Fields for Status and Message -->
+    <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
+    <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
 
     <script>
         const btnSave = document.getElementById("save")
@@ -128,7 +130,6 @@
 
 
         function save(){
-            let pesan = ""
             if(productCategory.value == "") {
                 productCategory.focus()
                 swal("Incomplete data", "Please choose a the product's category", "error")

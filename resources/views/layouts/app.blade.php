@@ -20,6 +20,9 @@
         <!-- Include SweetAlert JS -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+        <!-- Logo -->
+        <link rel="icon" type="image/png" href="{{ asset('assets/img/logos/frebles1hd.png') }}">
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">

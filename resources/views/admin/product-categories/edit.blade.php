@@ -57,13 +57,16 @@
         </div>
     </div>
 
+    <!-- Hidden Input Fields for Status and Message -->
+    <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
+    <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
+
     <script>
         const btnSave = document.getElementById("save")
         const form = document.getElementById("frmProductCategoriesCreate")
         let categoryName = document.getElementById("category_name")
 
         function save(){
-            let pesan = ""
             if(categoryName.value == ""){
             categoryName.focus()
             swal("Incomplete data", "The product's category name must be filled!", "error")

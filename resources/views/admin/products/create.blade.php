@@ -95,6 +95,10 @@
             </div>
         </div>
 
+        <!-- Hidden Input Fields for Status and Message -->
+        <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
+        <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
+
     <script>
         const btnSave = document.getElementById("save")
         const form = document.getElementById("frmProductCreate")
@@ -105,7 +109,6 @@
         let pic = document.getElementById("image1_url")
 
         function save(){
-            let message = ""
             if(productCategory.value == "") {
                 productCategory.focus()
                 swal("Incomplete data", "Please choose a the product's category", "error")

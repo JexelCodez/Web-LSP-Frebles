@@ -82,7 +82,7 @@ class ProductController extends Controller
         $products = DB::table('vwproducts')->get();
         return view ('admin.products.index', [
             'status' => 'save',
-            'message' => 'The new menu data with the name "' . $request->product_name . '" has been successfully saved! ',
+            'message' => 'The new product with the name "' . $request->product_name . '" has been successfully saved! ',
             'products' => $products
         ]);
     }
@@ -145,8 +145,11 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('admin.products.index', [
-            'success' => 'update'
+        $products = DB::table('vwproducts')->get();
+        return view('admin.products.index', [
+            'status' => 'save',
+            'message' => 'The product with the name "' . $request->product_name . '" has been successfully updated! ',
+            'products' => $products
         ]);
     }
 
@@ -155,7 +158,22 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        Product::findOrFail($id)->delete();
-        return redirect()->route('admin.products.index');
+        $product = Product::find($id);
+
+        if (!$product) {
+            $products = DB::table('vwproducts')->get();
+            return view ('admin.products.index', [
+                'products' => $products
+            ]);
+        } else {
+            // If the product category exists, delete it
+            $product->delete();
+
+            // Fetch all product categories and return to the index view
+            $products = DB::table('vwproducts')->get();
+            return view('admin.products.index', [
+                'products' => $products
+            ]);
+        }
     }
 }

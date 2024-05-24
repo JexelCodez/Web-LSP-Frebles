@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('landingpage/assets/css/shop.css') }}" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{ asset('assets/img/logos/frebles1hd.png') }}">
 
     <!-- Bootstrap icon library  -->
@@ -29,39 +30,9 @@
 <!--
 
 TemplateMo 589 lugx gaming
-
 https://templatemo.com/tm-589-lugx-gaming
 
 -->
-
-  <style>
-    .card {
-    /* Set fixed width for the card */
-    width: 100%;
-    /* Set fixed height for the card */
-    height: 400px; /* Adjust the height as needed */
-    /* Add padding and margin for spacing */
-    padding: 15px;
-    margin-bottom: 20px;
-    /* Ensure content inside the card is aligned properly */
-    display: flex;
-    flex-direction: column;
-    }
-
-    .product-img-container {
-        /* Set fixed height for the image container */
-        height: 200px; /* Adjust the height as needed */
-        /* Ensure image covers the container without distortion */
-        overflow: hidden;
-    }
-
-    .product-img-container img {
-        /* Ensure image covers the container without distortion */
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-  </style>
 
   </head>
 
@@ -210,19 +181,6 @@ https://templatemo.com/tm-589-lugx-gaming
       @endif
       
       <!-- end logic for show product -->
-
-      <!-- </div> -->
-      <!-- <div class="row">
-        <div class="col-lg-12">
-          <ul class="pagination">
-          <li><a href="#"> &lt; </a></li>
-            <li><a href="#">1</a></li>
-            <li><a class="is_active" href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#"> &gt; </a></li>
-          </ul>
-        </div>
-      </div> -->
 
     </div>
   </div>

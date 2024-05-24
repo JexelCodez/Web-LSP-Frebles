@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -15,9 +17,6 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        // $customers = Customer::all();
-        // return view('admin.customers.index', compact('customers'));
-
         $customers = Customer::all();
         return view ('admin.customers.index', [
             'customers' => $customers
@@ -58,7 +57,19 @@ class CustomerController extends Controller
 
         Customer::create($data);
 
-        return redirect()->route('landingpage-items.cart')->with('success', 'Customer created successfully!');
+        // Variables to make the return work
+        $total_price = 0;
+        $user_id = auth()->user()->id;
+        $carts = Cart::where('user_id', $user_id)->get();
+        $customers = User::find($user_id)->customer()->first();
+        
+        return view ('landingpage-items.cart', [
+            'status' => 'save',
+            'message' => 'You have created your customer data! with the name "' . $request->name . '"',
+            'carts' => $carts,
+            'customers' => $customers,
+            'total_price' => $total_price
+        ]);
     }
 
     /**

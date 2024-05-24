@@ -4,43 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frebles - Register</title>
+
+    <!-- Logo -->
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/logos/frebles1hd.png') }}">
     
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/registration.css') }}" rel="stylesheet">
 
     <!-- Bootstrap icon library  -->
     <link href="{{ ('node_modules/bootstrap-icons/font/bootstrap-icons.css') }}" rel="stylesheet">
     
     <style>
-        .background-radial-gradient {
-            background-color: hsl(200, 50%, 90%);
-            background-image: radial-gradient(650px circle at 0% 0%, hsl(330, 90%, 70%) 15%, hsl(200, 90%, 70%) 35%, hsl(330, 90%, 70%) 75%, hsl(200, 90%, 70%) 80%, transparent 100%), radial-gradient(1250px circle at 100% 100%, hsl(330, 90%, 70%) 15%, hsl(200, 90%, 70%) 35%, hsl(330, 90%, 70%) 75%, hsl(200, 90%, 70%) 80%, transparent 100%);
-        }
-
-        #radius-shape-1 {
-            height: 220px;
-            width: 220px;
-            top: -60px;
-            left: -130px;
-            background: radial-gradient(#28d5f7, #1cc74f);
-            /* background: radial-gradient(blue, green); */
-            overflow: hidden;
-        }
-
-        #radius-shape-2 {
-            border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
-            bottom: -60px;
-            right: -110px;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(#28d5f7, #1cc74f);
-            overflow: hidden;
-        }
-
-        .bg-glass {
-            background-color: hsla(0, 0%, 100%, 0.9) !important;
-            backdrop-filter: saturate(200%) blur(25px);
-        }
+        
     </style>
 </head>
 <body>

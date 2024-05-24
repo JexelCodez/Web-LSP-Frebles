@@ -59,7 +59,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('customers.index') }}" onclick="highlightNavItem(this)">
+          <a class="nav-link" href="{{ url('admin/customers') }}" onclick="highlightNavItem(this)">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="bi bi-person-check-fill text-primary"></i>
             </div>
@@ -73,6 +73,15 @@
               <i class="bi bi-people-fill text-warning"></i>
             </div>
             <span class="nav-link-text ms-1">Users</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('admin/wishlists') }}" onclick="highlightNavItem(this)">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="bi bi-star-fill text-warning"></i>
+            </div>
+            <span class="nav-link-text ms-1">Wishlists</span>
           </a>
         </li>
 

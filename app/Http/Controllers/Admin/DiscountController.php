@@ -57,7 +57,12 @@ class DiscountController extends Controller
 
         Discount::create($data);
 
-        return redirect()->route('admin.discounts.index')->with('success', 'Discount created successfully!');
+        $discounts = DB::table('vwdiscounts')->get();
+        return view ('admin.discounts.index', [
+            'status' => 'save',
+            'message' => 'The new discount for the product has been successfully saved! ',
+            'discounts' => $discounts
+        ]);
     }
 
     /**
@@ -94,7 +99,7 @@ class DiscountController extends Controller
             'product_id' => 'required|exists:products,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'percentage' => 'required|numeric|min:0|max:1',
+            'percentage' => 'required|numeric|min:1|max:100',
         ]);
 
         $discounts = Discount::findOrFail($id);
@@ -105,8 +110,11 @@ class DiscountController extends Controller
         $discounts->percentage = $request->input('percentage');
         $discounts->save();
 
-        return redirect()->route('admin.discounts.index', [
-            'success' => 'update'
+        $discounts = DB::table('vwdiscounts')->get();
+        return view ('admin.discounts.index', [
+            'status' => 'save',
+            'message' => 'The discount for the product has been successfully updated! ',
+            'discounts' => $discounts
         ]);
     }
 
@@ -115,7 +123,22 @@ class DiscountController extends Controller
      */
     public function destroy(string $id)
     {
-        Discount::findOrFail($id)->delete();
-        return redirect()->route('admin.discounts.index');
+        $discount = Discount::find($id);
+
+        if (!$discount) {
+            $discounts = DB::table('vwdiscounts')->get();
+            return view ('admin.discounts.index', [
+                'discounts' => $discounts
+            ]);
+        } else {
+            // If the discount exists, delete it
+            $discount->delete();
+
+            // Fetch all discounts and return to the index view
+            $discounts = DB::table('vwdiscounts')->get();
+            return view('admin.discounts.index', [
+                'discounts' => $discounts
+            ]);
+        }
     }
 }

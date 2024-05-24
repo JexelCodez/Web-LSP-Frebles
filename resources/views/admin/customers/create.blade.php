@@ -5,6 +5,7 @@
     @include('admin.main')
 
 <!--  Tabel -->
+
 <div class="container-fluid py-4">
   <div class="row">
     <div class="col-12">
@@ -35,7 +36,7 @@
 
       <h5 class="card-title">Welcome to Frebles's Customer Registering!</h5>
 
-      <p class="card-text"><q>To order, first you need to make your own customer data. It doesn't have to be the same data as your user.</q></p>
+      <p class="card-text"><q>To continue, first you need to make your own customer data. It doesn't have to be the same data as your user.</q></p>
 
       <form action="{{ route('customers.store') }}" id="frmCustomerCreate" method="POST">
         @csrf
@@ -75,13 +76,17 @@
             </div>
             <div class="card-footer">
               <button type="button" class="btn btn-primary" id="save">Save</button>
-              <a href="#" class="btn btn-default">Cancel</a>
+              <a href="{{ route('landingpage-items.shop') }}" class="btn btn-default">Cancel</a>
           </div>
         </div>
         </form>
       </div>
   </div>
 </div> 
+
+<!-- Hidden Input Fields for Status and Message -->
+<input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
+<input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
 
   <script>
       const btnSave = document.getElementById("save")
@@ -93,7 +98,6 @@
       let addr = document.getElementById("address1")
 
       function save(){
-          let pesan = ""
           if (nm.value == ""){
           nm.focus()
           swal("Incomplete data", "Name must be filled", "error")

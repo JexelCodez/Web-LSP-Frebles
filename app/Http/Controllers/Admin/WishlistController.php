@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WishlistController extends Controller
 {
@@ -16,7 +17,10 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        //
+        $wishlists = DB::table('vwwishlists')->get();
+        return view ('admin.wishlists.index', [
+            'wishlists' => $wishlists
+        ]);
     }
 
     /**
@@ -24,13 +28,7 @@ class WishlistController extends Controller
      */
     public function create()
     {
-        $customers = Customer::all();
-        $products = Product::all();
-
-        return view('admin.wishlists.create', [
-            'customers' => $customers,
-            'products' => $products
-        ]);
+        //
     }
 
     /**
@@ -38,26 +36,7 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only(['customer_id', 'product_id']);
-
-        // Create a new wishlist record
-        Wishlist::create($data);
-
-        // Retrieve updated wishlists with eager loaded relations
-        // $wishlists = Wishlists::with('customers', 'products')->get();
-        // return redirect()->route('landingpage-items.shop')->with('success', 'Wish created successfully!');
-
-        // Variables to make the return work
-        $cartItemCount = '';
-        $productId = Product::find($request->product_id);
-        $products = Product::with('discounts')->paginate(10);
-
-        return view ('landingpage-items.shop', [
-            'status' => 'save',
-            'message' => 'You have wished for "' . $productId->product_name . '" Thank you for reminding us! We will restock shortly!',
-            'cartItemCount' => $cartItemCount,
-            'products' => $products
-        ]);
+        //
     }
 
     /**

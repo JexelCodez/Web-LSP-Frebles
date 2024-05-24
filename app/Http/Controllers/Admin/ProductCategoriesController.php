@@ -99,8 +99,11 @@ class ProductCategoriesController extends Controller
         $productCategories->category_name = $request->input('category_name');
         $productCategories->save();
 
-        return redirect()->route('admin.product-categories.index', [
-            'success' => 'update'
+        $productCategories = ProductCategories::all();
+        return view ('admin.product-categories.index', [
+            'status' => 'save',
+            'message' => 'The category "' . $request->category_name . '" has been successfully updated! ',
+            'productCategories' => $productCategories
         ]);
     }
 
@@ -109,7 +112,21 @@ class ProductCategoriesController extends Controller
      */
     public function destroy(string $id)
     {
-        ProductCategories::findOrFail($id)->delete();
-        return redirect()->route('admin.product-categories.index');
+        $productCategory = ProductCategories::find($id);
+        if (!$productCategory) {
+            $productCategories = ProductCategories::all();
+            return view ('admin.product-categories.index', [
+                'productCategories' => $productCategories
+            ]);
+        } else {
+            // If the product category exists, delete it
+            $productCategory->delete();
+
+            // Fetch all product categories and return to the index view
+            $productCategories = ProductCategories::all();
+            return view('admin.product-categories.index', [
+                'productCategories' => $productCategories
+            ]);
+        }
     }
 }

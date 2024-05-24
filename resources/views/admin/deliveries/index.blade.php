@@ -84,55 +84,25 @@
         </div>
     </div>
 
-    <footer class="footer pt-5">
-        <div class="container-fluid">
-            <div class="row align-items-center justify-content-lg-between">
-                <div class="col-lg-6 mb-lg-0 mb-4">
-                    <div class="copyright text-center text-sm text-muted text-lg-start">
-                        © <script>document.write(new Date().getFullYear())</script>,
-                        made with <i class="fa fa-heart"></i> by
-                        <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-                        for a better web.
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-
     <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
-    <input type="hidden" id="psn" class="form-control" value="{{ $pesan ?? '' }}" />
+    <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
 
 
     <!-- Success Message Update -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const params = new URLSearchParams(window.location.search);
-            const success = params.get('success');
+        const masterBody = document.getElementById("master");
+        const sts = document.getElementById("sts");
+        const msg = document.getElementById("msg");
 
-            if (success === 'update') {
-                // Show SweetAlert for successful update
-                swal('Success', 'Delivery log has been updated!', 'success');
-            } else if (success === 'delete') {
-                // Show SweetAlert for successful delete
-                swal('Success', 'Delivery log has been deleted successfully!', 'success');
+        function saveMessage() {
+            if (sts.value == "save") {
+                swal('Good job!', msg.value, 'success');
             }
-        });
+        }
+
+        masterBody.onload = function() {
+            saveMessage();
+        };
     </script>
 
     <!-- Delete Messages -->

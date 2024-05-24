@@ -11,13 +11,13 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
     <!-- Next to title name logo -->
     <link rel="icon" type="image/png" href="{{ asset('assets/img/logos/frebles1hd.png') }}">
 
     <!-- Sweetalert Library -->
     <script src="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.js"></script>
     <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css">
-
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{{ asset('landingpage/assets/css/fontawesome.css') }}">
@@ -412,8 +412,14 @@
                 <div class="main-button">
                 <form action="{{ url('subscribe') }}" method="POST" id="subscribeForm">
                     @csrf
-                    <input type="email" name="email" placeholder="Enter your email" required>
-                    <button type="button" onclick="sendSubcription()">Subscribe Now</button>
+                    <input type="email" name="email" id="email" placeholder="Enter your email">
+
+                    @auth
+                      <button type="button" onclick="sendSubcription()">Subscribe Now</button>
+                    @else
+                      <p class="ms-2 mt-3">To make the button appear, login first!</p>
+                    @endauth
+                    
                 </form>
 
                 </div>
@@ -443,8 +449,19 @@
   <script src="{{ asset('landingpage/assets/js/custom.js') }}"></script>
 
   <script>
-          function sendSubcription() {
-              const form = document.getElementById('subscribeForm');
+          
+    </script>
+
+    <script>
+      const form = document.getElementById("subscribeForm")
+      let mail = document.getElementById("email")
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function sendSubcription() {
+      if (mail.value.trim() == "" || !emailPattern.test(mail.value.trim())) {
+        mail.focus()
+        swal("Incomplete data", "Please fill out your email!", "error")
+      } else {
               swal({
                   title: "You are subscribing?",
                   type: "info",
@@ -464,6 +481,7 @@
                   }
               });
           }
+      }
     </script>
   
   </body>

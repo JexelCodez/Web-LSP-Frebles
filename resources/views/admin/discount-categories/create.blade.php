@@ -43,7 +43,11 @@
       </div>
       </form>
     </div>
-</div>  
+</div>
+
+<!-- Hidden Input Fields for Status and Message -->
+<input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
+<input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
 
 <script>
   const btnSave = document.getElementById("save")
@@ -51,7 +55,6 @@
   let categoryName = document.getElementById("category_name")
 
   function store(){
-    let pesan = ""
     if(categoryName.value == ""){
       categoryName.focus()
       swal("Incomplete data", "The discount's category name must be filled!", "error")

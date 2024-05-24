@@ -8,12 +8,15 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DeliverController;
 use App\Http\Controllers\ProfileController;
-// use App\Http\Controllers\MessageController;
+use App\Http\Controllers\MessageController;
 
 // Root goes to landingpage
 Route::get('/', function () {
     return view('landingpage');
 })->name('landingpage');
+
+// Contact Message
+Route::post('message', [MessageController::class, 'store'])->name('message.store');
 
 // Subscriber URL
 Route::post('subscribe', [SubscriptionController::class, 'sendSubscription'])->middleware(['auth']);
@@ -23,9 +26,6 @@ Route::get('shop', [HomeController::class, 'showShop'])->name('landingpage-items
 
 // Contact Page
 Route::get('contact', [HomeController::class, 'showContact'])->name('landingpage-items.contact');
-
-// Contact Message
-// Route::post('message', [MessageController::class, 'store'])->name('message.store');
 
 // Product Details Page
 Route::get('product-details/{id}', [HomeController::class, 'showProductDetails'])->name('landingpage-items.product-details');
@@ -43,21 +43,16 @@ Route::get('cartOrder', [CartController::class, 'cartOrder'])->name('cart.order'
 Route::get('cashPayment/{orderId}', [TransactionController::class, 'CashOnDelivery'])->name('CashOnDelivery')->middleware(['auth']);
 Route::get('eWalletPayment/{orderId}', [TransactionController::class, 'eWallet'])->name('eWallet');
 
-
 // Deliver Product
 Route::get('deliver/initiate/{orderId}', [DeliverController::class, 'initiateDelivery'])->name('delivery.initiate');
 
-
 // Customers
-Route::get('admin/customers', [App\Http\Controllers\Admin\CustomerController::class, 'index'])->name('customers.index');
-Route::get('customers/create', [App\Http\Controllers\Admin\CustomerController::class, 'create'])->name('customers.create');
-Route::post('customers', [App\Http\Controllers\Admin\CustomerController::class, 'store'])->name('customers.store');
-// Route::resource('customers', App\Http\Controllers\Admin\CustomerController::class);
+Route::get('customer/create', [App\Http\Controllers\CustomerController::class, 'create'])->name('customers.create');
+Route::post('customer', [App\Http\Controllers\CustomerController::class, 'store'])->name('customers.store');
 
 // Wishlists
-Route::get('admin/wishlists', [App\Http\Controllers\Admin\WishlistController::class, 'index'])->name('wishlists.index');
-Route::get('wishlists/create', [App\Http\Controllers\Admin\WishlistController::class, 'create'])->name('wishlists.create');
-Route::post('wishlists', [App\Http\Controllers\Admin\WishlistController::class, 'store'])->name('wishlists.store');
+Route::get('wishlist/create', [App\Http\Controllers\WishlistController::class, 'create'])->name('wishlists.create');
+Route::post('wishlist', [App\Http\Controllers\WishlistController::class, 'store'])->name('wishlists.store');
 
 // Product Reviews
 Route::get('admin/product-reviews', [App\Http\Controllers\User\ProductReviewsController::class, 'index'])->name('product-reviews.index');
@@ -118,27 +113,21 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Order Details
     Route::resource('order_details', App\Http\Controllers\Admin\OrderDetailsController::class);
+
+    // Customers
+    Route::resource('customers', App\Http\Controllers\Admin\CustomerController::class);
+
+    // Users
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+
+    // Wishlists
+    Route::resource('wishlists', App\Http\Controllers\Admin\WishlistController::class);
 });
 
 
-// User Auth
+// Owner Auth
 
 Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(function () {
     // Admin-specific routes
     Route::get('dashboard', [HomeController::class, 'showUserDashboard']);
-
-    // Orders
-    // Route::resource('orders', App\Http\Controllers\User\OrderController::class);
-    Route::get('orders', [App\Http\Controllers\User\OrderController::class, 'index']);
-
-    // Payments
-    Route::resource('payments', App\Http\Controllers\User\PaymentController::class);
-    
-
 });
-
-    // Order Details (like a bill)
-    // Route::resource('order-details', App\Http\Controllers\OrdersController::class);
-
-    // Users
-    // Route::resource('users', App\Http\Controllers\ProductReviewsController::class);

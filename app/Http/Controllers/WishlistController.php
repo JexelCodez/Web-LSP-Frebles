@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class WishlistController extends Controller
 {
@@ -15,8 +15,7 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        $wishlists = DB::table('vwwishlists')->get();
-        return view('user.wishlists.index', compact('wishlists'));
+        //
     }
 
     /**
@@ -24,10 +23,21 @@ class WishlistController extends Controller
      */
     public function create()
     {
+        $user_id = auth()->user()->id;
+        $customer = User::find($user_id)->customer()->first();
+
+        // If customer one of the customer data is null, redirect to a specific route
+        if ($customer === null || $customer->name === null) {
+            return redirect()->route('customers.create');
+        }
+
         $customers = Customer::all();
         $products = Product::all();
 
-        return view('wishlists.create', compact('customers', 'products'));
+        return view('admin.wishlists.create', [
+            'customers' => $customers,
+            'products' => $products
+        ]);
     }
 
     /**
@@ -40,9 +50,17 @@ class WishlistController extends Controller
         // Create a new wishlist record
         Wishlist::create($data);
 
-        // Retrieve updated wishlists with eager loaded relations
-        // $wishlists = Wishlists::with('customers', 'products')->get();
-        return redirect()->route('wishlists.index')->with('success', 'Wish created successfully!');
+        // Variables to make the return work
+        $cartItemCount = '';
+        $productId = Product::find($request->product_id);
+        $products = Product::with('discounts')->paginate(10);
+
+        return view ('landingpage-items.shop', [
+            'status' => 'save',
+            'message' => 'You have wished for "' . $productId->product_name . '"',
+            'cartItemCount' => $cartItemCount,
+            'products' => $products
+        ]);
     }
 
     /**
@@ -58,13 +76,7 @@ class WishlistController extends Controller
      */
     public function edit(string $id)
     {
-        $wishlists = Wishlist::findOrFail($id);
-
-        return view('wishlists.edit', [
-            'wishlists' => $wishlists,
-            'customers' => Customer::all(),
-            'products' => Product::all(),
-        ]);
+        //
     }
 
     /**
@@ -72,19 +84,7 @@ class WishlistController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'customer_id' => 'required|exists:customers,id',
-            'product_id' => 'required|exists:products,id',
-        ]);
-
-        $wishlist = Wishlist::findOrFail($id);
-        $wishlist->customer_id = $request->input('customer_id');
-        $wishlist->product_id = $request->input('product_id');
-        $wishlist->save();
-
-        return redirect()->route('wishlists.index', [
-            'success' => 'update'
-        ]);
+        //
     }
 
     /**
@@ -92,9 +92,6 @@ class WishlistController extends Controller
      */
     public function destroy(string $id)
     {
-        // Find the wishlist by ID and delete it
-        Wishlist::findOrFail($id)->delete();
-
-        return redirect()->route('wishlists.index');
+        //
     }
 }

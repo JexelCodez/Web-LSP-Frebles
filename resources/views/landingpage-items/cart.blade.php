@@ -11,9 +11,13 @@
     <link rel="icon" type="image/png" href="{{ asset('assets/img/logos/frebles1hd.png') }}">
     <!-- Bootstrap Icons Library -->
     <link href="{{ ('node_modules/bootstrap-icons/font/bootstrap-icons.css') }}" rel="stylesheet">
+    <!-- Sweetalert -->
+    <script src="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.js"></script>
+    <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css">
+    
     <title>Frebles - Cart</title>
 </head>
-<body>
+<body id="master">
 <section class="h-100 h-custom" style="background-color: #eee;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -153,18 +157,38 @@
 
                   </div>
                 </div>
-
               </div>
-
             </div>
-
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Hidden Input Fields for Status and Message -->
+<input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
+<input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
+
 <!-- Bootstrap core JS -->
 <script src="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.js') }}"></script>
+
+<!-- Success Message Update -->
+    <script>
+        const masterBody = document.getElementById("master");
+        const sts = document.getElementById("sts");
+        const msg = document.getElementById("msg");
+
+        function saveMessage() {
+            if (sts.value == "save") {
+                swal('Success!', msg.value, 'success');
+            }
+        }
+
+        masterBody.onload = function() {
+            saveMessage();
+        };
+    </script>
+
 </body>
 </html>
