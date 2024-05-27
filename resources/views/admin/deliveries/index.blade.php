@@ -40,7 +40,6 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Order ID</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Customer Name</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email Address</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Phone Number</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Customer Address 1</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Customer Address 2</th>
@@ -57,7 +56,6 @@
                                             <td>{{ $index + 1 . ". "}}</td>
                                             <td>{{ $delivery->order_id }}</td>
                                             <td>{{ $delivery->name }}</td>
-                                            <td>{{ $delivery->email }}</td>
                                             <td>{{ $delivery->phone }}</td>
                                             <td>{{ $delivery->address1 }}</td>
                                             <td>{{ $delivery->address2 }}</td>

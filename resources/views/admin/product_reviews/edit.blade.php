@@ -77,6 +77,10 @@
         </div>
     </div>
 
+    <!-- Hidden Inputs for Status and Message -->
+    <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
+    <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
+
     <script>
         const btnSave = document.getElementById("save")
         const form = document.getElementById("frmProductReviewsEdit")
@@ -86,7 +90,6 @@
         let cmnt = document.getElementById("comment")
 
         function save(){
-            let pesan = ""
             if(csm.value == "") {
                 csm.focus()
                 swal("Incomplete data", "Please choose a customer!", "error")

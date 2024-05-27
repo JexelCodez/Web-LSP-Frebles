@@ -23,8 +23,13 @@
     <title>
         @yield('title')
     </title>
+
+    <!-- Master CSS  -->
+    <link href="{{ asset('assets/css/master.css') }}" rel="stylesheet" />
+
     <!-- Fonts and icons -->
-    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" /> -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    
     <!-- Nucleo Icons -->
     <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />

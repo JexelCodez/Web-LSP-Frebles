@@ -1,15 +1,15 @@
-@extends('user.master')
+@extends('admin.master')
 @section('title', 'Main Section')
 @section('nav')
-    @include('user.nav')
+    @include('admin.nav')
 @endsection
 @section('page', 'Product Reviews')
 @section('main')
-    @include('user.main')
+    @include('admin.main')
 
     <!-- Container -->
     <div class="container-fluid py-4">
-        <a href="{{ route('user.product-reviews.create') }}" class="btn btn-info mb-2">Add Review</a>
+        <a href="{{ route('admin.product-reviews.create') }}" class="btn btn-info mb-2">Add Review</a>
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
@@ -55,8 +55,8 @@
                                             <td>{{ $productReview->rating }}</td>
                                             <td>{{ $productReview->comment }}</td>
                                             <td class="align-middle text-center text-sm">
-                                                <a href="{{ route('user.product-reviews.edit', $productReview->id) }}" class="btn btn-sm btn-success">Edit</a>
-                                                <form action="{{ route('user.product-reviews.destroy', $productReview->id) }}" method="POST" style="display: inline;" id="frmDeleteProductReview{{ $productReview->id }}">
+                                                <a href="{{ route('admin.product-reviews.edit', $productReview->id) }}" class="btn btn-sm btn-success">Edit</a>
+                                                <form action="{{ route('admin.product-reviews.destroy', $productReview->id) }}" method="POST" style="display: inline;" id="frmDeleteProductReview{{ $productReview->id }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-sm btn-danger" onclick="deleteProductReviews( '{{ $productReview->id }}' )">Delete</button>
@@ -73,58 +73,12 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer pt-5">
-        <div class="container-fluid">
-            <div class="row align-items-center justify-content-lg-between">
-                <div class="col-lg-6 mb-lg-0 mb-4">
-                    <div class="copyright text-center text-sm text-muted text-lg-start">
-                        © <script>document.write(new Date().getFullYear())</script>,
-                        made with <i class="fa fa-heart"></i> by
-                        <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-                        for a better web.
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-
     <!-- Hidden Inputs for Status and Message -->
     <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
-    <input type="hidden" id="psn" class="form-control" value="{{ $pesan ?? '' }}" />
+    <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
 
 
     <!-- Success Message Update -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const params = new URLSearchParams(window.location.search);
-            const success = params.get('success');
-
-            if (success === 'update') {
-                // Show SweetAlert for successful update
-                swal('Success', 'Review has been updated!', 'success');
-            } else if (success === 'delete') {
-                // Show SweetAlert for successful delete
-                swal('Success', 'Review has been deleted successfully!', 'success');
-            }
-        });
-    </script>
 
     <!-- Delete Messages -->
     <script>

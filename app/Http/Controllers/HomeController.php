@@ -64,7 +64,7 @@ class HomeController extends Controller
         $quotes = [
             "The only way to do great work is to love what you do. - Steve Jobs",
             "Success is not how high you have climbed, but how you make a positive difference to the world. - Roy T. Bennett",
-            "Your time is limited, so don’t waste it living someone else’s life. - Steve Jobs",
+            "Your time is limited, so don't waste it living someone else's life. - Steve Jobs",
             "Life is what happens when you're busy making other plans. - John Lennon",
             "The purpose of our lives is to be happy. - Dalai Lama"
         ];

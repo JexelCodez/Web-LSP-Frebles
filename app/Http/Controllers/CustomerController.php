@@ -37,8 +37,6 @@ class CustomerController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:customers,email',
-            'password' => 'required|string|min:6',
             'phone' => 'required|string|max:20',
             'address1' => 'required|string|max:255',
             'address2' => 'nullable|string|max:255',
@@ -46,9 +44,8 @@ class CustomerController extends Controller
             'user_id' => 'required|integer|exists:users,id',
         ]);
 
-        $data = $request->only(['name', 'email', 'phone', 'address1', 'address2', 'address3']);
+        $data = $request->only(['name', 'phone', 'address1', 'address2', 'address3']);
 
-        $data['password'] = Hash::make($request->password); // Hash the password before storing
         $data['user_id'] = Auth::id();
 
         Customer::create($data);
@@ -58,14 +55,8 @@ class CustomerController extends Controller
         $user_id = auth()->user()->id;
         $carts = Cart::where('user_id', $user_id)->get();
         $customers = User::find($user_id)->customer()->first();
-        
-        return view ('landingpage-items.cart', [
-            'status' => 'save',
-            'message' => 'You have created your customer data! with the name "' . $request->name . '"',
-            'carts' => $carts,
-            'customers' => $customers,
-            'total_price' => $total_price
-        ]);
+
+        return redirect()->route('landingpage-items.cart');
     }
 
     /**

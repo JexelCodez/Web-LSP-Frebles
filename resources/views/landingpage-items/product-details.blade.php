@@ -28,7 +28,7 @@ https://templatemo.com/tm-589-lugx-gaming
 -->
   </head>
 
-<body id="master">
+<body>
 
   <!-- ***** Preloader Start ***** -->
   <div id="js-preloader" class="js-preloader">
@@ -72,8 +72,6 @@ https://templatemo.com/tm-589-lugx-gaming
                                       <!-- IF CONDITION 2 -->
                                       @if(Auth::user()->usertype == 'admin')
                                       <li><a href="{{ url('admin/dashboard') }}">Dashboard</a></li>
-                                      @else
-                                      <li><a href="{{ url('user/dashboard') }}">Dashboard</a></li>
                                       @endif
                                       <!-- END IF CONDITION 2 -->
 
@@ -124,42 +122,41 @@ https://templatemo.com/tm-589-lugx-gaming
           <!-- The Logic For Displaying Discount Price -->
           <!-- We use the number_format() function to format the prices with 2 decimal places. -->
           @if ($product->discounts->isNotEmpty())
-
-              <!-- Condition 2 -->
-              @if ($product->type === 'Fruit')
               @foreach ($product->discounts as $discount)
-                  <span class="price"><em>Rp{{ number_format($product->price, 0) }}/kg</em></span>
-                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}/kg</span>
+
+                  @if ($product->type === 'Fruit')
+                      <span class="price"><em>Rp{{ number_format($product->price, 0) }}/kg</em></span>
+                      <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}/kg</span>
+
+                  @elseif ($product->type === 'Vegetables')
+                      <span class="price"><em>Rp{{ number_format($product->price, 0) }}/bunch</em></span>
+                      <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}/bunch</span>
+
+                  @else
+                      <span class="price"><em>Rp{{ number_format($product->price, 0) }}/kg</em></span>
+                      <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}/kg</span>
+                  @endif
               @endforeach
+              
+          @else
+              @if ($product->type === 'Fruit')
+                  <span class="price">Rp{{ number_format($product->price, 0) }}/kg</span>
 
               @elseif ($product->type === 'Vegetables')
-              @foreach ($product->discounts as $discount)
-                  <span class="price"><em>Rp{{ number_format($product->price, 0) }}/bunch</em></span>
-                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}/bunch</span>
-              @endforeach
-
-              @else
-              @foreach ($product->discounts as $discount)
-                  <span class="price"><em>Rp{{ number_format($product->price, 0) }}/kg</em></span>
-                  <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}/kg</span>
-              @endforeach
-
-              @endif
-              <!-- End Condition 2 -->
-
+                  <span class="price">Rp{{ number_format($product->price, 0) }}/bunch</span>
+                  
               @else
                   <span class="price">Rp{{ number_format($product->price, 0) }}/kg</span>
+              @endif
           @endif
           <!-- End Logic For Displaying Discount Price -->
+
             
           <p>{{$product->description}}</p>
           <form id="stock_quantity" action="{{ route('landingpage-items.add-to-cart', $product->id) }}" method="POST">
             @csrf
             <input type="number" name="stock_quantity" class="form-control" id="stock_quantity" aria-describedby="stock_quantity" value="1" min="1">
-            <!-- <input type="qty" class="form-control" id="1" aria-describedby="quantity" placeholder="1"> -->
             <button type="submit" value="Add To Cart"><i class="fa fa-shopping-bag"></i> ADD TO CART</button>
-            <!-- <input type="submit" value="Add To Cart"> -->
-            <!-- <button type="submit"><i class="fa fa-shopping-bag"></i> ADD TO CART</button> -->
           </form>
           <ul>
             <li><span>Category:</span> {{$product->productCategories->category_name}}</li>
@@ -280,30 +277,6 @@ https://templatemo.com/tm-589-lugx-gaming
   <script src="{{ asset('landingpage/assets/js/owl-carousel.js') }}"></script>
   <script src="{{ asset('landingpage/assets/js/counter.js') }}"></script>
   <script src="{{ asset('landingpage/assets/js/custom.js') }}"></script>
-
-  <script>
-      // Function to update the cart item count
-      function updateCartItemCount() {
-          // Send an Ajax request to fetch the current cart item count
-          $.ajax({
-              url: "{{ route('landingpage-items.shop') }}", // Update the route with your actual route
-              method: "GET",
-              success: function(response) {
-                  // Update the cart item count displayed in the badge
-                  $('.cart-item-count').text(response.itemCount);
-              },
-              error: function(xhr, status, error) {
-                  // Handle error
-                  console.error(error);
-              }
-          });
-      }
-
-      // Update cart item count on page load
-      $(document).ready(function() {
-          updateCartItemCount();
-      });
-  </script>
   
   </body>
 </html>

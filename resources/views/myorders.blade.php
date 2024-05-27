@@ -1,106 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
 
-    <!-- Bootstrap core CSS -->
-    <link href="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{ asset('assets/img/logos/frebles1hd.png') }}">
-
-    <!-- Link to CSS file -->
-    <link rel="stylesheet" href="{{ asset('landingpage/assets/css/myorders.css') }}">
-
-    <title>Frebles - MyOrders</title>
-</head>
-<body>
-<section class="h-100 gradient-custom">
+    @foreach ($orders as $order)
+    <section class="h-100 h-custom" style="background-color: #eee;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-10 col-xl-8">
-        <div class="card" style="border-radius: 10px;">
-          <div class="card-header px-4 py-5">
-            <h5 class="text-muted mb-0">Thanks for your Order, <span style="color: #a8729a;">{{ Auth::user()->name }}</span>!</h5>
-          </div>
-          <div class="card-body p-4">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-              <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
-              <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p>
-            </div>
-            @foreach ($orders as $order)
-            <div class="card shadow-0 border mb-4">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-2">
-                    <img class="img-fluid" src="{{ asset('storage/' . $order->image1_url) }}" alt="product_image">
-                  </div>
-                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <p class="text-muted mb-0">{{ $order->product_name }}</p>
-                  </div>
-                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <p class="text-muted mb-0 small">{{ $order->category_name }}</p>
-                  </div>
-                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <p class="text-muted mb-0 small">{{ $order->payment_method }}</p>
-                  </div>
-                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <p class="text-muted mb-0 small">Qty: {{ $order->quantity }}</p>
-                  </div>
-                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <p class="text-muted mb-0 small">Rp{{ number_format($order->subtotal, 0) }}</p>
-                  </div>
-                </div>
-                <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
-                <div class="row d-flex align-items-center">
-                  <div class="col-md-2">
-                    <p class="text-muted mb-0 small">Track Order</p>
-                  </div>
-                  <div class="col-md-10">
-                    <div class="progress" style="height: 6px; border-radius: 16px;">
-                      <div class="progress-bar" role="progressbar"
-                        style="width: 65%; border-radius: 16px; background-color: #a8729a;" aria-valuenow="65"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="d-flex justify-content-around mb-1">
-                      <p class="text-muted mt-1 mb-0 small ms-xl-5">Out for delivery</p>
-                      <p class="text-muted mt-1 mb-0 small ms-xl-5">Delivered</p>
-                    </div>
-                  </div>
-                </div>
+      <div class="col-lg-8 col-xl-6">
+        <div class="card border-top border-bottom border-3" style="border-color: #f37a27 !important;">
+          <div class="card-body p-5">
+
+            <p class="lead fw-bold mb-5" style="color: #f37a27;">Purchase Reciept</p>
+
+            <div class="row">
+              <div class="col mb-3">
+                <p class="small text-muted mb-1">Date</p>
+                <p>{{ $order->order_date }}</p>
+              </div>
+              <div class="col mb-3">
+                <p class="small text-muted mb-1">Order No.</p>
+                <p>{{ $order->id }}</p>
               </div>
             </div>
-           @endforeach
             
+            @foreach ($order->orderDetails as $orderDetail)
+                <div class="mx-n5 px-5 py-4" style="background-color: #f2f2f2;">
+                    <div class="row">
+                        <div class="col-md-8 col-lg-9">
+                            <p>{{ $orderDetail->product->product_name }}</p>
+                        </div>
+                        <div class="col-md-4 col-lg-3">
+                            <p>Rp{{ number_format($orderDetail->product->price, 0) }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                    </div>
+                </div>
+            @endforeach
 
-            <div class="d-flex justify-content-between pt-2">
-              <p class="fw-bold mb-0">Order Details</p>
-              <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> $898.00</p>
+            <div class="row my-4">
+              <div class="col-md-4 offset-md-8 col-lg-3 offset-lg-9">
+                <p class="lead fw-bold mb-0" style="color: #f37a27;">Rp{{ number_format($order->total_amount, 0) }}</p>
+              </div>
             </div>
 
-            <div class="d-flex justify-content-between pt-2">
-              <p class="text-muted mb-0">Invoice Number : 788152</p>
-              <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $19.00</p>
+            <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Tracking Order</p>
+
+            <div class="row">
+              <div class="col-lg-12">
+
+                <div class="horizontal-timeline">
+
+                  <ul class="list-inline items d-flex justify-content-between">
+                    <li class="list-inline-item items-list">
+                      <p class="py-1 px-2 rounded text-white" style="background-color: #f37a27;">{{ $order->status }}</p
+                        class="py-1 px-2 rounded text-white" style="background-color: #f37a27;">
+                    </li>
+                  </ul>
+
+                </div>
+
+              </div>
             </div>
 
-            <div class="d-flex justify-content-between">
-              <p class="text-muted mb-0">Invoice Date : 22 Dec,2019</p>
-              <p class="text-muted mb-0"><span class="fw-bold me-4">GST 18%</span> 123</p>
-            </div>
+            <p class="mt-4 pt-2 mb-0">Want any help? <a href="{{ route('landingpage-items.contact') }}" style="color: #f37a27;">Please contact
+                us</a></p>
 
-            <div class="d-flex justify-content-between mb-5">
-              <p class="text-muted mb-0">Recepits Voucher : 18KU-62IIK</p>
-              <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
-            </div>
+                @if (!$order->payment)
+                  <a href="{{ route('landingpage-items.payment-form', $order->id) }}" class="btn btn-success mt-2">Select Payment Method</a>
+                @endif
           </div>
-          <div class="card-footer border-0 px-4 py-5"
-            style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-            <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
-              paid: <span class="h2 mb-0 ms-2">$1040</span></h5>
-          </div>
+          
+          @if ($order->status == 'Pending COD Payment')
+          <a href="{{ url('cancel_order', $order->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure to cancel this order?')">Cancel Order</a>
+
+          @elseif ($order->status == 'In Process')
+          <a href="{{ url('cancel_order', $order->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure to cancel this order?')">Cancel Order</a>
+
+          @else
+          <button type="button" class="btn btn-danger">Not Allowed</button>
+          @endif
+
         </div>
       </div>
     </div>
   </div>
 </section>
-</body>
-</html>
+@endforeach
+</x-app-layout>

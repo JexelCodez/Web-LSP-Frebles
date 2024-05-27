@@ -68,8 +68,6 @@ https://templatemo.com/tm-589-lugx-gaming
                                       <!-- IF CONDITION 2 -->
                                       @if(Auth::user()->usertype == 'admin')
                                       <li><a href="{{ url('admin/dashboard') }}">Dashboard</a></li>
-                                      @else
-                                      <li><a href="{{ url('user/dashboard') }}">Dashboard</a></li>
                                       @endif
                                       <!-- END IF CONDITION 2 -->
 

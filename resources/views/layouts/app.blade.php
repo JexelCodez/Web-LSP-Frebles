@@ -20,11 +20,20 @@
         <!-- Include SweetAlert JS -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-        <!-- Logo -->
+        <!-- Include Font Awesome -->
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{ asset('assets/img/logos/frebles1hd.png') }}">
 
+        <!-- Link to CSS file -->
+        <link rel="stylesheet" href="{{ asset('landingpage/assets/css/myorders.css') }}">
+        <link rel="stylesheet" href="{{ asset('landingpage/assets/css/mywishlist.css') }}">
+        <link rel="stylesheet" href="{{ asset('landingpage/assets/css/myreviews.css') }}">
+
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased" id="master">
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 

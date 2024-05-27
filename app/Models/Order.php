@@ -27,13 +27,13 @@ class Order extends Model
         return $this->hasOne(Deliveries::class);
     }
 
-    // public function payments()
-    // {
-    //     return $this->hasMany(Payments::class);
-    // }
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
 
-    // public function orderDetails()
-    // {
-    //     return $this->hasMany(Order_Details::class);
-    // }
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetails::class);
+    }
 }

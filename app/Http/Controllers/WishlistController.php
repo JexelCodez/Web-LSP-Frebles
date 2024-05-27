@@ -7,12 +7,26 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WishlistController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function showWish()
+    {
+        $user = Auth::user();
+        $userId = $user->id;
+
+        $wishlists = DB::table('vwwishlists')->where('customer_id', '=', $userId)->get();
+
+        return view('mywishlist', [
+            'wishlists' => $wishlists
+        ]);
+    }
+    
     public function index()
     {
         //
@@ -57,7 +71,7 @@ class WishlistController extends Controller
 
         return view ('landingpage-items.shop', [
             'status' => 'save',
-            'message' => 'You have wished for "' . $productId->product_name . '"',
+            'message' => 'You have wished for "' . $productId->product_name . '" check your wishlist!',
             'cartItemCount' => $cartItemCount,
             'products' => $products
         ]);

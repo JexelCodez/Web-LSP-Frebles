@@ -28,16 +28,7 @@ class ProductReviewsController extends Controller
      */
     public function create()
     {
-        $customers = Customer::all();
-        $products = Product::all();
-        $productCategories = ProductCategories::all();
-        
-        // Return the create view with customer and product data
-        return view('user.product_reviews.create', [
-            'customers' => $customers,
-            'products' => $products,
-            'productCategories' => $productCategories
-        ]);
+        //
     }
 
     /**
@@ -45,32 +36,7 @@ class ProductReviewsController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate and retrieve necessary request data
-        $request->validate([
-            'customer_id' => 'required|exists:customers,id',
-            'product_id' => 'required|exists:products,id',
-            'rating' => 'required|numeric|min:1|max:5',
-            'comment' => 'required|string|max:500',
-        ]);
-
-        $data['customer_id'] = $request->customer_id;
-        $data['product_id'] = $request->product_id;
-        $data['rating'] = $request->rating;
-        $data['comment'] = $request->comment;
-        // Create a new product review record
-        ProductReviews::create($data);
-        
-        // Variables to make the return work
-        $productId = Product::find($request->product_id);
-        $cartItemCount = '';
-        $products = Product::with('discounts')->paginate(10);
-
-        return view ('landingpage-items.shop', [
-            'status' => 'save',
-            'message' => 'Your review of "' . $productId->product_name . '" has been saved! Thank you for your input!',
-            'cartItemCount' => $cartItemCount,
-            'products' => $products
-        ]);
+        //
     }
 
     /**

@@ -17,10 +17,10 @@ class Payment extends Model
         'amount'
     ];
 
-    // public function order()
-    // {
-    //     return $this->belongsTo(Orders::class);
-    // }
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 
     // public function customer()
     // {

@@ -35,7 +35,7 @@ class SubscriptionController extends Controller
         
         // Optionally, send a confirmation email
         
-        return view ('landingpage');
+        return redirect()->route('landingpage');
     }
 
     /**

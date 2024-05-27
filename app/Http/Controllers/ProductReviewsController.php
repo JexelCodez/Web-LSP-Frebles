@@ -6,7 +6,9 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\ProductCategories;
 use App\Models\ProductReviews;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProductReviewsController extends Controller
@@ -14,6 +16,19 @@ class ProductReviewsController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function showReview()
+    {
+        $user = Auth::user();
+        $userId = $user->id;
+
+        $productReviews = DB::table('vwproductreviews')->where('customer_id', '=', $userId)->get();
+
+        return view('myreviews', [
+            'productReviews' => $productReviews
+        ]);
+    }
+
+     
     public function index()
     {
         $productReviews = DB::table('vwproductreviews')->get();
@@ -27,12 +42,24 @@ class ProductReviewsController extends Controller
      */
     public function create()
     {
+        $user_id = auth()->user()->id;
+        $customer = User::find($user_id)->customer()->first();
+
+        // If customer one of the customer data is null, redirect to a specific route
+        if ($customer === null || $customer->name === null) {
+            return redirect()->route('customers.create');
+        }
+
         $customers = Customer::all();
         $products = Product::all();
         $productCategories = ProductCategories::all();
         
         // Return the create view with customer and product data
-        return view('product_reviews.create', compact('customers', 'products', 'productCategories'));
+        return view('admin.product_reviews.create', [
+            'customers' => $customers,
+            'products' => $products,
+            'productCategories' => $productCategories
+        ]);
     }
 
     /**
@@ -44,8 +71,8 @@ class ProductReviewsController extends Controller
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
             'product_id' => 'required|exists:products,id',
-            'rating' => 'required|numeric|min:1|max:10',
-            'comment' => 'required|string|max:255',
+            'rating' => 'required|numeric|min:1|max:5',
+            'comment' => 'required|string|max:500',
         ]);
 
         $data['customer_id'] = $request->customer_id;
@@ -54,8 +81,18 @@ class ProductReviewsController extends Controller
         $data['comment'] = $request->comment;
         // Create a new product review record
         ProductReviews::create($data);
+        
+        // Variables to make the return work
+        $productId = Product::find($request->product_id);
+        $cartItemCount = '';
+        $products = Product::with('discounts')->paginate(10);
 
-        return redirect()->route('product-reviews.index')->with('success', 'Review created successfully!');
+        return view ('landingpage-items.shop', [
+            'status' => 'save',
+            'message' => 'Your review of "' . $productId->product_name . '" has been saved! Thank you for your input!',
+            'cartItemCount' => $cartItemCount,
+            'products' => $products
+        ]);
     }
 
     /**

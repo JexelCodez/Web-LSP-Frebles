@@ -1,8 +1,8 @@
-@extends('user.master')
+@extends('admin.master')
 @section('title', 'Create Section')
 @section('page', 'Create Product Reviews')
 @section('main')
-    @include('user.main')
+    @include('admin.main')
 
     <!-- Form for creating a new product review -->
     <div class="container-fluid py-4">
@@ -86,6 +86,7 @@
         </div>
     </div>
 
+    <!-- Hidden Inputs for Status and Message -->
     <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
     <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
 
@@ -99,7 +100,6 @@
         let cmnt = document.getElementById("comment")
 
         function save(){
-            let pesan = ""
             if(csm.value == "") {
                 csm.focus()
                 swal("Incomplete data", "Please choose a customer!", "error")

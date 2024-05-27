@@ -36,31 +36,37 @@ Route::post('add_cart/{id}', [CartController::class, 'AddToCart'])->name('landin
 Route::get('remove_cart/{id}', [CartController::class, 'removeCart'])->name('landingpage-items.remove-from-cart')->middleware(['auth']);
 
 // Payment Form Page
-Route::get('payment-form/{orderId}', [TransactionController::class, 'index'])->name('landingpage-items.payment-form');
-Route::get('cartOrder', [CartController::class, 'cartOrder'])->name('cart.order');
+Route::get('payment-form/{orderId}', [TransactionController::class, 'index'])->name('landingpage-items.payment-form')->middleware(['auth']);
+Route::get('cartOrder', [CartController::class, 'cartOrder'])->name('cart.order')->middleware(['auth']);
 
 // Payment Methods Route 
 Route::get('cashPayment/{orderId}', [TransactionController::class, 'CashOnDelivery'])->name('CashOnDelivery')->middleware(['auth']);
-Route::get('eWalletPayment/{orderId}', [TransactionController::class, 'eWallet'])->name('eWallet');
+Route::get('eWalletPayment/{orderId}', [TransactionController::class, 'eWallet'])->name('eWallet')->middleware(['auth']);
 
 // Deliver Product
-Route::get('deliver/initiate/{orderId}', [DeliverController::class, 'initiateDelivery'])->name('delivery.initiate');
+Route::get('deliver/initiate/{orderId}', [DeliverController::class, 'initiateDelivery'])->name('delivery.initiate')->middleware(['auth']);
 
 // Customers
-Route::get('customer/create', [App\Http\Controllers\CustomerController::class, 'create'])->name('customers.create');
-Route::post('customer', [App\Http\Controllers\CustomerController::class, 'store'])->name('customers.store');
+Route::get('customer/create', [App\Http\Controllers\CustomerController::class, 'create'])->name('customers.create')->middleware(['auth']);
+Route::post('customer', [App\Http\Controllers\CustomerController::class, 'store'])->name('customers.store')->middleware(['auth']);
 
 // Wishlists
-Route::get('wishlist/create', [App\Http\Controllers\WishlistController::class, 'create'])->name('wishlists.create');
-Route::post('wishlist', [App\Http\Controllers\WishlistController::class, 'store'])->name('wishlists.store');
+Route::get('wishlist/create', [App\Http\Controllers\WishlistController::class, 'create'])->name('wishlists.create')->middleware(['auth']);
+Route::post('wishlist', [App\Http\Controllers\WishlistController::class, 'store'])->name('wishlists.store')->middleware(['auth']);
 
 // Product Reviews
-Route::get('admin/product-reviews', [App\Http\Controllers\User\ProductReviewsController::class, 'index'])->name('product-reviews.index');
-Route::get('product-reviews/create', [App\Http\Controllers\User\ProductReviewsController::class, 'create'])->name('product-reviews.create');
-Route::post('product-reviews', [App\Http\Controllers\User\ProductReviewsController::class, 'store'])->name('product-reviews.store');
+Route::get('product-reviews/create', [App\Http\Controllers\ProductReviewsController::class, 'create'])->name('product-reviews.create')->middleware(['auth']);
+Route::post('product-reviews', [App\Http\Controllers\ProductReviewsController::class, 'store'])->name('product-reviews.store')->middleware(['auth']);
 
 // Orders Show To User
-Route::get('show_orders', [App\Http\Controllers\User\OrderController::class, 'showOrder'])->middleware(['auth'])->name('show_orders');
+Route::get('show_orders', [App\Http\Controllers\OrderController::class, 'showOrder'])->name('show_orders')->middleware(['auth']);
+Route::get('cancel_order/{id}', [App\Http\Controllers\OrderController::class, 'cancelOrder'])->name('cancel_order')->middleware(['auth']);
+
+// Wishlists Show To User
+Route::get('show_wishlists', [App\Http\Controllers\WishlistController::class, 'showWish'])->name('show_wishlists')->middleware(['auth']);
+
+// Reviews Show To User
+Route::get('show_reviews', [App\Http\Controllers\ProductReviewsController::class, 'showReview'])->name('show_reviews')->middleware(['auth']);
 
 // Payments
 // Route::get('admin/payments', [App\Http\Controllers\Admin\PaymentController::class, 'index'])->middleware(['auth'])->name('payments.index');

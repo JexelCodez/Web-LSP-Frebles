@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id'); // Define the user_id column
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name', 50);
-            $table->string('email', 255)->unique();
-            $table->string('password', 255);
+            // $table->string('email', 255)->unique();
+            // $table->string('password', 255);
             $table->string('phone', 20)->unique();
             $table->text('address1');
             $table->text('address2')->nullable();

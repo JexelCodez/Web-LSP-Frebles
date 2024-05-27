@@ -3,21 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.css') }}">
+
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="{{ asset('landingpage/assets/css/cart.css') }}">
+
     <!-- Frebles Logo Link -->
     <link rel="icon" type="image/png" href="{{ asset('assets/img/logos/frebles1hd.png') }}">
+
     <!-- Bootstrap Icons Library -->
     <link href="{{ ('node_modules/bootstrap-icons/font/bootstrap-icons.css') }}" rel="stylesheet">
+
     <!-- Sweetalert -->
     <script src="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.js"></script>
     <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{{ asset('landingpage/assets/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('landingpage/assets/css/templatemo-lugx-gaming.css') }}">
+    <link rel="stylesheet" href="{{ asset('landingpage/assets/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ asset('landingpage/assets/css/animate.css') }}">
+    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+
     
     <title>Frebles - Cart</title>
 </head>
 <body id="master">
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+  
 <section class="h-100 h-custom" style="background-color: #eee;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -35,11 +62,11 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                   <div>
                     <p class="mb-1">Shopping cart</p>
-                    <p class="mb-0">You have 4 items in your cart</p>
+                    <p class="mb-0">You have {{ $total_item }} items in your cart</p>
                   </div>
                   <div>
                     <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
-                        class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
+                        class="text-body">price</a></p>
                   </div>
                 </div>
 
@@ -63,7 +90,7 @@
                           <div style="width: 50px;">
                               <h5 class="fw-normal mb-0">{{ $cart->quantity }}</h5>
                           </div>
-                          <div style="width: 80px; overflow: hidden;">
+                          <div style="overflow: hidden;">
                               <h5 class="mb-0" style="white-space: nowrap;">Rp{{ number_format($cart->price, 0) }}</h5>
                           </div>
                           <!-- Make a link with red color trash can logo -->
@@ -94,12 +121,6 @@
                       </div>
 
                     <form class="mt-4">
-
-                      <hr class="my-4">
-                      <div class="mb-4">
-                        <label class="form-label" for="typeText">Customer's Email</label>
-                        <div>{{ $customers->email }}</div>
-                      </div>
                       
                       <hr class="my-4">
                       <div class="mb-4">
@@ -166,29 +187,36 @@
   </div>
 </section>
 
-<!-- Hidden Input Fields for Status and Message -->
-<input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
-<input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
+  <!-- Hidden Input Fields for Status and Message -->
+  <input type="hidden" id="sts" class="form-control" value="{{ $status ?? '' }}" />
+  <input type="hidden" id="msg" class="form-control" value="{{ $message ?? '' }}" />
 
-<!-- Bootstrap core JS -->
-<script src="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.js') }}"></script>
 
-<!-- Success Message Update -->
-    <script>
-        const masterBody = document.getElementById("master");
-        const sts = document.getElementById("sts");
-        const msg = document.getElementById("msg");
+  <!-- JS Link For Bootstrap -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{ asset('landingpage/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('landingpage/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('landingpage/assets/js/isotope.min.js') }}"></script>
+  <script src="{{ asset('landingpage/assets/js/owl-carousel.js') }}"></script>
+  <script src="{{ asset('landingpage/assets/js/counter.js') }}"></script>
+  <script src="{{ asset('landingpage/assets/js/custom.js') }}"></script>
 
-        function saveMessage() {
-            if (sts.value == "save") {
-                swal('Success!', msg.value, 'success');
-            }
-        }
+  <!-- Success Message Update -->
+      <script>
+          const masterBody = document.getElementById("master");
+          const sts = document.getElementById("sts");
+          const msg = document.getElementById("msg");
 
-        masterBody.onload = function() {
-            saveMessage();
-        };
-    </script>
+          function saveMessage() {
+              if (sts.value == "save") {
+                  swal('Success!', msg.value, 'success');
+              }
+          }
+
+          masterBody.onload = function() {
+              saveMessage();
+          };
+      </script>
 
 </body>
 </html>

@@ -50,14 +50,6 @@
               <label for="name">Name</label>
               <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name">
             </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="email" placeholder="Name@example.com" name="email">
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password">
-            </div>  
             <div class="form-group">
               <label for="phone">Phone Number</label>
               <input type="text" class="form-control" id="phone" placeholder="Enter your phone number" name="phone">
@@ -92,8 +84,6 @@
       const btnSave = document.getElementById("save")
       const form = document.getElementById("frmCustomerCreate")
       let nm = document.getElementById("name")
-      let mail = document.getElementById("email")
-      let passwd = document.getElementById("password")
       let phn = document.getElementById("phone")
       let addr = document.getElementById("address1")
 
@@ -101,12 +91,6 @@
           if (nm.value == ""){
           nm.focus()
           swal("Incomplete data", "Name must be filled", "error")
-          } else if (mail.value == ""){
-          mail.focus()
-          swal("Incomplete data", "Email must be filled", "error")
-          } else if (passwd.value == ""){
-          passwd.focus()
-          swal("Incomplete data", "Password must be filled", "error")
           } else if (phn.value == ""){
           phn.focus()
           swal("Incomplete data", "Phone number must be filled", "error")

@@ -17,32 +17,7 @@
         </div>
     </div>
 
-    <!-- <div class="flex items-center justify-center mt-4">
-        <x-primary-button class="ms-3">
-            <a href="{{ url('user/dashboard') }}">BACK FOR USER</a>
-        </x-primary-button>
-
-        @if(Auth::user()->usertype == 'admin')
-            <x-primary-button class="ms-3">
-                <a href="{{ url('admin/dashboard') }}">BACK FOR ADMIN</a>
-            </x-primary-button>
-        @else
-            <x-primary-button class="ms-3" onclick="displayAdminOnlyMessage()">
-                <a href="#">BACK FOR ADMIN</a>
-            </x-primary-button>
-        @endif
-    </div> -->
-
 </x-app-layout>
 
-<!-- <script>
-    function displayAdminOnlyMessage() {
-        Swal.fire({
-            icon: 'error',
-            title: 'Admin Only',
-            text: 'You need to be an admin to access this section.',
-            confirmButtonText: 'OK'
-        });
-    }
-</script> -->
+
 

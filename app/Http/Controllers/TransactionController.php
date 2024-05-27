@@ -6,6 +6,8 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -21,19 +23,19 @@ class TransactionController extends Controller
             return redirect()->route('landingpage-items.cart')->with('error', 'Order not found.');
         }
 
-        // Set your Merchant Server Key
+        // Generate a unique order ID for Midtrans
+        $uniqueOrderId = $order->id . '-' . time();
+
+        // Generate Snap token after order creation
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
         \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
         \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
         \Midtrans\Config::$is3ds = true;
 
         // Prepare payment parameters
         $params = [
             'transaction_details' => [
-                'order_id' => $order->id,
+                'order_id' => $uniqueOrderId,
                 'gross_amount' => $order->total_amount,
             ],
             'customer_details' => [
@@ -54,10 +56,8 @@ class TransactionController extends Controller
             'order' => $order,
             'payments' => $payments,
             'products' => $products,
-            'snapToken' => $snapToken,
+            'snapToken' => $snapToken
         ]);
-
-        return redirect()->route('landingpage')->with('success', 'Order placed successfully! Please check delivery status for more information.');
     }
 
 
@@ -92,56 +92,16 @@ class TransactionController extends Controller
         $order->status = 'Pending COD Payment';
         $order->save();
 
+        $user = Auth::user();
+        $userId = $user->id;
+        $orders = Order::with('orderDetails')->where('customer_id', $userId)->get();
         // Redirect to an order summary page with a success message
-        return redirect()->route('landingpage', $order->id)->with('success', 'Order placed successfully! Please check delivery status for more information.');
+        return view ('myorders', [
+            'status' => 'save',
+            'message' => 'You have finished your payment! Thank you for your patronage!! ',
+            'orders' => $orders
+        ]);
     }
-
-    /**
-     * Display the specified resource.
-     */
-
-    // public function eWallet(Request $request, $orderId)
-    // {
-
-    //     // Retrieve the order based on the provided ID
-    //     $order = Order::find($orderId);
-
-    //     if (!$order) {
-    //         return redirect()->back()->with('error', 'Order not found.');
-    //     }
-
-    //     // Set your Merchant Server Key
-    //     \Midtrans\Config::$serverKey = config('midtrans.server_key');
-    //     // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-    //     \Midtrans\Config::$isProduction = false;
-    //     // Set sanitization on (default)
-    //     \Midtrans\Config::$isSanitized = true;
-    //     // Set 3DS transaction for credit card to true
-    //     \Midtrans\Config::$is3ds = true;
-
-    //     // Prepare payment parameters
-    //     $params = [
-    //         'transaction_details' => [
-    //             'order_id' => $order->id,
-    //             'gross_amount' => $order->total_amount,
-    //         ],
-    //         'customer_details' => [
-    //             'first_name' => $order->customer->first_name,
-    //             'last_name' => $order->customer->last_name,
-    //             'email' => $order->customer->email,
-    //             'phone' => $order->customer->phone,
-    //         ],
-    //     ];
-
-    //     // Generate Snap token
-    //     $snapToken = \Midtrans\Snap::getSnapToken($params);
-    
-    //     // Pass the Snap token to the view
-    //     return view('landingpage', [
-    //         'snapToken' => $snapToken,
-    //         'order' => $order,
-    //     ]);
-    // }
 
     /**
      * Show the form for editing the specified resource.

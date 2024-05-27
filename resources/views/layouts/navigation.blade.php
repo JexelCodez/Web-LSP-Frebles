@@ -12,12 +12,12 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('landingpage')" :active="request()->routeIs('landingpage')">
+                    <x-nav-link :href="route('landingpage')" :active="request()->routeIs('landingpage')" class="no-underline">
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="no-underline">
                         {{ __('Profile ') }}
                     </x-nav-link>
                 </div>
@@ -25,13 +25,7 @@
                 <!-- IF CONDITION 2 -->
                 @if(Auth::user()->usertype == 'admin')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="url('admin/dashboard')" :active="request()->is('admin/dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
-                    </div>
-                @else
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="url('user/dashboard')" :active="request()->is('user/dashboard')">
+                        <x-nav-link :href="url('admin/dashboard')" :active="request()->is('admin/dashboard')" class="no-underline">
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     </div>
@@ -39,14 +33,20 @@
                 <!-- END IF CONDITION 2 -->
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('show_orders')" :active="request()->routeIs('show_orders')">
+                    <x-nav-link :href="route('show_orders')" :active="request()->routeIs('show_orders')" class="no-underline">
                         {{ __('Orders ') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('show_orders')" :active="request()->routeIs('show_orders')">
+                    <x-nav-link :href="route('show_wishlists')" :active="request()->routeIs('show_wishlists')" class="no-underline">
                         {{ __('Wishlists ') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('show_reviews')" :active="request()->routeIs('show_reviews')" class="no-underline">
+                        {{ __('Your Reviews ') }}
                     </x-nav-link>
                 </div>
                 
@@ -68,7 +68,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('profile.edit')" class="no-underline">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
@@ -78,7 +78,7 @@
 
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                                this.closest('form').submit();" class="no-underline">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>

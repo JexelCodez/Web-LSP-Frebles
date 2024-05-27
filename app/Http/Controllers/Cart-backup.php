@@ -17,7 +17,6 @@ class CartController extends Controller
     public function showCart()
     {
         $total_price = 0;
-        $total_item = 0;
         $user_id = auth()->user()->id;
         $carts = Cart::where('user_id', $user_id)->get();
         $customers = User::find($user_id)->customer()->first(); // Using ->first() to get a single customer
@@ -190,9 +189,6 @@ class CartController extends Controller
             return redirect()->back()->withErrors(['cart' => 'Failed to create order.']);
         }
 
-        // Generate a unique order ID for Midtrans
-        $uniqueOrderId = $order->id . '-' . time();
-
         // Generate Snap token after order creation
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = false;
@@ -202,7 +198,7 @@ class CartController extends Controller
         // Prepare payment parameters
         $params = [
             'transaction_details' => [
-                'order_id' => $uniqueOrderId,
+                'order_id' => $order->id,
                 'gross_amount' => $order->total_amount,
             ],
             'customer_details' => [
