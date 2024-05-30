@@ -22,7 +22,7 @@
       <ul class="navbar-nav">
       <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-4 mt-4 text-dark">Management</h6>
         <li class="nav-item">
-          <a class="nav-link  " href="{{ url('user/dashboard') }}">
+          <a class="nav-link  " href="{{ url('owner/dashboard') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <title>Dashboard</title>

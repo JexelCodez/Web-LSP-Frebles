@@ -21,7 +21,7 @@ class ProductReviewsController extends Controller
         $user = Auth::user();
         $userId = $user->id;
 
-        $productReviews = DB::table('vwproductreviews')->where('customer_id', '=', $userId)->get();
+        $productReviews = DB::table('vwproductreviews')->where('user_id', '=', $userId)->get();
 
         return view('myreviews', [
             'productReviews' => $productReviews
@@ -29,13 +29,28 @@ class ProductReviewsController extends Controller
     }
 
      
-    public function index()
+    public function deleteReview($id)
     {
-        $productReviews = DB::table('vwproductreviews')->get();
-        
-        // Pass the fetched data to the index view
-        return view('product_reviews.index', compact('productReviews'));
+        $productReview = ProductReviews::find($id);
+
+        if (!$productReview) {
+            // If the product review doesn't exist, return a response indicating that
+            return redirect()->back();
+        }
+
+        // Delete the product review
+        $productReview->delete();
+
+        // Fetch all product reviews and return to the view
+        $user = Auth::user();
+        $userId = $user->id;
+        $productReviews = DB::table('vwproductreviews')->where('customer_id', '=', $userId)->get();
+
+        return view('myreviews', [
+            'productReviews' => $productReviews
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

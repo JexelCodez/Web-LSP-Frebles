@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Customer;
 use App\Models\DiscountCategories;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductCategories;
 use App\Models\ProductReviews;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -16,9 +21,9 @@ class HomeController extends Controller
         return view ('admin.home');
     }
 
-    public function showUserDashboard()
+    public function showOwnerDashboard()
     {
-        return view ('user.home');
+        return view ('owner.home');
     }
 
     public function showShop()
@@ -86,6 +91,54 @@ class HomeController extends Controller
     public function showContact()
     {
         return view ('landingpage-items.contact');
+    }
+
+    public function searchAdminProduct(Request $request)
+    {   
+        $searchText = $request->search;
+
+        // $products = Product::where('product_name', 'LIKE', "%$searchText%")->get();
+        $products = DB::table('vwproducts')->where('product_name', 'LIKE', "%$searchText%")->get();
+
+        return view ('admin.products.index', [
+            'products' => $products,
+        ]);
+    }
+
+    public function searchAdminProductCategories(Request $request)
+    {   
+        $searchText = $request->search;
+
+        $productCategories = ProductCategories::where('category_name', 'LIKE', "%$searchText%")->get();
+        // $products = DB::table('vwproducts')->where('product_name', 'LIKE', "%$searchText%")->get();
+
+        return view ('admin.product-categories.index', [
+            'productCategories' => $productCategories,
+        ]);
+    }
+
+    public function searchAdminCustomer(Request $request)
+    {   
+        $searchText = $request->search;
+
+        $customers = Customer::where('name', 'LIKE', "%$searchText%")->get();
+        // $products = DB::table('vwproducts')->where('product_name', 'LIKE', "%$searchText%")->get();
+
+        return view ('admin.customers.index', [
+            'customers' => $customers,
+        ]);
+    }
+
+    public function searchAdminWishlist(Request $request)
+    {   
+        $searchText = $request->search;
+
+        // $wishlists = Customer::where('name', 'LIKE', "%$searchText%")->get();
+        $wishlists = DB::table('vwwishlists')->where('product_name', 'LIKE', "%$searchText%")->get();
+
+        return view ('admin.wishlists.index', [
+            'wishlists' => $wishlists,
+        ]);
     }
 
 }

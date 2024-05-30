@@ -34,10 +34,10 @@ class Product extends Model
         return $this->hasMany(Discount::class);
     }
 
-    // public function wishlists()
-    // {
-    //     return $this->hasMany(Wishlists::class);
-    // }
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 
     public function productReviews()
     {

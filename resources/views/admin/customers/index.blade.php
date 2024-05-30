@@ -28,9 +28,21 @@
                         </div>
                     @endif
 
+                    <!-- Search Bar -->
                     <div class="card-header pb-0">
-                        <h6>CUSTOMERS</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6>CUSTOMERS</h6>
+                            <form action="{{ url('search_admin_customer') }}" method="GET" class="input-group" style="max-width: 300px;">
+                                @csrf
+                                <input type="text" name="search" class="form-control" placeholder="Search customer...">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
+                    <!-- End of Search Bar -->
+
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
@@ -38,12 +50,10 @@
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email Address</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Phone Number</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Address 1</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Address 2</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Address 3</th>
-                                        <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,7 +61,6 @@
                                         <tr>
                                             <td class="text-center">{{ $index + 1 . ". "}}</td>
                                             <td>{{ $customer->name }}</td>
-                                            <td>{{ $customer->email }}</td>
                                             <td>{{ $customer->phone }}</td>
 
                                             <!-- Bootstrap Tooltip If String Exceeds A Certain Length -->

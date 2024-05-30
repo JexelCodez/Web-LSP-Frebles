@@ -20,16 +20,22 @@ class WishlistController extends Controller
         $user = Auth::user();
         $userId = $user->id;
 
-        $wishlists = DB::table('vwwishlists')->where('customer_id', '=', $userId)->get();
+        $wishlists = DB::table('vwwishlists')->where('user_id', '=', $userId)->get();
 
         return view('mywishlist', [
             'wishlists' => $wishlists
         ]);
     }
     
-    public function index()
+    public function deleteWish($id)
     {
-        //
+        Wishlist::find($id)->delete();
+        $user = Auth::user();
+        $userId = $user->id;
+        $wishlists = DB::table('vwwishlists')->where('customer_id', '=', $userId)->get();
+        return view ('mywishlist', [
+            'wishlists' => $wishlists
+        ]);
     }
 
     /**
@@ -65,6 +71,7 @@ class WishlistController extends Controller
         Wishlist::create($data);
 
         // Variables to make the return work
+        // $cartItemCount = 0;
         $cartItemCount = '';
         $productId = Product::find($request->product_id);
         $products = Product::with('discounts')->paginate(10);

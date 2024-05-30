@@ -30,9 +30,22 @@
 
             <div class="col-12">
                 <div class="card mb-4">
+
+                    <!-- Search Bar -->
                     <div class="card-header pb-0">
-                        <h6>DISCOUNT CATEGORIES</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6>DISCOUNT CATEGORIES</h6>
+                            <form action="{{ url('search') }}" method="GET" class="input-group" style="max-width: 300px;">
+                                @csrf
+                                <input type="text" name="search" class="form-control" placeholder="Search a category...">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
+                    <!-- End of Search Bar -->
+
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">

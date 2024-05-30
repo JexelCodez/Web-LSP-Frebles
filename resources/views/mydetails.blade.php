@@ -69,8 +69,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
-
+                                      @endforeach
+                                    
                                     <div class="d-flex justify-content-between pt-2">
                                         <p class="fw-bold mb-0">Order Details</p>
                                         <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> $898.00</p>

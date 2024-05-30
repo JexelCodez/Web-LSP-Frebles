@@ -27,6 +27,9 @@
         <link href="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{ asset('assets/img/logos/frebles1hd.png') }}">
 
+        <!-- Bootstrap icon library  -->
+        <link href="{{ ('node_modules/bootstrap-icons/font/bootstrap-icons.css') }}" rel="stylesheet">
+
         <!-- Link to CSS file -->
         <link rel="stylesheet" href="{{ asset('landingpage/assets/css/myorders.css') }}">
         <link rel="stylesheet" href="{{ asset('landingpage/assets/css/mywishlist.css') }}">

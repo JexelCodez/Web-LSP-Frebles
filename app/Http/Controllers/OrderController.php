@@ -14,11 +14,18 @@ class OrderController extends Controller
      */
     public function showOrder()
     {
+
+        // where: Filters based on conditions on the columns of the main model's table.
+        // whereHas: Filters based on the existence or properties of related models.
+
         $user = Auth::user();
         $userId = $user->id;
 
-        // $orders = DB::table('vworders')->where('customer_id', '=', $userId)->get();
-        $orders = Order::with('orderDetails')->where('customer_id', $userId)->get();
+        $orders = Order::with('orderDetails')
+            ->whereHas('customer', function ($query) use ($userId) {
+                $query->where('user_id', '=', $userId);
+            })
+            ->get();
 
         return view('myorders', [
             'orders' => $orders

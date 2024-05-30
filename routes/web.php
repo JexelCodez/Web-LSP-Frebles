@@ -24,6 +24,9 @@ Route::post('subscribe', [SubscriptionController::class, 'sendSubscription'])->m
 // Shop Page
 Route::get('shop', [HomeController::class, 'showShop'])->name('landingpage-items.shop');
 
+// Search Input
+Route::get('searchProduct', [ShopController::class, 'searchProduct'])->name('searchProduct');
+
 // Contact Page
 Route::get('contact', [HomeController::class, 'showContact'])->name('landingpage-items.contact');
 
@@ -64,9 +67,11 @@ Route::get('cancel_order/{id}', [App\Http\Controllers\OrderController::class, 'c
 
 // Wishlists Show To User
 Route::get('show_wishlists', [App\Http\Controllers\WishlistController::class, 'showWish'])->name('show_wishlists')->middleware(['auth']);
+Route::get('delete_wish/{id}', [App\Http\Controllers\WishlistController::class, 'deleteWish'])->name('delete_wish')->middleware(['auth']);
 
 // Reviews Show To User
 Route::get('show_reviews', [App\Http\Controllers\ProductReviewsController::class, 'showReview'])->name('show_reviews')->middleware(['auth']);
+Route::get('delete_review/{id}', [App\Http\Controllers\ProductReviewsController::class, 'deleteReview'])->name('delete_review')->middleware(['auth']);
 
 // Payments
 // Route::get('admin/payments', [App\Http\Controllers\Admin\PaymentController::class, 'index'])->middleware(['auth'])->name('payments.index');
@@ -84,14 +89,26 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Search Input
-Route::get('searchProduct', [ShopController::class, 'searchProduct'])->name('searchProduct');
-
 require __DIR__.'/auth.php';
 
 
 // Admin Auth //
 
+// Search Data
+Route::get('search_admin_product', [HomeController::class, 'searchAdminProduct'])->middleware(['auth']);
+Route::get('search_admin_product_categories', [HomeController::class, 'searchAdminProductCategories'])->middleware(['auth']);
+Route::get('search_admin_customer', [HomeController::class, 'searchAdminCustomer'])->middleware(['auth']);
+Route::get('search_admin_wishlist', [HomeController::class, 'searchAdminWishlist'])->middleware(['auth']);
+Route::get('search_admin_order', [HomeController::class, 'searchAdminOrder'])->middleware(['auth']);
+Route::get('search_admin_order_details', [HomeController::class, 'searchAdminOrderDetails'])->middleware(['auth']);
+Route::get('search_admin_delivery', [HomeController::class, 'searchAdminDelivery'])->middleware(['auth']);
+Route::get('search_admin_payment', [HomeController::class, 'searchAdminPayment'])->middleware(['auth']);
+Route::get('search_admin_discount', [HomeController::class, 'searchAdminDiscount'])->middleware(['auth']);
+Route::get('search_admin_discount_categories', [HomeController::class, 'searchAdminDiscountCategories'])->middleware(['auth']);
+
+// Admin Auth //
+
+// Route Data
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Admin-specific routes
     Route::get('dashboard', [HomeController::class, 'showAdminDashboard']);
@@ -133,7 +150,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
 // Owner Auth
 
-Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(function () {
-    // Admin-specific routes
-    Route::get('dashboard', [HomeController::class, 'showUserDashboard']);
+Route::middleware(['auth', 'owner'])->prefix('owner')->name('owner.')->group(function () {
+
+    // Owner-specific routes
+    Route::get('dashboard', [HomeController::class, 'showOwnerDashboard']);
 });

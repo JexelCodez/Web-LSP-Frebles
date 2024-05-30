@@ -1,15 +1,12 @@
-
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Wishlist') }}
         </h2>
     </x-slot>
 
     <div class="py-3 py-md-5 bg-light">
         <div class="container">
-    
             <div class="row">
                 <div class="col-md-12">
                     <div class="shopping-cart">
@@ -23,7 +20,7 @@
                                     <h4>Price</h4>
                                 </div>
                                 <div class="col-md-2">
-                                    <h4>Quantity</h4>
+                                    <h4>Category</h4>
                                 </div>
                                 <div class="col-md-2">
                                     <h4>Remove</h4>
@@ -31,110 +28,40 @@
                             </div>
                         </div>
 
-                        <div class="cart-item">
-                            <div class="row">
-                                <div class="col-md-6 my-auto">
-                                    <a href="">
-                                        <label class="product-name">
-                                            <img src="hp-laptop.jpg" style="width: 50px; height: 50px" alt="">
-                                            Hp Laptop
-                                        </label>
-                                    </a>
-                                </div>
-                                <div class="col-md-2 my-auto">
-                                    <label class="price">$569 </label>
-                                </div>
-                                <div class="col-md-2 col-7 my-auto">
-                                    <div class="quantity">
-                                        <div class="input-group">
-                                            <span class="btn btn1"><i class="fa fa-minus"></i></span>
-                                            <input type="text" value="1" class="input-quantity" />
+                        @foreach ($wishlists as $wishlist)
+                            <div class="cart-item">
+                                <div class="row">
+                                    <div class="col-md-6 my-auto">
+                                        <a href="{{ route('landingpage-items.product-details', $wishlist->product_id) }}">
+                                            <label class="product-name">
+                                                <img src="{{ asset('storage/' . $wishlist->image1_url) }}" style="width: 50px; height: 50px" alt="product_image">
+                                                {{ $wishlist->product_name }}
+                                            </label>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        <label class="price">Rp{{ number_format($wishlist->price, 0) }} </label>
+                                    </div>
 
-                                            <span class="btn btn1"><i class="fa fa-plus"></i></span>
-                                        </div>
+                                    <div class="col-md-2 my-auto">
+                                        <label class="price">{{ $wishlist->category_name }} </label>
                                     </div>
-                                </div>
-                                <div class="col-md-2 col-5 my-auto">
-                                    <div class="remove">
-                                        <a href="" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-trash"></i> Remove
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cart-item">
-                            <div class="row">
-                                <div class="col-md-6 my-auto">
-                                    <a href="">
-                                        <label class="product-name">
-                                            <img src="hp-laptop.jpg" style="width: 50px; height: 50px" alt="">
-                                            Hp Laptop
-                                        </label>
-                                    </a>
-                                </div>
-                                <div class="col-md-2 my-auto">
-                                    <label class="price">$569 </label>
-                                </div>
-                                <div class="col-md-2 col-7 my-auto">
-                                    <div class="quantity">
-                                        <div class="input-group">
-                                            <span class="btn btn1"><i class="fa fa-minus"></i></span>
-                                            <input type="text" value="1" class="input-quantity" />
-                                            <span class="btn btn1"><i class="fa fa-plus"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2 col-5 my-auto">
-                                    <div class="remove">
-                                        <a href="" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-trash"></i> Remove
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cart-item">
-                            <div class="row">
-                                <div class="col-md-6 my-auto">
-                                    <a href="">
-                                        <label class="product-name">
-                                            <img src="hp-laptop.jpg" style="width: 50px; height: 50px" alt="">
-                                            Hp Laptop
-                                        </label>
-                                    </a>
-                                </div>
-                                <div class="col-md-2 my-auto">
-                                    <label class="price">$569 </label>
-                                </div>
-                                <div class="col-md-2 col-7 my-auto">
-                                    <div class="quantity">
-                                        <div class="input-group">
-                                            <span class="btn btn1"><i class="fa fa-minus"></i></span>
-                                            <input type="text" value="1" class="input-quantity" />
 
-                                            <span class="btn btn1"><i class="fa fa-plus"></i></span>
+                                    <div class="col-md-2 col-5 my-auto">
+                                        <div class="remove">
+                                            <a href="{{ url('delete_wish', $wishlist->id) }}" class="btn btn-danger btn-sm">
+                                                <i class="fa fa-trash"></i> Remove
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2 col-5 my-auto">
-                                    <div class="remove">
-                                        <a href="" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-trash"></i> Remove
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
-                        </div>
-                                
+                        @endforeach
+
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
 </x-app-layout>
-
-
-

@@ -24,9 +24,21 @@
                         </div>
                     @endif
 
+                    <!-- Search Bar -->
                     <div class="card-header pb-0">
-                        <h6>PRODUCT CATEGORIES</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6>PRODUCT CATEGORIES</h6>
+                            <form action="{{ url('search_admin_product_categories') }}" method="GET" class="input-group" style="max-width: 300px;">
+                                @csrf
+                                <input type="text" name="search" class="form-control" placeholder="Search a category...">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
+                    <!-- End of Search Bar -->
+
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive">
                             <table class="table align-items-center mb-0">

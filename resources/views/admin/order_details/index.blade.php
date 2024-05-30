@@ -33,7 +33,6 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Image Example 4</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Image Example 5</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Customer's Name</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Customer's Email</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Customer's Phone Number</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Customer's Address 1</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Customer's Address 2</th>
@@ -56,7 +55,6 @@
                                             <td><img src="{{ asset('storage/' . $orderDetail->image4_url) }}" class="img-thumbnail"></td>
                                             <td><img src="{{ asset('storage/' . $orderDetail->image5_url) }}" class="img-thumbnail"></td>
                                             <td>{{ $orderDetail->name }}</td>
-                                            <td>{{ $orderDetail->email }}</td>
                                             <td>{{ $orderDetail->phone }}</td>
                                             <td>{{ $orderDetail->address1 }}</td>
                                             <td>{{ $orderDetail->address2 }}</td>

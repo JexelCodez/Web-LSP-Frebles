@@ -96,7 +96,7 @@ class TransactionController extends Controller
         $userId = $user->id;
         $orders = Order::with('orderDetails')->where('customer_id', $userId)->get();
         // Redirect to an order summary page with a success message
-        return view ('myorders', [
+        return view ('show_orders', [
             'status' => 'save',
             'message' => 'You have finished your payment! Thank you for your patronage!! ',
             'orders' => $orders
