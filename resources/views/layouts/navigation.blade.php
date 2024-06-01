@@ -29,6 +29,12 @@
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     </div>
+                @elseif(Auth::user()->usertype == 'owner')
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="url('owner/dashboard')" :active="request()->is('owner/dashboard')" class="no-underline">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    </div>
                 @endif
                 <!-- END IF CONDITION 2 -->
 

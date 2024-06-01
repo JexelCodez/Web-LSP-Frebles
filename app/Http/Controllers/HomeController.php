@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\DiscountCategories;
-use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\ProductCategories;
 use App\Models\ProductReviews;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,23 @@ class HomeController extends Controller
 
     public function showOwnerDashboard()
     {
-        return view ('owner.home');
+        $currentDate = Carbon::today();
+
+        $todayPayments = Payment::whereDate('created_at', $currentDate)->get();
+        $totalTodayAmount = $todayPayments->sum('amount');
+
+        $totalAmount = Payment::sum('amount');
+
+        $totalUser = User::where('usertype', 'user')->get()->count();
+        $todayUsers = User::whereDate('created_at', $currentDate)->get();
+        
+
+        return view ('owner.home', [
+            'totalUser' => $totalUser,
+            'todayUsers' => $todayUsers,
+            'totalAmount' => $totalAmount,
+            'totalTodayAmount' => $totalTodayAmount
+        ]);
     }
 
     public function showShop()
@@ -91,6 +108,16 @@ class HomeController extends Controller
     public function showContact()
     {
         return view ('landingpage-items.contact');
+    }
+
+    public function showProfile()
+    {
+        $user_id = auth()->user()->id;
+        $customers = Customer::where('user_id', $user_id)->get();
+
+        return view ('dashboard', [
+            'customers' => $customers
+        ]);
     }
 
     public function searchAdminProduct(Request $request)

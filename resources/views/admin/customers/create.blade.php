@@ -68,7 +68,7 @@
             </div>
             <div class="card-footer">
               <button type="button" class="btn btn-primary" id="save">Save</button>
-              <a href="{{ route('landingpage-items.shop') }}" class="btn btn-default">Cancel</a>
+              <a href="{{ route('landingpage') }}" class="btn btn-default">Cancel</a>
           </div>
         </div>
         </form>

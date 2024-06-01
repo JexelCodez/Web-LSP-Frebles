@@ -147,6 +147,7 @@ https://templatemo.com/tm-589-lugx-gaming
                             <p class="card-text">
                                 @if ($product->discounts->isNotEmpty())
                                     @foreach ($product->discounts as $discount)
+                                        <span class="badge bg-info">{{ $discount->discountCategory->category_name }}</span>
                                         <span class="badge bg-danger">{{ $discount->percentage }}% Off</span>
                                         <del class="text-muted">Rp{{ number_format($product->price), 0 }}</del>
                                         <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}</span>

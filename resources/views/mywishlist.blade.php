@@ -27,37 +27,44 @@
                                 </div>
                             </div>
                         </div>
+                        @if ($wishlists->isNotEmpty())
+                            @foreach ($wishlists as $wishlist)
+                                <div class="cart-item">
+                                    <div class="row">
+                                        <div class="col-md-6 my-auto">
 
-                        @foreach ($wishlists as $wishlist)
-                            <div class="cart-item">
-                                <div class="row">
-                                    <div class="col-md-6 my-auto">
-                                        <a href="{{ route('landingpage-items.product-details', $wishlist->product_id) }}">
-                                            <label class="product-name">
-                                                <img src="{{ asset('storage/' . $wishlist->image1_url) }}" style="width: 50px; height: 50px" alt="product_image">
-                                                {{ $wishlist->product_name }}
-                                            </label>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-2 my-auto">
-                                        <label class="price">Rp{{ number_format($wishlist->price, 0) }} </label>
-                                    </div>
-
-                                    <div class="col-md-2 my-auto">
-                                        <label class="price">{{ $wishlist->category_name }} </label>
-                                    </div>
-
-                                    <div class="col-md-2 col-5 my-auto">
-                                        <div class="remove">
-                                            <a href="{{ url('delete_wish', $wishlist->id) }}" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-trash"></i> Remove
+                                            @if($wishlist->product_id)
+                                            <a href="{{ route('landingpage-items.product-details', $wishlist->product_id) }}">
+                                                <label class="product-name">
+                                                    <img src="{{ asset('storage/' . $wishlist->image1_url) }}" style="width: 50px; height: 50px" alt="product_image">
+                                                    {{ $wishlist->product_name }}
+                                                </label>
                                             </a>
+                                            @else
+                                                <span>{{ $wishlist->product_name }}</span>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-2 my-auto">
+                                            <label class="price">Rp{{ number_format($wishlist->price, 0) }} </label>
+                                        </div>
+
+                                        <div class="col-md-2 my-auto">
+                                            <label class="price">{{ $wishlist->category_name }} </label>
+                                        </div>
+
+                                        <div class="col-md-2 col-5 my-auto">
+                                            <div class="remove">
+                                                <a href="{{ url('delete_wish', $wishlist->id) }}" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash"></i> Remove
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-
+                            @endforeach
+                        @else
+                            <p class="text-center p-3 bg-light border rounded shadow-sm">No Orders found</p>
+                        @endif
                     </div>
                 </div>
             </div>

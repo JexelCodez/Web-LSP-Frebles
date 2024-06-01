@@ -125,14 +125,17 @@ https://templatemo.com/tm-589-lugx-gaming
               @foreach ($product->discounts as $discount)
 
                   @if ($product->type === 'Fruit')
+                      <span class="badge bg-info"><em>{{ $discount->discountCategory->category_name }}</em></span>
                       <span class="price"><em>Rp{{ number_format($product->price, 0) }}/kg</em></span>
                       <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}/kg</span>
 
                   @elseif ($product->type === 'Vegetables')
+                      <span class="badge bg-info"><em>{{ $discount->discountCategory->category_name }}</em></span>
                       <span class="price"><em>Rp{{ number_format($product->price, 0) }}/bunch</em></span>
                       <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}/bunch</span>
 
                   @else
+                      <span class="badge bg-info"><em>{{ $discount->discountCategory->category_name }}</em></span>
                       <span class="price"><em>Rp{{ number_format($product->price, 0) }}/kg</em></span>
                       <span class="discounted-price">Rp{{ number_format($product->price - ($product->price * $discount->percentage / 100), 0) }}/kg</span>
                   @endif

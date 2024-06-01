@@ -18,10 +18,10 @@ class Discount extends Model
         'percentage'
     ];
 
-    // public function discountCategoryRelationship()
-    // {
-    //     return $this->belongsTo(Discount_Categories::class, 'category_discount_id');
-    // }
+    public function discountCategory()
+    {
+        return $this->belongsTo(DiscountCategories::class, 'category_discount_id');
+    }
 
     // Define the relationship with Products
     public function product()

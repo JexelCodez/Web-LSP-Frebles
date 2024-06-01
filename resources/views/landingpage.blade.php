@@ -74,6 +74,8 @@
                                       <!-- IF CONDITION 2 -->
                                       @if(Auth::user()->usertype == 'admin')
                                       <li><a href="{{ url('admin/dashboard') }}">Dashboard</a></li>
+                                      @elseif(Auth::user()->usertype == 'owner')
+                                      <li><a href="{{ url('owner/dashboard') }}">Dashboard</a></li>
                                       @endif
                                       <!-- END IF CONDITION 2 -->
 

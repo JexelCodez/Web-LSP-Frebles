@@ -49,7 +49,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Money</p>
                     <h5 class="font-weight-bolder mb-0">
-                      $53,000
+                      Rp{{ number_format($totalTodayAmount, 0) }}
                       <span class="text-success text-sm font-weight-bolder">+55%</span>
                     </h5>
                   </div>
@@ -71,7 +71,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Users</p>
                     <h5 class="font-weight-bolder mb-0">
-                      2,300
+                      {{ $todayUsers->count() }}
                       <span class="text-success text-sm font-weight-bolder">+3%</span>
                     </h5>
                   </div>
@@ -93,7 +93,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">New Clients</p>
                     <h5 class="font-weight-bolder mb-0">
-                      +3,462
+                      +{{ $totalUser }}
                       <span class="text-danger text-sm font-weight-bolder">-2%</span>
                     </h5>
                   </div>
@@ -115,7 +115,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Sales</p>
                     <h5 class="font-weight-bolder mb-0">
-                      $103,430
+                      Rp{{ number_format($totalAmount, 0) }}
                       <span class="text-success text-sm font-weight-bolder">+5%</span>
                     </h5>
                   </div>

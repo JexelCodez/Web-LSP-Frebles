@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('quantity');
-            $table->decimal('subtotal', 10, 2);
+            $table->integer('subtotal');
             $table->timestamps();
         });
     }

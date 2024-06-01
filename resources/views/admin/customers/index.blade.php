@@ -59,7 +59,7 @@
                                 <tbody>
                                     @foreach ($customers as $index => $customer)
                                         <tr>
-                                            <td class="text-center">{{ $index + 1 . ". "}}</td>
+                                            <td>{{ $index + 1 . ". "}}</td>
                                             <td>{{ $customer->name }}</td>
                                             <td>{{ $customer->phone }}</td>
 

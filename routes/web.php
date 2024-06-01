@@ -78,9 +78,14 @@ Route::get('delete_review/{id}', [App\Http\Controllers\ProductReviewsController:
 
 
 // Dashboard for owner
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard', [HomeController::class, 'showProfile'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
 
 // Built-in from Breeze
 Route::middleware('auth')->group(function () {

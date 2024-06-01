@@ -23,7 +23,7 @@ class WishlistController extends Controller
         $wishlists = DB::table('vwwishlists')->where('user_id', '=', $userId)->get();
 
         return view('mywishlist', [
-            'wishlists' => $wishlists
+            'wishlists' => $wishlists,
         ]);
     }
     

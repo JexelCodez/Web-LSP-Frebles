@@ -93,6 +93,6 @@
   </section>
   @endforeach
 @else
-  <p>No Orders found</p>
+  <p class="text-center p-3 bg-light border rounded shadow-sm">No Orders found</p>
 @endif
 </x-app-layout>
