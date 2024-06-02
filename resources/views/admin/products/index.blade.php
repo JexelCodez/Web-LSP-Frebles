@@ -51,6 +51,7 @@
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vendor</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product Name</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price</th>
@@ -69,6 +70,7 @@
                                         <tr>
                                             <td class="text-center">{{ $index + 1 . ". "}}</td>
                                             <td class="text-center">{{ $product->category_name }}</td>
+                                            <td class="text-center">{{ $product->name }}</td>
 
                                             <!-- Bootstrap Tooltip If String Exceeds A Certain Length -->
                                             @if (strlen($product->product_name) > 18)

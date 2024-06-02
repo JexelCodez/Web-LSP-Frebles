@@ -12,6 +12,7 @@ class Product extends Model
     protected $table = 'products';
     protected $fillable = [
         'product_category_id',
+        'vendor_id',
         'product_name',
         'description',
         'price',
@@ -23,6 +24,11 @@ class Product extends Model
         'image5_url',
         'type'        
     ];
+
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
 
     public function productCategories()
     {

@@ -39,6 +39,17 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            <label for="vendor_id" class="form-label">Product's Vendor</label>
+                            <select class="form-select" id="vendor_id" name="vendor_id">
+                                <option value="" selected disabled>Choose a vendor...</option>
+                                @foreach ($vendors as $vendor)
+                                    <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label for="product_name">Product Name</label>
                             <input type="text" class="form-control" id="product_name" placeholder="Enter the product name" name="product_name" value="{{ old('product_name') }}">
@@ -103,6 +114,7 @@
         const btnSave = document.getElementById("save")
         const form = document.getElementById("frmProductCreate")
         let productCategory = document.getElementById("product_category_id")
+        let vendorId = document.getElementById("vendor_id")
         let prd = document.getElementById("product_name")
         let desc = document.getElementById("description")
         let prc = document.getElementById("price")
@@ -111,7 +123,10 @@
         function save(){
             if(productCategory.value == "") {
                 productCategory.focus()
-                swal("Incomplete data", "Please choose a the product's category", "error")
+                swal("Incomplete data", "Please choose the product's category", "error")
+            } else if(vendorId.value == "") {
+                vendorId.focus()
+                swal("Incomplete data", "Please choose the product's vendor", "error")
             } else if(prd.value == "") {
                 prd.focus()
                 swal("Incomplete data", "The product name must be filled!", "error")

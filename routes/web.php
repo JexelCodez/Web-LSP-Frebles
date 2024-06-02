@@ -52,6 +52,9 @@ Route::get('deliver/initiate/{orderId}', [DeliverController::class, 'initiateDel
 // Customers
 Route::get('customer/create', [App\Http\Controllers\CustomerController::class, 'create'])->name('customers.create')->middleware(['auth']);
 Route::post('customer', [App\Http\Controllers\CustomerController::class, 'store'])->name('customers.store')->middleware(['auth']);
+Route::get('customer/edit/{id}', [App\Http\Controllers\CustomerController::class, 'edit'])->name('customers.edit')->middleware(['auth']);
+Route::put('customer/edit/{id}', [App\Http\Controllers\CustomerController::class, 'update'])->name('customers.update')->middleware(['auth']);
+Route::delete('customer/{id}', [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customers.destroy')->middleware(['auth']);
 
 // Wishlists
 Route::get('wishlist/create', [App\Http\Controllers\WishlistController::class, 'create'])->name('wishlists.create')->middleware(['auth']);
@@ -117,6 +120,9 @@ Route::get('search_admin_discount_categories', [HomeController::class, 'searchAd
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Admin-specific routes
     Route::get('dashboard', [HomeController::class, 'showAdminDashboard']);
+
+    // Vendors
+    Route::resource('vendors', App\Http\Controllers\Admin\VendorController::class);
 
     // Discount Categories
     Route::resource('discount-categories', App\Http\Controllers\Admin\DiscountCategoriesController::class);

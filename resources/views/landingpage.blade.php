@@ -105,8 +105,8 @@
         <div class="col-lg-6 align-self-center">
           <div class="caption header-text">
             <h6>Welcome to Fresh Fruit and Vegetables Online</h6>
-            <h2>BEST SELLING SITE EVER!</h2>
-            <p>"Welcome to Frebles, your fresh produce paradise! At Frebles, we're passionate about providing you with the finest selection of farm-fresh fruits and vegetables, handpicked just for you. Dive into our vibrant array of seasonal delights, from juicy berries to crisp greens and everything in between. With Frebles, you're not just getting groceries - you're embarking on a journey of flavor, quality, and wholesome goodness. Explore our online market and discover the joy of bringing nature's bounty straight to your doorstep. Let's make every meal a masterpiece together at Frebles - where freshness meets convenience, and every bite is a celebration!"</p>
+            <h2>WEBSITE PALING SEDERHANA UNTUK ANDA!</h2>
+            <p>"Selamat datang di Frebles, surga produk segar Anda! Di Frebles, kami bersemangat menyediakan pilihan buah dan sayuran segar terbaik untuk Anda, dipetik langsung dari kebun. Nikmati beragam pilihan musiman kami yang penuh warna, mulai dari beri yang juicy hingga sayuran yang renyah, dan semuanya di antaranya. Dengan Frebles, Anda tidak hanya mendapatkan bahan makanan - Anda memulai perjalanan rasa, kualitas, dan kebaikan alami. Jelajahi pasar online kami dan temukan kebahagiaan membawa hasil alam langsung ke pintu rumah Anda. Mari kita buat setiap hidangan menjadi mahakarya bersama di Frebles - di mana kesegaran bertemu dengan kenyamanan, dan setiap gigitan adalah perayaan!"</p>
           </div>
         </div>
         <div class="col-lg-4 offset-lg-2">

@@ -27,6 +27,9 @@
     <!-- Master CSS  -->
     <link href="{{ asset('assets/css/master.css') }}" rel="stylesheet" />
 
+    <!-- Bootstrap icon library  -->
+    <link href="{{ ('node_modules/bootstrap-icons/font/bootstrap-icons.css') }}" rel="stylesheet">
+
     <!-- Fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     

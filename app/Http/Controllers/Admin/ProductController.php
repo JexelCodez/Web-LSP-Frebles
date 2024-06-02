@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductCategories;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -27,9 +28,11 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $vendors = Vendor::all();
         $productCategories = ProductCategories::all();
         return view('admin.products.create', [
-            'productCategories' => $productCategories
+            'productCategories' => $productCategories,
+            'vendors' => $vendors
         ]);
     }
 
@@ -45,6 +48,7 @@ class ProductController extends Controller
                 Rule::unique('products')->ignore($request->id),
             ],
             'product_category_id' => 'required|exists:product_categories,id',
+            'vendor_id' => 'required|exists:vendors,id',
             'price' => 'required|numeric|min:0',
             'stock_quantity' => 'nullable|numeric|min:0',
             'description' => 'required|string|max:500',
@@ -58,7 +62,7 @@ class ProductController extends Controller
     
         ['product_name.unique' => 'The product name already exists.']);
 
-        $data = $request->only(['product_name', 'product_category_id', 'price', 'description', 'type']);
+        $data = $request->only(['product_name', 'product_category_id', 'vendor_id', 'price', 'description', 'type']);
 
         $data['stock_quantity'] = 0;
 
@@ -102,10 +106,12 @@ class ProductController extends Controller
     {
         $products = Product::findOrFail($id);
         $productCategories = ProductCategories::all();
+        $vendors = Vendor::all();
 
         return view('admin.products.edit', [
             'products' => $products,
-            'productCategories' => $productCategories
+            'productCategories' => $productCategories,
+            'vendors' => $vendors
         ]);
     }
 
@@ -117,6 +123,7 @@ class ProductController extends Controller
         $request->validate([
             'product_name' => 'required|string|max:255',
             'product_category_id' => 'required|exists:product_categories,id',
+            'vendor_id' => 'required|exists:vendors,id',
             'price' => 'required|numeric|min:0',
             'stock_quantity' => 'nullable|numeric|min:0',
             'description' => 'required|string|max:500',
@@ -131,6 +138,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->product_name = $request->input('product_name');
         $product->product_category_id = $request->input('product_category_id');
+        $product->vendor_id = $request->input('vendor_id');
         $product->price = $request->input('price');
         $product->stock_quantity = $request->input('stock_quantity') ?? 0;
         $product->description = $request->input('description');

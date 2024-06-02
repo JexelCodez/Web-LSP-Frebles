@@ -39,6 +39,7 @@
                                 @endforeach
                             </select>
                         </div>
+
                         <div class="form-group">
                             <label for="order_date">Order Date</label>
                             <input type="datetime-local" class="form-control" id="order_date" name="order_date">

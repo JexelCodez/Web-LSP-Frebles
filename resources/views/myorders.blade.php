@@ -38,7 +38,9 @@
                           <div class="col-md-5 col-lg-5">
                               <p>Rp{{ number_format($orderDetail->subtotal, 0) }}</p>
                           </div>
+                          <p>Dijual Oleh : {{ $orderDetail->product->vendor->name }}</p>
                       </div>
+                      <hr>
                       <div class="row">
                       </div>
                   </div>
@@ -93,6 +95,6 @@
   </section>
   @endforeach
 @else
-  <p class="text-center p-3 bg-light border rounded shadow-sm">No Orders found</p>
+  <p class="text-center p-3 bg-light border rounded shadow-sm">No orders found</p>
 @endif
 </x-app-layout>

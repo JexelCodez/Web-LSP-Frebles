@@ -57,7 +57,7 @@ class CustomerController extends Controller
 
         Customer::create($data);
 
-        return redirect()->route('landingpage-items.cart');
+        return redirect()->route('landingpage');
     }
 
 
@@ -74,7 +74,10 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $customers = Customer::findOrFail($id);
+        return view('admin.customers.edit', [
+            'customers' => $customers
+        ]);
     }
 
     /**
@@ -82,7 +85,23 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'address1' => 'required|string|max:255',
+            'address2' => 'nullable|string|max:255',
+            'address3' => 'nullable|string|max:255',
+        ]);
+
+        $customers = Customer::findOrFail($id);
+        $customers->name = $request->input('name');
+        $customers->phone = $request->input('phone');
+        $customers->address1 = $request->input('address1');
+        $customers->address2 = $request->input('address2');
+        $customers->address3 = $request->input('address3');
+        $customers->save();
+
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -90,6 +109,7 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Customer::findOrFail($id)->delete();
+        return redirect()->route('dashboard');
     }
 }

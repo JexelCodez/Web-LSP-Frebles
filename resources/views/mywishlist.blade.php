@@ -63,7 +63,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <p class="text-center p-3 bg-light border rounded shadow-sm">No Orders found</p>
+                            <p class="text-center p-3 bg-light border rounded shadow-sm">No wish product found</p>
                         @endif
                     </div>
                 </div>

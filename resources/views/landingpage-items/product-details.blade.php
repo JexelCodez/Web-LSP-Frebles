@@ -162,6 +162,7 @@ https://templatemo.com/tm-589-lugx-gaming
             <button type="submit" value="Add To Cart"><i class="fa fa-shopping-bag"></i> ADD TO CART</button>
           </form>
           <ul>
+            <li><span>Di Jual Oleh Vendor:</span> {{$product->vendor->name}}</li>
             <li><span>Category:</span> {{$product->productCategories->category_name}}</li>
 
             <!-- If condition for Fruit and Vegetables Unit Measurement -->

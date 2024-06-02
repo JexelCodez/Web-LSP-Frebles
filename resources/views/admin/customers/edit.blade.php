@@ -39,21 +39,13 @@
 
                     <p class="card-text"><q>We are what we repeatedly do. Excellence, then, is not an act, but a habit.</q></p>
                     
-                    <form action="{{ route('admin.customers.update', $customers->id) }}" method="POST" id="frmCustomerEdit">
+                    <form action="{{ route('customers.update', $customers->id) }}" method="POST" id="frmCustomerEdit">
                         @csrf
                         @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name" value="{{ $customers->name }}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Name@example.com" name="email" value="{{ $customers->email }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" placeholder="Enter new password" name="password">
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">Phone Number</label>
@@ -73,7 +65,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <button type="button" class="btn btn-primary" id="save">Update</button>
-                                    <a href="{{ route('admin.customers.index') }}" class="btn btn-default">Cancel</a>
+                                    <a href="{{ route('dashboard') }}" class="btn btn-default">Cancel</a>
                                 </div>
                             </div>
                         </form>
@@ -87,8 +79,6 @@
         const btnSave = document.getElementById("save")
         const form = document.getElementById("frmCustomerEdit")
         let nm = document.getElementById("name")
-        let mail = document.getElementById("email")
-        let passwd = document.getElementById("password")
         let phn = document.getElementById("phone")
         let addr = document.getElementById("address1")
 
@@ -97,12 +87,6 @@
             if (nm.value == ""){
                 nm.focus()
                 swal("Incomplete data", "Name must be filled", "error")
-            } else if (mail.value == ""){
-                mail.focus()
-                swal("Incomplete data", "Email must be filled", "error")
-            } else if (passwd.value == ""){
-                passwd.focus()
-                swal("Incomplete data", "Password must be filled", "error")
             } else if (phn.value == ""){
                 phn.focus()
                 swal("Incomplete data", "Phone number must be filled", "error")

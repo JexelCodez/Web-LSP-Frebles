@@ -32,7 +32,14 @@
                             <h5 class="my-3">{{ $customer->user->name }}</h5>
                             <p class="text-muted mb-4">{{ $customer->address1 }}</p>
                             <div class="d-flex justify-content-center mb-2">
-                                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">Change Customer Data</button>
+                                <a href="{{ route('customers.edit', $customer->id) }}" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">
+                                    Change Customer Data
+                                </a>
+                                <form action="{{ route('customers.destroy', $customer->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" onclick="return confirm('Are you sure you want to delete?')" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger ms-1">Delete Customer Data</button>
+                                </form>
                             </div>
                         </div>
                     </div>
