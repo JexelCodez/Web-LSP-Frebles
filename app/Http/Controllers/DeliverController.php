@@ -27,11 +27,11 @@ class DeliverController extends Controller
         $delivery->order_id = $order->id;
         $delivery->shipping_date = now(); 
         $delivery->tracking_code = $trackingCode;
-        $delivery->status = 'Pending'; 
+        $delivery->status = 'Sedang Diproses'; 
         $delivery->save();
 
         // Optionally update the order status
-        $order->status = 'In Transit';
+        $order->status = 'Dalam Perjalanan';
         $order->save();
 
         return redirect()->back()->with('success', 'Delivery initiated successfully.');

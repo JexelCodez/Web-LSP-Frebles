@@ -37,7 +37,7 @@
 </head>
 
 <body class="g-sidenav-show bg-success bg-opacity-10">
-  
+
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <div class="container-fluid py-4">
       <div class="row">
@@ -671,7 +671,10 @@
       </footer>
     </div>
   </main>
-      
+
+  <!-- Hidden input fields for chart data -->
+  <input type="hidden" id="ord" value='<?= json_encode($orders) ?>'>
+  <input type="hidden" id="ordd" value='<?= json_encode($orderDetails) ?>'>
 
     <!-- Core JS Files -->
     <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
@@ -680,178 +683,116 @@
     <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
 
-  <script>
-    var ctx = document.getElementById("chart-bars").getContext("2d");
+    <script>
+    
+    let chartBarsInstance = null;
+    let chartLineInstance = null;
+    let salesOverview = JSON.parse(document.getElementById('ordd').value);
+    let sales = JSON.parse(document.getElementById('ord').value);
 
-    new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "Sales",
-          tension: 0.4,
-          borderWidth: 0,
-          borderRadius: 4,
-          borderSkipped: false,
-          backgroundColor: "#fff",
-          data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
-          maxBarThickness: 6
-        }, ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-            },
-            ticks: {
-              suggestedMin: 0,
-              suggestedMax: 500,
-              beginAtZero: true,
-              padding: 15,
-              font: {
-                size: 14,
-                family: "Open Sans",
-                style: 'normal',
-                lineHeight: 2
-              },
-              color: "#fff"
-            },
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false
-            },
-            ticks: {
-              display: false
-            },
-          },
-        },
-      },
-    });
+    function createBarChart() {
 
-
-    var ctx2 = document.getElementById("chart-line").getContext("2d");
-
-    var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
-    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
-
-    var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
-    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
-
-    new Chart(ctx2, {
-      type: "line",
-      data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-            label: "Mobile apps",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#cb0c9f",
-            borderWidth: 3,
-            backgroundColor: gradientStroke1,
-            fill: true,
-            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-            maxBarThickness: 6
-
-          },
-          {
-            label: "Websites",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#3A416F",
-            borderWidth: 3,
-            backgroundColor: gradientStroke2,
-            fill: true,
-            data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-            maxBarThickness: 6
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5]
-            },
-            ticks: {
-              display: true,
-              padding: 10,
-              color: '#b2b9bf',
-              font: {
-                size: 11,
-                family: "Open Sans",
-                style: 'normal',
-                lineHeight: 2
-              },
+      // Aggregate product quantities by product name
+      const productQuantities = {};
+        salesOverview.forEach(order => {
+            if (!productQuantities.hasOwnProperty(order.product_name)) {
+                productQuantities[order.product_name] = 0;
             }
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-              borderDash: [5, 5]
+            productQuantities[order.product_name] += order.quantity;
+        });
+
+        console.log(productQuantities);
+
+        // Prepare chart labels and data
+        const productNames = Object.keys(productQuantities);
+        const quantities = Object.values(productQuantities);
+
+        const ctx = document.getElementById('chart-bars').getContext('2d');
+        if (chartBarsInstance) {
+            chartBarsInstance.destroy();
+        }
+        chartBarsInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: productNames,
+                datasets: [{
+                    label: 'Orders',
+                    data: quantities,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
             },
-            ticks: {
-              display: true,
-              color: '#b2b9bf',
-              padding: 20,
-              font: {
-                size: 11,
-                family: "Open Sans",
-                style: 'normal',
-                lineHeight: 2
-              },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
-          },
-        },
-      },
-    });
-  </script>
+        });
+    }
+
+    function createLineChart() {
+      
+        // Aggregate data by month
+        const ordersPerMonth = {};
+        sales.forEach(order => {
+            const date = new Date(order.order_date);
+            const month = date.getMonth(); // Get month index (0-11)
+            if (!ordersPerMonth.hasOwnProperty(month)) {
+                ordersPerMonth[month] = 0;
+            }
+            ordersPerMonth[month]++;
+        });
+
+        console.log(ordersPerMonth);
+
+        // Prepare chart labels and data
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const labels = months.map((month, index) => `${month.substring(0, 3)}`); // Abbreviate month names
+        const data = months.map((month, index) => ordersPerMonth[index] || 0);
+
+        console.log(labels);
+        console.log(data);
+
+        const ctx = document.getElementById('chart-line').getContext('2d');
+        if (chartLineInstance) {
+            chartLineInstance.destroy();
+        }
+        chartLineInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Sales Overview',
+                    data: data,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Call these functions to initialize the charts
+    createBarChart();
+    createLineChart();
+
+</script>
+
 
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
 </body>
 

@@ -34,9 +34,9 @@
       <!-- Cool Tip and SVG -->
       <img class="img-fluid float-start me-3" style="max-width: 80px;" src="{{ asset('assets/img/small-logos/logo-customer.svg') }}" alt="Card image cap">
 
-      <h5 class="card-title">Welcome to Frebles's Customer Registering!</h5>
+      <h5 class="card-title">Selamat Datang!</h5>
 
-      <p class="card-text"><q>To continue, first you need to make your own customer data. It doesn't have to be the same data as your user.</q></p>
+      <p class="card-text"><q>Untuk <strong>melanjutkan</strong>, pertama Anda perlu membuat data pelanggan Anda sendiri. Tidak perlu sama dengan data pengguna Anda. Silahkan gunakan nama samaran atau nama menarik lainnya bila Anda ingin. Dengan tulus hati, PenggunaSetiaBudi01</q></p>
 
       <form action="{{ route('customers.store') }}" id="frmCustomerCreate" method="POST">
         @csrf
@@ -47,28 +47,28 @@
           <!-- HIDDEN -->
 
           <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name">
+              <label for="name">Nama</label>
+              <input type="text" class="form-control" id="name" placeholder="Masukkan nama Anda" name="name">
             </div>
             <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="text" class="form-control" id="phone" placeholder="Enter your phone number" name="phone">
+              <label for="phone">No Telp</label>
+              <input type="text" class="form-control" id="phone" placeholder="Nomor telpon di sini" name="phone">
             </div>
             <div class="mb-3">
-              <label for="address1" class="form-label">Address 1</label>
-              <textarea class="form-control" id="address1" rows="3" name="address1" placeholder="Enter your address"></textarea>
+              <label for="address1" class="form-label">Alamat 1</label>
+              <textarea class="form-control" id="address1" rows="3" name="address1" placeholder="Masukkan alamat Anda (untuk pengiriman)"></textarea>
             </div>
             <div class="mb-3">
-              <label for="address2" class="form-label">Address 2</label>
-              <textarea class="form-control" id="address2" rows="3" name="address2" placeholder="(opsional)" name="phone"></textarea>
+              <label for="address2" class="form-label">Alamat 2</label>
+              <textarea class="form-control" id="address2" rows="3" name="address2" placeholder="(opsional)"></textarea>
             </div>
             <div class="mb-3">
-              <label for="address3" class="form-label">Address 3</label>
+              <label for="address3" class="form-label">Alamat 3</label>
               <textarea class="form-control" id="address3" rows="3" name="address3" placeholder="(opsional)"></textarea>
             </div>
             <div class="card-footer">
-              <button type="button" class="btn btn-primary" id="save">Save</button>
-              <a href="{{ route('landingpage') }}" class="btn btn-default">Cancel</a>
+              <button type="button" class="btn btn-primary" id="save">Simpan</button>
+              <a href="{{ route('landingpage') }}" class="btn btn-default">Batal</a>
           </div>
         </div>
         </form>
@@ -90,13 +90,13 @@
       function save(){
           if (nm.value == ""){
           nm.focus()
-          swal("Incomplete data", "Name must be filled", "error")
+          swal("Tidak memadai", "Nama harus diisi", "error")
           } else if (phn.value == ""){
           phn.focus()
-          swal("Incomplete data", "Phone number must be filled", "error")
+          swal("Tidak memadai", "No telp harus diisi", "error")
           } else if (addr.value == ""){
           addr.focus()
-          swal("Incomplete data", "One address must be filled at least", "error")
+          swal("Tidak memadai", "Setidaknya alamat 1 harus diisi", "error")
           } else {
           form.submit()
           }

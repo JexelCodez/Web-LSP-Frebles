@@ -33,9 +33,9 @@
                     <!-- Cool Tip and SVG -->
                         <img class="img-fluid float-start me-3" style="max-width: 80px;" src="{{ asset('assets/img/small-logos/logo-product-review.svg') }}" alt="Card image cap">
 
-                        <h5 class="card-title">Hi! Feel free to comment anything! Don't be shy now..</h5>
+                        <h5 class="card-title">Helo! Jangan ragu untuk memberikan komentar apapun!</h5>
 
-                        <p class="card-text"><q>Review is essential to evaluation, which is essential to progress.</q></p>
+                        <p class="card-text"><q>Ulasan adalah penting untuk evaluasi, yang merupakan kunci kemajuan.</q></p>
 
                     <form action="{{ route('product-reviews.store') }}" method="POST" id="frmProductReviewsCreate">
                         @csrf
@@ -43,16 +43,16 @@
                             <div class="form-group">
                                 <label for="customer_id" class="form-label">Customer</label>
                                 <select class="form-select" id="customer_id" name="customer_id">
-                                    <option value="" selected disabled>Your customer name...</option>
+                                    <option value="" selected disabled>Nama customer Anda...</option>
                                     @foreach ($customers as $customer)
                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="product_id" class="form-label">Product</label>
+                                <label for="product_id" class="form-label">Produk</label>
                                 <select class="form-select" id="product_id" name="product_id">
-                                    <option value="" selected disabled>Choose a product...</option>
+                                    <option value="" selected disabled>Pilih produk...</option>
                                     @foreach ($products as $product)
                                         <option value="{{ $product->id }}">{{ $product->product_name }}</option>
                                     @endforeach
@@ -60,8 +60,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="comment" class="form-label">Comment</label>
-                                <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Please tell us what you think about the product ^_^"></textarea>
+                                <label for="comment" class="form-label">Komen</label>
+                                <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Bila boleh, tolong beritahu kami tanggapan Anda mengenai produk ini ^_^"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -77,8 +77,8 @@
 
                         </div>
                         <div class="card-footer">
-                            <button type="button" class="btn btn-primary" id="save">Save</button>
-                            <a href="{{ route('landingpage-items.shop') }}" class="btn btn-default">Cancel</a>
+                            <button type="button" class="btn btn-primary" id="save">Simpan</button>
+                            <a href="{{ route('landingpage-items.shop') }}" class="btn btn-default">Batal</a>
                         </div>
                     </form>
                 </div>

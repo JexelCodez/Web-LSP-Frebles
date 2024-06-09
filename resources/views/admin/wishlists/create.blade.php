@@ -35,16 +35,16 @@
 
                         <h5 class="card-title">Welcome to Wishlist!</h5>
 
-                        <p class="card-text"><q>You could make a wish or you could make it happen.</q></p>
+                        <p class="card-text"><q>Di sini Anda bisa membuat sebuah harapan atau Anda bisa menjadikannya kenyataan.</q></p>
 
                     <form action="{{ route('wishlists.store') }}" id="frmWishlistLogCreate" method="POST">
                         @csrf
                         <div class="card-body">
 
                         <div class="form-group">
-                                <label for="customer_id" class="form-label">Customer's Name</label>
+                                <label for="customer_id" class="form-label">Nama Customer</label>
                                 <select class="form-select" id="customer_id" name="customer_id">
-                                    <option value="" selected disabled>Your name...</option>
+                                    <option value="" selected disabled>Nama Anda...</option>
                                     @foreach ($customers as $customer)
                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                     @endforeach
@@ -52,17 +52,17 @@
                             </div>
    
                             <div class="form-group">
-                                <label for="product_id" class="form-label">You wish for?</label>
+                                <label for="product_id" class="form-label">Anda ingin simpan produk apa?</label>
                                 <select class="form-select" id="product_id" name="product_id">
-                                    <option value="" selected disabled>Choose a product...</option>
+                                    <option value="" selected disabled>Pilih produk...</option>
                                     @foreach ($products as $product)
                                         <option value="{{ $product->id }}">{{ $product->product_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="card-footer">
-                                <button type="button" class="btn btn-primary" id="save">Save</button>
-                                <a href="{{ route('landingpage-items.shop') }}" class="btn btn-default">Cancel</a>
+                                <button type="button" class="btn btn-primary" id="save">Simpan</button>
+                                <a href="{{ route('landingpage-items.shop') }}" class="btn btn-default">Batal</a>
                             </div>
                         </div>
                     </form>

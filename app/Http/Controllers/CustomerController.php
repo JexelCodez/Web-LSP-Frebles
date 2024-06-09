@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
 use App\Models\Customer;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class CustomerController extends Controller
@@ -57,7 +54,7 @@ class CustomerController extends Controller
 
         Customer::create($data);
 
-        return redirect()->route('landingpage');
+        return redirect()->route('dashboard')->with('success', 'Data customer Anda berhasil dibuat!');
     }
 
 
@@ -101,7 +98,7 @@ class CustomerController extends Controller
         $customers->address3 = $request->input('address3');
         $customers->save();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'Data customer Anda berhasil diubah!');
     }
 
     /**
@@ -110,6 +107,6 @@ class CustomerController extends Controller
     public function destroy(string $id)
     {
         Customer::findOrFail($id)->delete();
-        return redirect()->route('dashboard');
+        return redirect()->route('landingpage')->with('success', 'Data customer Anda berhasil dihapus!');
     }
 }

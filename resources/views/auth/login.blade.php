@@ -53,7 +53,7 @@
                         <!-- Checkbox -->
                         <div class="form-check d-flex justify-content-start mb-2">
                             <input class="form-check-input" type="checkbox" id="remember_me">
-                            <label class="form-check-label" for="remember_me">{{ __('Remember me') }}</label>
+                            <label class="form-check-label" for="remember_me">{{ __('Ingat aku') }}</label>
                         </div>
 
                         <button class="btn btn-primary btn-lg w-100" type="submit">Login</button>
@@ -61,15 +61,15 @@
                         <div class="flex items-center justify-end mt-3">
                             @if (Route::has('password.request'))
                                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                                    {{ __('Forgot your password?') }}
+                                    {{ __('Lupa password?') }}
                                 </a>
                             @endif
 
                         <hr class="my-4">
 
-                        <button class="btn btn-lg btn-block btn-primary ms-auto" style="background-color: #dd4b39;" type="submit"><i class="bi bi-google"></i> Sign in with Google</button>
-                        <button class="btn btn-lg btn-block btn-primary ms-auto mt-2" style="background-color: #3b5998;" type="submit"><i class="bi bi-facebook"></i> Sign in with Facebook</button>
-                        <p class="mt-3 mb-0">Not registered? <a href="{{ route('register') }}">Register here</a></p>
+                        <button class="btn btn-lg btn-block btn-primary ms-auto" style="background-color: #dd4b39;" type="submit"><i class="bi bi-google"></i> Masuk dengan Google</button>
+                        <button class="btn btn-lg btn-block btn-primary ms-auto mt-2" style="background-color: #3b5998;" type="submit"><i class="bi bi-facebook"></i> Masuk dengan Facebook</button>
+                        <p class="mt-3 mb-0">Belum daftar? <a href="{{ route('register') }}">Daftar di sini</a></p>
 
                         </form>
                     </div>

@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('landingpage');
 })->name('landingpage');
 
+// Midtrans Invoice
+Route::get('invoice/{id}', [TransactionController::class, 'invoice'])->name('invoice');
+
+// Midtrans Callback
+Route::post('midtrans-callback', [TransactionController::class, 'callback'])->name('midtrans.callback');
+
 // Contact Message
 Route::post('message', [MessageController::class, 'store'])->name('message.store');
 
@@ -67,6 +73,7 @@ Route::post('product-reviews', [App\Http\Controllers\ProductReviewsController::c
 // Orders Show To User
 Route::get('show_orders', [App\Http\Controllers\OrderController::class, 'showOrder'])->name('show_orders')->middleware(['auth']);
 Route::get('cancel_order/{id}', [App\Http\Controllers\OrderController::class, 'cancelOrder'])->name('cancel_order')->middleware(['auth']);
+Route::get('searchMyOrders', [App\Http\Controllers\OrderController::class, 'searchMyOrders'])->name('searchMyOrders')->middleware(['auth']);
 
 // Wishlists Show To User
 Route::get('show_wishlists', [App\Http\Controllers\WishlistController::class, 'showWish'])->name('show_wishlists')->middleware(['auth']);
@@ -144,6 +151,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Payments
     Route::resource('payments', App\Http\Controllers\Admin\PaymentController::class);
+    Route::get('payments/download/pdf', [App\Http\Controllers\Admin\PaymentController::class, 'downloadPdfPayment']);
 
     // Order Details
     Route::resource('order_details', App\Http\Controllers\Admin\OrderDetailsController::class);
@@ -165,4 +173,17 @@ Route::middleware(['auth', 'owner'])->prefix('owner')->name('owner.')->group(fun
 
     // Owner-specific routes
     Route::get('dashboard', [HomeController::class, 'showOwnerDashboard']);
+
+    // Vendors
+    Route::get('vendors', [App\Http\Controllers\Owner\VendorController::class, 'index']);
+
+    // Customer
+    Route::get('customers', [App\Http\Controllers\Owner\CustomerController::class, 'index']);
+
+    // Users
+    Route::resource('users', App\Http\Controllers\Owner\UserController::class);
+
+    // Orders
+    Route::get('orders', [App\Http\Controllers\Owner\OrderController::class, 'index']);
+
 });

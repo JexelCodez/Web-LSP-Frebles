@@ -78,7 +78,7 @@ class WishlistController extends Controller
 
         return view ('landingpage-items.shop', [
             'status' => 'save',
-            'message' => 'You have wished for "' . $productId->product_name . '" check your wishlist!',
+            'message' => 'Kamu telah wish produk "' . $productId->product_name . '" silahkan cek wishlist Anda!',
             'cartItemCount' => $cartItemCount,
             'products' => $products
         ]);

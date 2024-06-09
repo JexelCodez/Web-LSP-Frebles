@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <title>Frebles - Shop Page</title>
+    <title>Frebles - Toko Kami</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -68,9 +68,9 @@ https://templatemo.com/tm-589-lugx-gaming
                         <img src="{{ asset('landingpage/assets/images/logos/cart2.png') }}" alt="Cart" class="img-fluid cart-icon" style="max-width: 32px;">
                         <span class="badge bg-secondary cart-item-count position-absolute top-0 start-45 translate-middle">{{ $cartItemCount }}</span>
                       </a></li>
-                      <li><a href="{{ route('landingpage') }}">Home</a></li>
-                      <li><a href="{{ route('landingpage-items.shop') }}" class="active">Our Shop</a></li>
-                      <li><a href="{{ route('landingpage-items.contact') }}">Contact Us</a></li>
+                      <li><a href="{{ route('landingpage') }}">Frebles</a></li>
+                      <li><a href="{{ route('landingpage-items.shop') }}" class="active">Belanja</a></li>
+                      <li><a href="{{ route('landingpage-items.contact') }}">Kontak & Informasi</a></li>
                       
                       <!-- If user is logged in, it shows the user's name (Login and Registration) -->
                       @if (Route::has('login'))
@@ -107,8 +107,8 @@ https://templatemo.com/tm-589-lugx-gaming
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <h3>Our Shop</h3>
-          <span class="breadcrumb"><a href="#">Home</a> > Our Shop</span>
+          <h3>Semua Yang Anda Butuhkan Ada Disini</h3>
+          <span class="breadcrumb"><a href="#">Frebles</a> > Belanja</span>
         </div>
       </div>
     </div>
@@ -120,8 +120,8 @@ https://templatemo.com/tm-589-lugx-gaming
     <!-- Search Input -->
     <div class="search-input d-flex justify-content-center">
       <form action="{{ route('searchProduct') }}" class="d-flex" method="GET">
-        <input type="text" placeholder="Search for something" id="search" name="search" class="form-control me-2 mb-2" />
-        <button type="submit" class="btn btn-primary" value="search">Search Now</button>
+        <input type="text" placeholder="Cari sesuatu" id="search" name="search" class="form-control me-2 mb-2" />
+        <button type="submit" class="btn btn-primary mb-2" value="search">Cari</button>
       </form>
     </div>
   
@@ -161,11 +161,11 @@ https://templatemo.com/tm-589-lugx-gaming
                             <!-- The Buttons in The Card -->
                             <div class="d-flex justify-content-start">
 
-                                <a href="{{ route('landingpage-items.product-details', $product->id) }}" class="icon-link btn btn-sm btn-primary"><i class="bi bi-eye-fill">View</i></a>
+                                <a href="{{ route('landingpage-items.product-details', $product->id) }}" class="icon-link btn btn-sm btn-primary"><i class="bi bi-eye-fill">Lihat</i></a>
                             
-                                <a href="{{ route('wishlists.create') }}" class="btn btn-sm btn-secondary"><i class="bi bi-star-fill">Add To Wishlist</i></a>
+                                <a href="{{ route('wishlists.create') }}" class="btn btn-sm btn-secondary"><i class="bi bi-star-fill">Tambah Ke Wishlist</i></a>
 
-                                <a href="{{ route('product-reviews.create') }}" class="btn btn-sm btn-warning"><i class="bi bi-chat-dots">Review Product</i></a>
+                                <a href="{{ route('product-reviews.create') }}" class="btn btn-sm btn-warning"><i class="bi bi-chat-dots">Review Produk</i></a>
 
                             </div>
                         </div>
@@ -176,7 +176,7 @@ https://templatemo.com/tm-589-lugx-gaming
         <!-- Show Pagination Links for Products -->
         {{ $products->onEachSide(1)->links() }}
       @else
-          <p>No products found</p>
+          <p>Produk belum ada.</p>
       @endif
       
       <!-- end logic for show product -->
@@ -187,7 +187,7 @@ https://templatemo.com/tm-589-lugx-gaming
   <footer>
     <div class="container">
       <div class="col-lg-12">
-        <p><i>Copyright © 2024 Frebles Online Shop. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: by TemplateMo. Little Touches: by Janya.</i></a></p>
+        <p><i>Hak Cipta © 2024 Frebles Online Shop. Hak cipta dilindungi undang-undang. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Desain: oleh TemplateMo. Sentuhan Kecil: oleh Janya.</i></a></p>
       </div>
     </div>
   </footer>
@@ -204,7 +204,7 @@ https://templatemo.com/tm-589-lugx-gaming
 
         function saveMessage() {
             if (sts.value == "save") {
-                swal('Success!', msg.value, 'success');
+                swal('Berhasil!', msg.value, 'success');
             }
         }
 

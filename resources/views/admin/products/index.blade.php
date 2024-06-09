@@ -92,7 +92,7 @@
                                             @endif
                                             <!-- End Tooltip -->
 
-                                            <td class="text-center">Rp{{ $product->price }}</td>
+                                            <td class="text-center">Rp{{ number_format($product->price, 0) }}</td>
                                             <td class="text-center">{{ $product->stock_quantity }}</td>
 
                                             <td class="text-center"><img src="{{ asset('storage/' . $product->image1_url) }}" class="w-30 img-thumbnail zoom" data-bs-toggle="modal" data-bs-target="#foto1_{{ $product->image1_url }}"></td>

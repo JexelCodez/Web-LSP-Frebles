@@ -40,7 +40,11 @@ class MessageController extends Controller
 
         Message::create($data);
 
-        return redirect()->route('landingpage-items.contact')->with('success', 'Product created successfully!');
+        // return redirect()->route('landingpage-items.contact')->with('success', 'Terima kasih atas pesannya!');
+        return view ('landingpage-items.contact', [
+            'status' => 'save',
+            'message' => 'Terima kasih atas pesannya!',
+        ]);
     }
 
     /**

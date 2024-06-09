@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Frebles - Keranjang</title>
+    
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.css') }}">
 
@@ -27,9 +29,16 @@
     <link rel="stylesheet" href="{{ asset('landingpage/assets/css/animate.css') }}">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 
-    
-    <title>Frebles - Cart</title>
+    <style>
+      .alert-container{
+        margin-top:10px;
+        position: fixed;
+        z-index: 999;
+      }
+    </style>
+
 </head>
+
 <body id="master">
 
   <!-- ***** Preloader Start ***** -->
@@ -44,6 +53,22 @@
     </div>
   </div>
   <!-- ***** Preloader End ***** -->
+
+  <!-- Session Messages -->
+  @if (session('success'))
+      <div class="container">
+        <div class="row alert-container">
+          <div class="col-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill h3"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endif
+
   
 <section class="h-100 h-custom" style="background-color: #eee;">
   <div class="container py-5 h-100">
@@ -56,17 +81,13 @@
 
               <div class="col-lg-7">
                 <h5 class="mb-3"><a href="{{ route('landingpage-items.shop') }}" class="text-body"><i
-                      class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
+                      class="fas fa-long-arrow-alt-left me-2"></i>Lanjut belanja</a></h5>
                 <hr>
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
                   <div>
-                    <p class="mb-1">Shopping cart</p>
-                    <p class="mb-0">You have {{ $total_item }} items in your cart</p>
-                  </div>
-                  <div>
-                    <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
-                        class="text-body">price</a></p>
+                    <p class="mb-1">Keranjang Belanja</p>
+                    <p class="mb-0">Kamu ada {{ $total_item }} barang dalam sini.</p>
                   </div>
                 </div>
 
@@ -109,14 +130,11 @@
                 <div class="card bg-primary text-white rounded-3">
                   <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                      <h5 class="mb-0">CUSTOMER DETAILS</h5>
-                      <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
-                        class="img-fluid rounded-3" style="width: 45px;" alt="Avatar"> -->
+                      <h5 class="mb-0">DETAIL CUSTOMER</h5>
                         <i class="bi bi-person-check h1"></i>
                     </div>
-
                       <div class="mb-4">
-                        <label class="form-label" for="typeText">Customer's Name</label>
+                        <label class="form-label" for="typeText">Nama Customer</label>
                         <div>{{ $customers->name }}</div>
                       </div>
 
@@ -124,25 +142,25 @@
                       
                       <hr class="my-4">
                       <div class="mb-4">
-                        <label class="form-label" for="typeText">Customer's Number</label>
+                        <label class="form-label" for="typeText">No Telp Customer</label>
                         <div>{{ $customers->phone }}</div>
                       </div>
 
                       <hr class="my-4">
                       <div class="mb-4">
-                        <label class="form-label" for="typeText">Customer's Address 1</label>
+                        <label class="form-label" for="typeText">Alamat 1</label>
                         <div>{{ $customers->address1 }}</div>
                       </div>
 
                       <hr class="my-4">
                       <div class="mb-4">
-                        <label class="form-label" for="typeText">Customer's Address 2 (Optional)</label>
+                        <label class="form-label" for="typeText">Alamat 2 (Optional)</label>
                         <div>{{ $customers->address2 }}</div>
                       </div>
 
                       <hr class="my-4">
                       <div class="mb-4">
-                        <label class="form-label" for="typeText">Customer's Address 3 (Optional)</label>
+                        <label class="form-label" for="typeText">Alamat 3 (Optional)</label>
                         <div>{{ $customers->address3 }}</div>
                       </div>
 
@@ -150,24 +168,26 @@
 
                     <hr class="my-4">
                     <div class="d-flex justify-content-between">
-                      <p class="mb-2">Subtotal</p>
-                      <p class="mb-2">Rp{{ number_format($total_price, 0) }}</p>
+                      <p class="mb-2 text-light">Subtotal</p>
+                      <p class="mb-2 text-light">Rp{{ number_format($total_price, 0) }}</p>
                     </div>
 
                     <div class="d-flex justify-content-between">
-                      <p class="mb-2">Shipping</p>
-                      <p class="mb-2">Free</p>
+                      <p class="mb-2 text-light">Ongkos Kirim</p>
+                      <p class="mb-2 text-light">Gratis (berlaku s.d 1 Juli 2024)</p>
                     </div>
 
-                    <!-- <div class="d-flex justify-content-between mb-4">
-                      <p class="mb-2">You saved(Incl. discount)</p>
-                      <p class="mb-2">$0</p>
-                    </div> -->
+                    <div class="d-flex justify-content-between mb-4">
+                      <p class="mb-2 text-light">Kamu hemat</p>
+                      <p class="mb-2 text-light">Rp0</p>
+                    </div>
 
-                    <p class="mb-2">Proceed to order...</p>
-                    <a href="{{ route('cart.order') }}" class="btn btn-info btn-block btn-lg mt-3" onclick="return confirm('Are you sure you want to Order?')">
+                    <p class="mb-2 text-light">Mohon cek kembali...</p>
+                    <p class="mb-2 text-light">Bila ada yang kurang sesuai...</p>
+                    <p class="mb-2"><a href="{{ route('dashboard') }}" class="ms-7 badge badge-primary">Anda bisa merubah data customer Anda disini...</a></p>
+                    <a href="{{ route('cart.order') }}" class="btn btn-info btn-block btn-lg mt-3" onclick="return confirm('Anda akan order?')">
                       <i class="bi bi-box2"></i>
-                      <span class="ms-auto">Order Now</span>
+                      <span class="ms-auto">Order</span>
                     </a>
                     <!-- <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-block btn-lg">
                       <div class="d-flex justify-content-between">

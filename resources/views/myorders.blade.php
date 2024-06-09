@@ -1,23 +1,34 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Your Orders') }}
+            {{ __('Data Order') }}
         </h2>
+        <h6 class="text-s text-gray-800 leading-tight">Cek secara berkala, status ORDERAN Anda dan status PENGIRIMAN Anda.</h6>
     </x-slot>
+
+    <!-- Search Input -->
+    <div class="search-input d-flex justify-content-center">
+      <form action="{{ route('searchMyOrders') }}" class="d-flex" method="GET">
+        <input type="text" placeholder="Cari status order" id="search" name="search" class="form-control mt-5 mb-3" />
+        <button type="submit" class="btn btn-primary mt-5 mb-3" value="search">Cari</button>
+      </form>
+    </div>
+
     @if ($orders->isNotEmpty())
       @foreach ($orders as $order)
       <section class="h-100 h-custom" style="background-color: #eee;">
+
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-lg-8 col-xl-6">
           <div class="card border-top border-bottom border-3" style="border-color: #f37a27 !important;">
             <div class="card-body p-5">
 
-              <p class="lead fw-bold mb-5" style="color: #f37a27;">Purchase Reciept on {{ \Illuminate\Support\Carbon::parse($order->order_date)->format('F j, Y') }}</p>
+              <p class="lead fw-bold mb-5" style="color: #f37a27;">Tanda Terima Pembelian pada {{ \Illuminate\Support\Carbon::parse($order->order_date)->format('F j, Y') }}</p>
 
               <div class="row">
                 <div class="col mb-3">
-                  <p class="small text-muted mb-1">Detailed Time</p>
+                  <p class="small text-muted mb-1">Detail Waktu</p>
                   <p>{{ $order->order_date }}</p>
                 </div>
                 <div class="col mb-3">
@@ -52,7 +63,7 @@
                 </div>
               </div>
 
-              <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Tracking Order</p>
+              <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Status Orderan</p>
 
               <div class="row">
                 <div class="col-lg-12">
@@ -71,20 +82,19 @@
                 </div>
               </div>
 
-              <p class="mt-4 pt-2 mb-0">Want any help? <a href="{{ route('landingpage-items.contact') }}" style="color: #f37a27;">Please contact
-                  us</a></p>           
+              <p class="mt-4 pt-2 mb-0">Perlu bantuan? <a href="{{ route('landingpage-items.contact') }}" style="color: #f37a27;">Bisa hubungi kami</a></p>           
             </div>
             
-            @if ($order->status == 'Canceled')
-                <p class="ms-3">Order has been canceled</p>
-                <button type="button" class="btn btn-success">Order Cancelled</button>
+            @if ($order->status == 'Dibatalkan')
+                <p class="ms-3">Order telah dibatalkan. Terima kasih telah berbelanja bersama kami!</p>
+                <button type="button" class="btn btn-success">Berhasil Dibatalkan</button>
             @else
                 @if (!$order->payment)
-                    <p class="ms-3">It looks like you haven't chosen your payment method</p>
-                    <a href="{{ route('landingpage-items.payment-form', $order->id) }}" class="btn btn-success mt-2">Select Payment Method</a>
+                    <p class="ms-3">Sepertinya Anda belum memilih metode pembayaran untuk orderan ini..</p>
+                    <a href="{{ route('landingpage-items.payment-form', $order->id) }}" class="btn btn-success mt-2">Pilih Metode Pembayaran</a>
                 @endif
-                @if ($order->status == 'Pending COD Payment' || $order->status == 'In Process')
-                    <a href="{{ url('cancel_order', $order->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure to cancel this order?')">Cancel Order</a>
+                @if ($order->status == 'Pending COD Payment' || $order->status == 'Dalam Proses')
+                    <a href="{{ url('cancel_order', $order->id) }}" class="btn btn-danger" onclick="return confirm('Anda akan membatalkan order ini?')">Batalkan Order</a>
                 @endif
             @endif
 
@@ -95,6 +105,6 @@
   </section>
   @endforeach
 @else
-  <p class="text-center p-3 bg-light border rounded shadow-sm">No orders found</p>
+  <p class="text-center p-3 bg-light border rounded shadow-sm">Order tidak ditemukan.</p>
 @endif
 </x-app-layout>

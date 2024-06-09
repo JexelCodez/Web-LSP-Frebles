@@ -14,16 +14,16 @@
                         <div class="cart-header d-none d-sm-none d-mb-block d-lg-block">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h4>Products</h4>
+                                    <h4>Produk</h4>
                                 </div>
                                 <div class="col-md-2">
-                                    <h4>Price</h4>
+                                    <h4>Harga</h4>
                                 </div>
                                 <div class="col-md-2">
-                                    <h4>Category</h4>
+                                    <h4>Kategori</h4>
                                 </div>
                                 <div class="col-md-2">
-                                    <h4>Remove</h4>
+                                    <h4>Hapus</h4>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                         <div class="col-md-2 col-5 my-auto">
                                             <div class="remove">
                                                 <a href="{{ url('delete_wish', $wishlist->id) }}" class="btn btn-danger btn-sm">
-                                                    <i class="fa fa-trash"></i> Remove
+                                                    <i class="fa fa-trash"></i> Hapus
                                                 </a>
                                             </div>
                                         </div>
@@ -63,7 +63,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <p class="text-center p-3 bg-light border rounded shadow-sm">No wish product found</p>
+                            <p class="text-center p-3 bg-light border rounded shadow-sm">Produk wishlist belum ada.</p>
                         @endif
                     </div>
                 </div>

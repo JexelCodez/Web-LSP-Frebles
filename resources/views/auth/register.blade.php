@@ -27,11 +27,11 @@
         <div class="row gx-lg-5 align-items-center mb-5">
             <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
                 <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-                    Just One Click <br />
-                    <span style="color: hsl(260, 70%, 50%)">All your needs</span>
+                    Hanya Satu Media <br />
+                    <span style="color: hsl(260, 70%, 50%)">Di Sini Tersedia</span>
                 </h1>
                 <p class="mb-4 opacity-70" style="color: hsl(0, 0%, 20%)">
-                Welcome to Frebles, your fresh produce paradise! At Frebles, we're passionate about providing you with the finest selection of farm-fresh fruits and vegetables, handpicked just for you.
+                Frebles adalah salah satu solusi website untuk Anda yang tidak ingin keluar dari tempat tidur, ataupun rumah.
                 </p>
             </div>
 
@@ -46,19 +46,19 @@
                             @csrf
                             <!-- 2 column grid layout with text inputs for the first and last names -->
 
-                            <h3 class="mb-5">Registration</h3>
+                            <h3 class="mb-5">Registrasi</h3>
 
                             <!-- Name input -->
                             <div class="form-floating mb-4">
                                 <input type="text" class="form-control" id="name" name="name" />
-                                <label for="name">Name</label>
+                                <label for="name">Nama</label>
                                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
 
                             <!-- Email input -->
                             <div class="form-floating mb-4">
                                 <input type="email" class="form-control" id="email" name="email" />
-                                <label for="email">Email address</label>
+                                <label for="email">Email</label>
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
 
@@ -72,31 +72,31 @@
                             <!-- Confirm Password input -->
                             <div class="form-floating mb-4">
                                 <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" />
-                                <label for="password_confirmation">Confirm Password</label>
+                                <label for="password_confirmation">Konfirmasi Password</label>
                                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                             </div>
 
                             <!-- To Login Page -->
                             <div class="form-floating mb-3 d-flex justify-content-center">
                                 <a class="" href="{{ route('login') }}">
-                                {{ __('Already registered?') }}
+                                {{ __('Sudah terdaftar?') }}
                                 </a>
                             </div>
 
                             <!-- Checkbox -->
-                            <!-- <div class="form-check d-flex justify-content-center mb-4">
+                            <div class="form-check d-flex justify-content-center mb-4">
                                 <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
                                 <label class="form-check-label" for="form2Example33">
-                                    Subscribe to our newsletter
+                                    Berlangganan Ke Buletin Kami
                                 </label>
-                            </div> -->
+                            </div>
 
                             <!-- Submit button -->
-                            <button type="submit" class="btn btn-primary btn-block mb-4 w-100">Sign up</button>
+                            <button type="submit" class="btn btn-primary btn-block mb-4 w-100">Daftar</button>
 
                             <!-- Register buttons -->
                             <div class="text-center">
-                                <p>or sign up with:</p>
+                                <p>atau daftar dengan:</p>
                                 <button type="button" class="btn btn-link btn-floating mx-1">
                                     <i class="bi bi-facebook"></i>
                                 </button>

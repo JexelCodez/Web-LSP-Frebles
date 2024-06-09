@@ -101,7 +101,7 @@ class CartController extends Controller
                 $cart->save();
             }
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Produk berhasil masuk keranjang!');
         } else {
             return redirect('login');
         }
@@ -134,7 +134,7 @@ class CartController extends Controller
             $order->customer_id = $customer->id;
             $order->order_date = now();
             $order->total_amount = 0; // Initial total amount
-            $order->status = 'In Process';
+            $order->status = 'Dalam Proses';
             $order->save();
 
             // Process each cart item
@@ -143,7 +143,7 @@ class CartController extends Controller
 
                 // Check if the product has sufficient stock
                 if ($product->stock_quantity < $data->quantity) {
-                    throw new \Exception('Insufficient stock for product ID: ' . $data->product_id);
+                    throw new \Exception('Stok tidak cukup untuk produck ini: ' . $data->product_id);
                 }
 
                 // Calculate the total price
@@ -190,37 +190,11 @@ class CartController extends Controller
             return redirect()->back()->withErrors(['cart' => 'Failed to create order.']);
         }
 
-        // Generate a unique order ID for Midtrans
-        $uniqueOrderId = $order->id . '-' . time();
-
-        // Generate Snap token after order creation
-        \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        \Midtrans\Config::$isProduction = false;
-        \Midtrans\Config::$isSanitized = true;
-        \Midtrans\Config::$is3ds = true;
-
-        // Prepare payment parameters
-        $params = [
-            'transaction_details' => [
-                'order_id' => $uniqueOrderId,
-                'gross_amount' => $order->total_amount,
-            ],
-            'customer_details' => [
-                'last_name' => $order->customer->name,
-                'email' => $order->customer->email,
-                'phone' => $order->customer->phone,
-            ],
-        ];
-
-        // Generate Snap token
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
-
         // Redirect to the payment form with the order and snap token
         return view('landingpage-items.payment-form', [
             'status' => 'save',
-            'message' => 'Your order has been placed! Go to myorders page in your profile if you want to cancel your order :) ',
+            'message' => 'Silahkan lanjut ke pembayaran! ',
             'order' => $order,
-            'snapToken' => $snapToken
         ]);
     }
 

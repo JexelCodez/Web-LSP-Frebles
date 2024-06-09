@@ -104,7 +104,7 @@ class ProductReviewsController extends Controller
 
         return view ('landingpage-items.shop', [
             'status' => 'save',
-            'message' => 'Your review of "' . $productId->product_name . '" has been saved! Thank you for your input!',
+            'message' => 'Review kamu pada produk "' . $productId->product_name . '" telah berhasil disimpan! Terima kasih atas tanggapanmu!',
             'cartItemCount' => $cartItemCount,
             'products' => $products
         ]);

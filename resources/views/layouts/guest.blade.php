@@ -37,6 +37,16 @@
 
     </head>
     <body class="font-sans text-gray-900 antialiased bg-red-400" id="master">
+
+        <!-- Session Messages -->
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill h3"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-red-400">
             <div>
                 <a href="/">
@@ -48,5 +58,14 @@
                 {{ $slot }}
             </div>
         </div>
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="{{ asset('landingpage/vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('landingpage/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('landingpage/assets/js/isotope.min.js') }}"></script>
+        <script src="{{ asset('landingpage/assets/js/owl-carousel.js') }}"></script>
+        <script src="{{ asset('landingpage/assets/js/counter.js') }}"></script>
+        <script src="{{ asset('landingpage/assets/js/custom.js') }}"></script>
+
     </body>
 </html>

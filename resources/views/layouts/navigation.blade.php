@@ -13,12 +13,12 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('landingpage')" :active="request()->routeIs('landingpage')" class="no-underline">
-                        {{ __('Home') }}
+                        {{ __('Frebles') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="no-underline">
-                        {{ __('Profile ') }}
+                        {{ __('Profil ') }}
                     </x-nav-link>
                 </div>
 
@@ -40,7 +40,7 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('show_orders')" :active="request()->routeIs('show_orders')" class="no-underline">
-                        {{ __('Orders ') }}
+                        {{ __('Orderan ') }}
                     </x-nav-link>
                 </div>
 
@@ -52,7 +52,7 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('show_reviews')" :active="request()->routeIs('show_reviews')" class="no-underline">
-                        {{ __('Your Reviews ') }}
+                        {{ __('Review Kamu ') }}
                     </x-nav-link>
                 </div>
                 

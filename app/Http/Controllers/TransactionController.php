@@ -6,8 +6,6 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -23,31 +21,6 @@ class TransactionController extends Controller
             return redirect()->route('landingpage-items.cart')->with('error', 'Order not found.');
         }
 
-        // Generate a unique order ID for Midtrans
-        $uniqueOrderId = $order->id . '-' . time();
-
-        // Generate Snap token after order creation
-        \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        \Midtrans\Config::$isProduction = false;
-        \Midtrans\Config::$isSanitized = true;
-        \Midtrans\Config::$is3ds = true;
-
-        // Prepare payment parameters
-        $params = [
-            'transaction_details' => [
-                'order_id' => $uniqueOrderId,
-                'gross_amount' => $order->total_amount,
-            ],
-            'customer_details' => [
-                'last_name' => $order->customer->name,
-                'email' => $order->customer->email,
-                'phone' => $order->customer->phone,
-            ],
-        ];
-
-        // Generate Snap token
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
-
         // You can also retrieve any additional data needed for the payment form
         $payments = Payment::all();
         $products = Product::all();
@@ -56,17 +29,42 @@ class TransactionController extends Controller
             'order' => $order,
             'payments' => $payments,
             'products' => $products,
-            'snapToken' => $snapToken
         ]);
     }
 
+    /**
+     * 
+     */
+
+    public function callback(Request $request)
+    {
+        $serverKey = config('midtrans.server_key');
+        $hashed = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
+
+        if ($hashed == $request->signature_key) {
+            if ($request->transaction_status === 'capture') {
+                $order = Order::find($request->order_id);
+                if ($order) {
+                    $order->update(['status' => 'Paid']);
+                }
+            }
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function invoice($id)
     {
-        //
+        $order = Order::find($id);
+
+        if (!$order) {
+            return redirect()->route('landingpage-items.cart')->with('error', 'Order not found.');
+        }
+
+        return view('invoice', [
+            'order' => $order
+        ]);
     }
 
     public function CashOnDelivery(Request $request, $id)
@@ -82,18 +80,18 @@ class TransactionController extends Controller
         $payment = new Payment;
         $payment->order_id = $order->id;
         $payment->payment_date = now();
-        $payment->payment_method = 'Cash On Delivery';
+        $payment->payment_method = 'Bayar Di Tempat';
         $payment->amount = $order->total_amount;
 
         // Save the payment
         $payment->save();
 
         // Optionally update the order status
-        $order->status = 'Pending COD Payment';
+        $order->status = 'Dalam Proses';
         $order->save();
 
         // Redirect to an order summary page with a success message
-        return redirect()->route('show_orders');
+        return redirect()->route('show_orders')->with('success', 'Orderan Anda sudah kami simpan!');
     }
 
     /**

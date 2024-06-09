@@ -27,6 +27,15 @@
     <!-- Master CSS  -->
     <link href="{{ asset('assets/css/master.css') }}" rel="stylesheet" />
 
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{{ asset('landingpage/vendor/bootstrap/css/bootstrap.min.css') }}">
+
+    <!-- Soft UI Template -->
+    <link id="pagestyle" href="{{ asset('assets/css/soft-ui-dashboard.css?v=1.0.7') }}" rel="stylesheet" />
+
+    <!-- Bootstrap Icons Library -->
+    <link href="{{ asset('node_modules/bootstrap-icons/font/bootstrap-icons.css') }}" rel="stylesheet">
+
     <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
     <!-- Font Awesome Icons -->

@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
             return redirect('owner/dashboard');
         }
         else {
-            return redirect()->intended(route('dashboard'));
+            return redirect()->intended(route('landingpage'))->with('success', 'Berhasil masuk! Selamat Berbelanja!');
         }
         
     }

@@ -8,6 +8,8 @@ use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Mpdf\Mpdf;
 
 class PaymentController extends Controller
 {
@@ -61,9 +63,15 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function downloadPdfPayment()
     {
-        //
+        $mpdf = new Mpdf();
+        $payments = DB::table('vwpayments')->get();
+        $html = View::make('admin.payments.pdf', compact('payments'))->render();
+        $mpdf->WriteHTML($html);
+
+        // Output the PDF as a download
+        $mpdf->Output('payments.pdf', 'D');
     }
 
     /**

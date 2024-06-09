@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -39,7 +40,7 @@ class OrderController extends Controller
     {
         $order = Order::find($id);
 
-        $order->status = 'Canceled';
+        $order->status = 'Dibatalkan';
         $order->save();
 
         return redirect()->back();
@@ -48,9 +49,14 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function searchMyOrders(Request $request)
     {
-        //
+        $searchText = $request->search;
+        $orders = Order::where('status', 'LIKE', "%$searchText%")->get();
+
+        return view ('myorders', [
+            'orders' => $orders,
+        ]);
     }
 
     /**

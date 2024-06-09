@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+                    {{ __("Kamu sudah login!") }}
                 </div>
             </div>
         </div>
@@ -33,12 +33,12 @@
                             <p class="text-muted mb-4">{{ $customer->address1 }}</p>
                             <div class="d-flex justify-content-center mb-2">
                                 <a href="{{ route('customers.edit', $customer->id) }}" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">
-                                    Change Customer Data
+                                    Ganti Data Customer
                                 </a>
                                 <form action="{{ route('customers.destroy', $customer->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" onclick="return confirm('Are you sure you want to delete?')" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger ms-1">Delete Customer Data</button>
+                                    <button type="submit" onclick="return confirm('Are you sure you want to delete?')" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger ms-1">Hapus Data Customer</button>
                                 </form>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <p class="mb-0">Customer Name</p>
+                                        <p class="mb-0">Nama Customer</p>
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">{{ $customer->name }}</p>
@@ -98,7 +98,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <p class="mb-0">Phone</p>
+                                        <p class="mb-0">No Telp</p>
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">{{ $customer->phone }}</p>
@@ -107,7 +107,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <p class="mb-0">Address 1</p>
+                                        <p class="mb-0">Alamat 1</p>
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">{{ $customer->address1 }}</p>
@@ -116,7 +116,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <p class="mb-0">Address 2</p>
+                                        <p class="mb-0">Alamat 2</p>
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">{{ $customer->address2 }}</p>
@@ -125,7 +125,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <p class="mb-0">Address 3</p>
+                                        <p class="mb-0">Alamat 3</p>
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">{{ $customer->address3 }}</p>
@@ -195,9 +195,9 @@
         </div>
     </section>
     @else
-        <p class="text-center p-3 bg-light border rounded shadow-sm">No customer data found yet.</p>
+        <p class="text-center p-3 bg-light border rounded shadow-sm">Customer data Anda belum ada.</p>
         <div class="d-flex justify-content-center">
-            <a href="{{ route('customers.create') }}" class="btn btn-primary">Click</a>
+            <a href="{{ route('customers.create') }}" class="btn btn-primary">Klik</a>
         </div>
     @endif
 </x-app-layout>

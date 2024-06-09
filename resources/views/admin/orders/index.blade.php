@@ -51,7 +51,7 @@
                                             <td>{{ $index + 1 . ". "}}</td>
                                             <td>{{ $order->name }}</td>
                                             <td>{{ $order->order_date }}</td>
-                                            <td>{{ $order->total_amount }}</td>
+                                            <td>Rp{{ number_format($order->total_amount, 0) }}</td>
                                             <td>{{ $order->status }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-sm btn-success">Edit</a>

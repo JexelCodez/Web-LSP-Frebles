@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\DiscountCategories;
+use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\ProductCategories;
@@ -33,13 +34,17 @@ class HomeController extends Controller
 
         $totalUser = User::where('usertype', 'user')->get()->count();
         $todayUsers = User::whereDate('created_at', $currentDate)->get();
-        
+
+        $orderDetails = DB::table('vworderdetails')->get();
+        $orders = DB::table('vworders')->get();
 
         return view ('owner.home', [
             'totalUser' => $totalUser,
             'todayUsers' => $todayUsers,
             'totalAmount' => $totalAmount,
-            'totalTodayAmount' => $totalTodayAmount
+            'totalTodayAmount' => $totalTodayAmount,
+            'orders' => $orders,
+            'orderDetails' => $orderDetails
         ]);
     }
 
@@ -83,12 +88,13 @@ class HomeController extends Controller
 
         // Fetch a single product by its ID and eager load the discounts relationship
         $product = Product::with('discounts')->find($id);
+        $productsAll = Product::all();
         $quotes = [
-            "The only way to do great work is to love what you do. - Steve Jobs",
-            "Success is not how high you have climbed, but how you make a positive difference to the world. - Roy T. Bennett",
-            "Your time is limited, so don't waste it living someone else's life. - Steve Jobs",
-            "Life is what happens when you're busy making other plans. - John Lennon",
-            "The purpose of our lives is to be happy. - Dalai Lama"
+            "Satu-satunya cara untuk melakukan pekerjaan hebat adalah dengan mencintai apa yang Anda lakukan. - Steve Jobs",
+            "Kesuksesan bukanlah seberapa tinggi yang telah Anda capai, namun bagaimana Anda membuat perbedaan positif bagi dunia. - Roy T.Bennet",
+            "Waktu Anda terbatas, jadi jangan sia-siakan dengan menjalani kehidupan orang lain. - Steve Jobs",
+            "Hidup adalah apa yang terjadi ketika Anda sibuk membuat rencana lain. - John Lennon",
+            "Tujuan hidup kita adalah untuk menjadi bahagia. - Dalai Lama"
         ];
 
         // Select a random quote
@@ -99,6 +105,7 @@ class HomeController extends Controller
 
         return view ('landingpage-items.product-details', [
             'product' => $product,
+            'productsAll' => $productsAll,
             'cartItemCount' => $cartItemCount,
             'randomQuote' => $randomQuote,
             'reviews' => $reviews

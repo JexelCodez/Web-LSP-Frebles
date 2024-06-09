@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Your Reviews') }}
+            {{ __('Review Kamu') }}
         </h2>
     </x-slot>
     @if ($productReviews->isNotEmpty())
@@ -35,10 +35,10 @@
                                 </div>
                                 @if($productReview->product_id)
                                     <a href="{{ url('delete_review', $productReview->id) }}" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash3-fill"></i> Remove
+                                    <i class="bi bi-trash3-fill"></i> Hapus
                                     </a>
                                 @else
-                                    <span>No reviews yet.</span>
+                                    <span>Kamu belum ada review.</span>
                                 @endif
                             </div>
                         </div>
@@ -47,6 +47,6 @@
             </section>
         @endforeach
     @else
-        <p class="text-center p-3 bg-light border rounded shadow-sm">No reviews found</p>
+        <p class="text-center p-3 bg-light border rounded shadow-sm">Belum ada review.</p>
     @endif
 </x-app-layout>

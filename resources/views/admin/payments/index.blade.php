@@ -9,6 +9,7 @@
 
     <div class="container-fluid py-4">
         <a href="{{ route('admin.payments.create') }}" class="btn btn-info mb-2">Add Payment</a>
+        <a href="{{ url('admin/payments/download/pdf') }}" class="btn btn-danger mb-2">Download as PDF</a>
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
@@ -62,7 +63,7 @@
                                             <td>{{ $payment->address3 }}</td>
                                             <td>{{ $payment->payment_date }}</td>
                                             <td>{{ $payment->payment_method }}</td>
-                                            <td>${{ $payment->amount }}</td>
+                                            <td>Rp{{ number_format($payment->amount, 0) }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('admin.payments.edit', $payment->id) }}" class="btn btn-sm btn-success">Edit</a>
                                                 <form action="{{ route('admin.payments.destroy', $payment->id) }}" method="POST" style="display: inline;" id="frmDeletePaymentsLog{{ $payment->id }}">
