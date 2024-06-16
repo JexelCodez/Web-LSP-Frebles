@@ -28,8 +28,11 @@ class OrderController extends Controller
             })
             ->get();
 
+        $vwOrderDetails = DB::table('vworderdetails')->where('user_id', '=', $userId)->get();
+
         return view('myorders', [
-            'orders' => $orders
+            'orders' => $orders,
+            'vwOrderDetails' => $vwOrderDetails
         ]);
     }
 

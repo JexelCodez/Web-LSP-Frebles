@@ -25,7 +25,6 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Image Example 1</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Image Example 2</th>
@@ -47,13 +46,10 @@
                                             <td>{{ $index + 1 . ". "}}</td>
                                             <td>{{ $orderDetail->category_name }}</td>
                                             <td>{{ $orderDetail->product_name }}</td>
-                                            <td>{{ $orderDetail->description }}</td>
                                             <td>{{ $orderDetail->price }}</td>
+                                            
                                             <td><img src="{{ asset('storage/' . $orderDetail->image1_url) }}" class="img-thumbnail"></td>
-                                            <td><img src="{{ asset('storage/' . $orderDetail->image2_url) }}" class="img-thumbnail"></td>
-                                            <td><img src="{{ asset('storage/' . $orderDetail->image3_url) }}" class="img-thumbnail"></td>
-                                            <td><img src="{{ asset('storage/' . $orderDetail->image4_url) }}" class="img-thumbnail"></td>
-                                            <td><img src="{{ asset('storage/' . $orderDetail->image5_url) }}" class="img-thumbnail"></td>
+                                            
                                             <td>{{ $orderDetail->name }}</td>
                                             <td>{{ $orderDetail->phone }}</td>
                                             <td>{{ $orderDetail->address1 }}</td>

@@ -61,27 +61,63 @@ class WishlistController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 
+     */
+
+    public function add(Request $request)
+    {
+        // Get the authenticated user's ID
+        $user_id = auth()->user()->id;
+
+        // Find the customer associated with the user
+        $customer = User::find($user_id)->customer()->first();
+
+        if (!$customer) {
+            return redirect()->back()->with('error', 'Customer not found.');
+        }
+
+        // Validate request data
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        // Check if the product is already in the wishlist
+        $existingWishlist = Wishlist::where('customer_id', $customer->id)
+                                    ->where('product_id', $request->product_id)
+                                    ->first();
+
+        if ($existingWishlist) {
+            return redirect()->back()->with('info', 'Product is already in your wishlist.');
+        }
+
+        // Create new wishlist entry
+        $wishlist = new Wishlist();
+        $wishlist->customer_id = $customer->id;
+        $wishlist->product_id = $request->product_id;
+        $wishlist->save();
+
+        // Retrieve the product for message
+        $product = Product::find($request->product_id);
+
+        // Assuming you want to return these variables to the view
+        $cartItemCount = ''; // Placeholder, update as needed
+        $products = Product::with('discounts')->paginate(10);
+
+        return view('landingpage-items.shop', [
+            'status' => 'save',
+            'message' => 'Kamu telah wish produk "' . $product->product_name . '" silahkan cek wishlist Anda!',
+            'cartItemCount' => $cartItemCount,
+            'products' => $products,
+            'customer' => $customer
+        ]);
+    }
+
+    /**
+     * 
      */
     public function store(Request $request)
     {
-        $data = $request->only(['customer_id', 'product_id']);
-
-        // Create a new wishlist record
-        Wishlist::create($data);
-
-        // Variables to make the return work
-        // $cartItemCount = 0;
-        $cartItemCount = '';
-        $productId = Product::find($request->product_id);
-        $products = Product::with('discounts')->paginate(10);
-
-        return view ('landingpage-items.shop', [
-            'status' => 'save',
-            'message' => 'Kamu telah wish produk "' . $productId->product_name . '" silahkan cek wishlist Anda!',
-            'cartItemCount' => $cartItemCount,
-            'products' => $products
-        ]);
+       //
     }
 
     /**

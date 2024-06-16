@@ -204,52 +204,48 @@
         <div class="col-lg-3 col-md-6">
           <div class="item">
             <div class="thumb">
-              <a href="{{ route('landingpage-items.shop') }}"><img src="{{ asset('landingpage/assets/images/leafy-greens/lettuce-1.jpeg') }}" alt="trending_item_1"></a>
+              <img src="{{ asset('landingpage/assets/images/leafy-greens/lettuce-1.jpeg') }}" alt="trending_item_1">
               <span class="price"><em>Rp20000</em>Rp10,000</span>
             </div>
             <div class="down-content">
               <span class="category">Berdaun Hijau</span>
               <h4>Selada</h4>
-              <a href="{{ route('landingpage-items.shop') }}"><i class="fa fa-shopping-bag"></i></a>
             </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="item">
             <div class="thumb">
-              <a href="{{ route('landingpage-items.shop') }}"><img src="{{ asset('landingpage/assets/images/cruciferous/broccoli-2.webp') }}" alt="trending_item_2"></a>
+              <img src="{{ asset('landingpage/assets/images/cruciferous/broccoli-2.webp') }}" alt="trending_item_2">
               <span class="price">Rp27,500</span>
             </div>
             <div class="down-content">
               <span class="category">Kucifer</span>
               <h4>Brokoli</h4>
-              <a href="{{ route('landingpage-items.shop') }}"><i class="fa fa-shopping-bag"></i></a>
             </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="item">
             <div class="thumb">
-              <a href="{{ route('landingpage-items.shop') }}"><img src="{{ asset('landingpage/assets/images/cruciferous/cauliflower-2.jpeg') }}" alt="trending_item_3"></a>
+              <img src="{{ asset('landingpage/assets/images/cruciferous/cauliflower-2.jpeg') }}" alt="trending_item_3">
               <span class="price"><em>Rp38199</em>Rp30,099</span>
             </div>
             <div class="down-content">
               <span class="category">Kucifer</span>
               <h4>Kembang Kol</h4>
-              <a href="{{ route('landingpage-items.shop') }}"><i class="fa fa-shopping-bag"></i></a>
             </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="item">
             <div class="thumb">
-              <a href="{{ route('landingpage-items.shop') }}"><img src="{{ asset('landingpage/assets/images/root-vegetables/carrot-hd-1.webp') }}" alt="trending_item_4"></a>
+              <img src="{{ asset('landingpage/assets/images/root-vegetables/carrot-hd-1.webp') }}" alt="trending_item_4">
               <span class="price">Rp16,875</span>
             </div>
             <div class="down-content">
               <span class="category">Umbi-Umbian</span>
               <h4>Wortel</h4>
-              <a href="{{ route('landingpage-items.shop') }}"><i class="fa fa-shopping-bag"></i></a>
             </div>
           </div>
         </div>
@@ -274,72 +270,66 @@
         <div class="col-lg-2 col-md-6 col-sm-6">
           <div class="item">
             <div class="thumb">
-              <a href="{{ route('landingpage-items.shop') }}"><img src="{{ asset('landingpage/assets/images/citrus/oranges-hd-2.webp') }}" alt="trending_item_1"></a>
+              <img src="{{ asset('landingpage/assets/images/citrus/oranges-hd-2.webp') }}" alt="trending_item_1">
             </div>
             <div class="down-content">
                 <span class="category">Citrus</span>
                 <h4>Jeruk</h4>
-                <a href="{{ route('landingpage-items.shop') }}">BELI</a>
             </div>
           </div>
         </div>
         <div class="col-lg-2 col-md-6 col-sm-6">
           <div class="item">
             <div class="thumb">
-              <a href="{{ route('landingpage-items.shop') }}"><img src="{{ asset('landingpage/assets/images/citrus/mandarins-hd-1.webp') }}" alt="trending_item_2"></a>
+              <img src="{{ asset('landingpage/assets/images/citrus/mandarins-hd-1.webp') }}" alt="trending_item_2">
             </div>
             <div class="down-content">
                 <span class="category">Citrus</span>
                 <h4>Jeruk Mandarin</h4>
-                <a href="{{ route('landingpage-items.shop') }}">BELI</a>
             </div>
           </div>
         </div>
         <div class="col-lg-2 col-md-6 col-sm-6">
           <div class="item">
             <div class="thumb">
-              <a href="{{ route('landingpage-items.shop') }}"><img src="{{ asset('landingpage/assets/images/citrus/limes-hd-2.webp') }}" alt="trending_item_3"></a>
+              <img src="{{ asset('landingpage/assets/images/citrus/limes-hd-2.webp') }}" alt="trending_item_3">
             </div>
             <div class="down-content">
                 <span class="category">Citrus</span>
                 <h4>Jeruk Nipis</h4>
-                <a href="{{ route('landingpage-items.shop') }}">BELI</a>
             </div>
           </div>
         </div>
         <div class="col-lg-2 col-md-6 col-sm-6">
           <div class="item">
             <div class="thumb">
-              <a href="{{ route('landingpage-items.shop') }}"><img src="{{ asset('landingpage/assets/images/stone-fruit/apricots-2.webp') }}" alt="trending_item_4"></a>
+              <img src="{{ asset('landingpage/assets/images/stone-fruit/apricots-2.webp') }}" alt="trending_item_4">
             </div>
             <div class="down-content">
                 <span class="category">Buah Batu</span>
                 <h4>Aprikot</h4>
-                <a href="{{ route('landingpage-items.shop') }}">BELI</a>
             </div>
           </div>
         </div>
         <div class="col-lg-2 col-md-6 col-sm-6">
           <div class="item">
             <div class="thumb">
-              <a href="{{ route('landingpage-items.shop') }}"><img src="{{ asset('landingpage/assets/images/stone-fruit/nectarines-1.webp') }}" alt="trending_item_5"></a>
+              <img src="{{ asset('landingpage/assets/images/stone-fruit/nectarines-1.webp') }}" alt="trending_item_5">
             </div>
             <div class="down-content">
                 <span class="category">Buah Batu</span>
                 <h4>Nektarin</h4>
-                <a href="{{ route('landingpage-items.shop') }}">BELI</a>
             </div>
           </div>
         </div>
         <div class="col-lg-2 col-md-6 col-sm-6">
           <div class="item">
             <div class="thumb">
-              <a href="{{ route('landingpage-items.shop') }}"><img src="{{ asset('landingpage/assets/images/tropical-and-exotic/banana-1.webp') }}" alt="trending_item_6"></a>
+              <img src="{{ asset('landingpage/assets/images/tropical-and-exotic/banana-1.webp') }}" alt="trending_item_6">
             </div>
             <div class="down-content">
                 <span class="category">Buah-Buahan Eksotis</span>
                 <h4>Pisang</h4>
-                <a href="{{ route('landingpage-items.shop') }}">BELI</a>
             </div>
           </div>
         </div>
@@ -437,7 +427,7 @@
                     @auth
                       <button type="button" onclick="sendSubcription()">Subscribe Now</button>
                     @else
-                      <p class="ms-2 mt-3">To make the button appear, login first!</p>
+                      <p class="ms-2 mt-3">Untuk membuat tombol muncul, login terlebih dahulu!</p>
                     @endauth
                     
                 </form>

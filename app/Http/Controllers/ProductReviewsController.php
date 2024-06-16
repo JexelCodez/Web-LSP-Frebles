@@ -55,25 +55,22 @@ class ProductReviewsController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($productId)
     {
         $user_id = auth()->user()->id;
-        $customer = User::find($user_id)->customer()->first();
+        $customers = User::find($user_id)->customer()->first();
 
         // If customer one of the customer data is null, redirect to a specific route
-        if ($customer === null || $customer->name === null) {
+        if ($customers === null || $customers->name === null) {
             return redirect()->route('customers.create');
         }
 
-        $customers = Customer::all();
-        $products = Product::all();
-        $productCategories = ProductCategories::all();
-        
-        // Return the create view with customer and product data
+        $product = Product::findOrFail($productId);
+        $customer = Auth::user()->customer; // Assumes a one-to-one relationship between User and Customer
+
         return view('admin.product_reviews.create', [
-            'customers' => $customers,
-            'products' => $products,
-            'productCategories' => $productCategories
+            'product' => $product,
+            'customer' => $customer
         ]);
     }
 

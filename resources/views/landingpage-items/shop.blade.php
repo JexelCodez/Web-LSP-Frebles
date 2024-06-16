@@ -51,6 +51,45 @@ https://templatemo.com/tm-589-lugx-gaming
   </div>
   <!-- ***** Preloader End ***** -->
 
+  <!-- Session Messages -->
+  @if (session('success'))
+      <div class="container">
+        <div class="row alert-container">
+          <div class="col-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill h3"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endif
+
+    @if (session('success'))
+      <div class="container">
+        <div class="row alert-container">
+          <div class="col-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill h3"></i>
+                {{ session('info') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endif
+
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
   <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky">
     <div class="container">
@@ -161,11 +200,17 @@ https://templatemo.com/tm-589-lugx-gaming
                             <!-- The Buttons in The Card -->
                             <div class="d-flex justify-content-start">
 
-                                <a href="{{ route('landingpage-items.product-details', $product->id) }}" class="icon-link btn btn-sm btn-primary"><i class="bi bi-eye-fill">Lihat</i></a>
+                                <a href="{{ route('landingpage-items.product-details', $product->id) }}" class="icon-link btn btn-sm btn-primary"><i class="bi bi-eye-fill"></i>Lihat</a>
                             
-                                <a href="{{ route('wishlists.create') }}" class="btn btn-sm btn-secondary"><i class="bi bi-star-fill">Tambah Ke Wishlist</i></a>
+                                <form action="{{ route('wishlist.add') }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <button type="submit" class="btn btn-sm btn-secondary">
+                                        <i class="bi bi-star-fill"></i> Tambah Ke Wishlist
+                                    </button>
+                                </form>
 
-                                <a href="{{ route('product-reviews.create') }}" class="btn btn-sm btn-warning"><i class="bi bi-chat-dots">Review Produk</i></a>
+                                <a href="{{ route('product-reviews.create', $product->id) }}" class="btn btn-sm btn-warning"><i class="bi bi-chat-dots"></i> Review Produk</a>
 
                             </div>
                         </div>

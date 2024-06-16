@@ -35,6 +35,12 @@
                   <p class="small text-muted mb-1">Order No.</p>
                   <p>{{ $order->id }}</p>
                 </div>
+                <div class="col mb-3">
+                  <p class="small text-muted mb-1">Ke Alamat</p>
+                    @foreach ($vwOrderDetails as $vwOrderDetail)
+                      <p>{{ $vwOrderDetail->address1 }}</p>
+                    @endforeach
+                </div>
               </div>
               
               @foreach ($order->orderDetails as $orderDetail)

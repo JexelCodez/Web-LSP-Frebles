@@ -63,11 +63,10 @@ Route::put('customer/edit/{id}', [App\Http\Controllers\CustomerController::class
 Route::delete('customer/{id}', [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customers.destroy')->middleware(['auth']);
 
 // Wishlists
-Route::get('wishlist/create', [App\Http\Controllers\WishlistController::class, 'create'])->name('wishlists.create')->middleware(['auth']);
-Route::post('wishlist', [App\Http\Controllers\WishlistController::class, 'store'])->name('wishlists.store')->middleware(['auth']);
+Route::post('wishlist', [App\Http\Controllers\WishlistController::class, 'add'])->name('wishlist.add')->middleware(['auth']);
 
 // Product Reviews
-Route::get('product-reviews/create', [App\Http\Controllers\ProductReviewsController::class, 'create'])->name('product-reviews.create')->middleware(['auth']);
+Route::get('product-reviews/create/{product}', [App\Http\Controllers\ProductReviewsController::class, 'create'])->name('product-reviews.create')->middleware(['auth']);
 Route::post('product-reviews', [App\Http\Controllers\ProductReviewsController::class, 'store'])->name('product-reviews.store')->middleware(['auth']);
 
 // Orders Show To User
